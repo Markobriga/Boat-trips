@@ -62,3 +62,23 @@ exports.updateBoat = async(req, res, next) => {
         boat
     })
 }
+
+// Delete a boat => /api/v1/admin/boat/:id
+exports.deleteBoat = async(req, res, next) => {
+
+    let boat = await Boat.findById(req.params.id)
+
+    if(!boat) {
+        return res.status(404).json({
+            success: false,
+            message: 'Boat not found'
+        })
+    }
+
+    boat = await Boat.findByIdAndRemove(req.params.id)
+
+    res.status(200).json({
+        success: true,
+        boat
+    })
+}
