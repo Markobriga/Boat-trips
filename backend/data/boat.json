@@ -1,0 +1,17 @@
+[
+    {
+        "name": "Brod1",
+        "description": "aaaaaaaaa", 
+        "ratings" : 4.5,
+        "images" : [{
+            "public_id" : "products/dsvbpny402gelwugv2le",
+            "url" : "https://res.cloudinary.com/bookit/image/upload/v1608062030/products/dsvbpny402gelwugv2le.jpg"
+        }],
+        "start" : "Tucepi",
+        "locations" : ["Brac", "Hvar"],
+        "maxNumberOfReservations" : 180,
+        "numOfReviews" : 32,
+        "reviews": [],
+        "owner" : "Ja"
+    }
+]
