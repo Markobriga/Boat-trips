@@ -3,6 +3,12 @@ const connectDatabase = require('./config/database')
 
 const dotenv = require('dotenv');
 
+// Handle Uncaught Exceptions
+process.on('uncaughtException', err => {
+    console.log(`Error: ${err.message}`)
+    // Close server & exit process
+    server.close(() => process.exit(1))
+})
 
 //Setting up config file
 dotenv.config({ path: 'backend/config/config.env' })
@@ -11,6 +17,13 @@ dotenv.config({ path: 'backend/config/config.env' })
 // Connecting to database
 connectDatabase();
 
-app.listen(process.env.PORT, () => {
+const server = app.listen(process.env.PORT, () => {
     console.log(`Server started on PORT: ${process.env.PORT} in ${process.env.NODE_ENV} mode.`)
+})
+
+// Handle Unhandled Promise rejection
+process.on('unhandledRejection', err => {
+    console.log(`Error: ${err.message}`)
+    // Close server & exit process
+    server.close(() => process.exit(1))
 })

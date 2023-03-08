@@ -1,7 +1,10 @@
 const Boat = require('../models/boat')
 
+const ErrorHandler = require('../utils/errorHandler');
+const catchAsyncErrors = require('../middlewares/catchAsyncErrors');
+
 // Create a new boat => /api/v1/admin/boat/new
-exports.newBoat = async (req, res, next) => {
+exports.newBoat = catchAsyncErrors( async (req, res, next) => {
 
     const boat = await Boat.create(req.body)
 
@@ -9,10 +12,10 @@ exports.newBoat = async (req, res, next) => {
         success: true,
         boat
     })
-}
+})
 
 // Get all boats => /api/v1/boats
-exports.getBoats = async(req, res, next) => {
+exports.getBoats = catchAsyncErrors( async(req, res, next) => {
 
     const boats = await Boat.find();
     res.status(200).json({
@@ -20,35 +23,29 @@ exports.getBoats = async(req, res, next) => {
         count: boats.length,
         boats
     })
-}
+})
 
 // Get single boat details => /api/v1/boat/:id
-exports.getSingleBoat = async(req, res, next) => {
+exports.getSingleBoat = catchAsyncErrors( async(req, res, next) => {
 
     const boat = await Boat.findById(req.params.id);
 
     if(!boat) {
-        return res.status(404).json({
-            success: false,
-            message: 'Boat not found'
-        })
+        return next(new ErrorHandler('Boat not found', 404));
     }
     res.status(200).json({
         success: true,
         boat
     })
-}
+})
 
 // Update a boat => /api/v1/admin/boat/:id
-exports.updateBoat = async(req, res, next) => {
+exports.updateBoat = catchAsyncErrors( async(req, res, next) => {
 
     let boat = await Boat.findById(req.params.id)
 
     if(!boat) {
-        return res.status(404).json({
-            success: false,
-            message: 'Boat not found'
-        })
+        return next(new ErrorHandler('Boat not found', 404));
     }
 
     boat = await Boat.findByIdAndUpdate(req.params.id, req.body, {
@@ -61,18 +58,15 @@ exports.updateBoat = async(req, res, next) => {
         success: true,
         boat
     })
-}
+})
 
 // Delete a boat => /api/v1/admin/boat/:id
-exports.deleteBoat = async(req, res, next) => {
+exports.deleteBoat = catchAsyncErrors( async(req, res, next) => {
 
     let boat = await Boat.findById(req.params.id)
 
     if(!boat) {
-        return res.status(404).json({
-            success: false,
-            message: 'Boat not found'
-        })
+        return next(new ErrorHandler('Boat not found', 404));
     }
 
     boat = await Boat.findByIdAndRemove(req.params.id)
@@ -81,4 +75,4 @@ exports.deleteBoat = async(req, res, next) => {
         success: true,
         boat
     })
-}
+})
