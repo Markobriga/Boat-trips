@@ -25,3 +25,18 @@ exports.getTrips = catchAsyncErrors( async(req, res, next) => {
         trips
     })
 })
+
+
+// Get a single trip => /api/v1/trip/:id
+exports.getSingleTrip = catchAsyncErrors( async(req, res, next) => {
+
+    const trip = await Trip.findById(req.params.id);
+
+    if (!trip) {
+        return next(new ErrorHandler('No trip found', 404));
+    }
+    res.status(200).json({
+        status:'success',
+        trip
+    })
+})
