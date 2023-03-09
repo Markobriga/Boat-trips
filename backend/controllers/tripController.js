@@ -14,3 +14,14 @@ exports.newTrip = catchAsyncErrors( async(req, res, next) => {
         data: trip
     })
 })
+
+// Get all trips => /api/v1/trips
+exports.getTrips = catchAsyncErrors( async(req, res, next) => {
+
+    const trips = await Trip.find();
+    res.status(200).json({
+        status:'success',
+        count: trips.length,
+        trips
+    })
+})
