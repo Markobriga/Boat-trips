@@ -2,6 +2,7 @@ const Boat = require('../models/boat')
 
 const ErrorHandler = require('../utils/errorHandler');
 const catchAsyncErrors = require('../middlewares/catchAsyncErrors');
+const APIFeatures = require('../utils/apiFeatures');
 
 // Create a new boat => /api/v1/admin/boat/new
 exports.newBoat = catchAsyncErrors( async (req, res, next) => {
@@ -14,10 +15,12 @@ exports.newBoat = catchAsyncErrors( async (req, res, next) => {
     })
 })
 
-// Get all boats => /api/v1/boats
+// Get all boats => /api/v1/boats?keyword=brod
 exports.getBoats = catchAsyncErrors( async(req, res, next) => {
 
-    const boats = await Boat.find();
+    const apiFeatures = new APIFeatures(Boat.find(), req.query).search()
+
+    const boats = await apiFeatures.query;
     res.status(200).json({
         success: true,
         count: boats.length,
