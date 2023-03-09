@@ -7,9 +7,11 @@ app.use(express.json());
 
 // Import all routes
 const boats = require('./routes/boat')
+const trips = require('./routes/trip')
 
 
 app.use('/api/v1', boats)
+app.use('/api/v1', trips)
 
 // Middleware to handle errors
 app.use(errorMiddleware);

@@ -1,0 +1,10 @@
+[
+    {
+        "boat" : "640881e1173435967bec496c",
+        "priceAdult": 40,  
+        "priceChild": 30,
+        "location":  ["Brac", "Hvar"],
+        "date": "2023-12-12",
+        "duration":8
+    }
+]
