@@ -40,3 +40,24 @@ exports.getSingleTrip = catchAsyncErrors( async(req, res, next) => {
         trip
     })
 })
+
+// Update a trip => /api/v1/admin/trip/:id
+exports.updateTrip = catchAsyncErrors( async(req, res, next) => {
+
+    let trip = await Trip.findById(req.params.id)
+
+    if(!trip) {
+        return next(new ErrorHandler('No trip found', 404));
+    }
+
+    trip = await Trip.findByIdAndUpdate(req.params.id, req.body, {
+        new: true,
+        runValidators: true,
+        useFindAndModify: false
+    })
+
+    res.status(200).json({
+        status:'success',
+        trip
+    })
+})
