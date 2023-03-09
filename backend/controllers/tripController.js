@@ -18,7 +18,10 @@ exports.newTrip = catchAsyncErrors( async(req, res, next) => {
 // Get all trips => /api/v1/trips
 exports.getTrips = catchAsyncErrors( async(req, res, next) => {
 
-    const trips = await Trip.find();
+    const apiFeatures = new APIFeatures(Trip.find(), req.query).search().filter();
+
+    const trips = await apiFeatures.query;
+
     res.status(200).json({
         status:'success',
         count: trips.length,
