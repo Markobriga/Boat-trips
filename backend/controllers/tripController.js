@@ -61,3 +61,20 @@ exports.updateTrip = catchAsyncErrors( async(req, res, next) => {
         trip
     })
 })
+
+// Delete a trip => /api/v1/admin/trip/:id
+exports.deleteTrip = catchAsyncErrors( async(req, res, next) => {
+
+    let trip = await Trip.findById(req.params.id)
+
+    if(!trip) {
+        return next(new ErrorHandler('No trip found', 404));
+    }
+
+    trip = await Trip.findByIdAndDelete(req.params.id)
+
+    res.status(200).json({
+        status:'success',
+        trip
+    })
+})
