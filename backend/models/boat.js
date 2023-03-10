@@ -50,11 +50,11 @@ const  boatSchema = new mongoose.Schema({
     },
     reviews: [
         {
-            /*user: {
+            user: {
                 type: mongoose.Schema.ObjectId,
                 ref: 'User',
                 required: true
-            },*/
+            },
             name: {
                 type: String,
                 required: true
@@ -69,11 +69,11 @@ const  boatSchema = new mongoose.Schema({
             }
         }
     ],
-    /*user: {
+    user: {
         type: mongoose.Schema.ObjectId,
         ref: 'User',
         required: true
-    },*/
+    },
     owner: {
         type: String,
         required: [true, 'Please enter owner name'],
