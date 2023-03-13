@@ -3,7 +3,9 @@ const router = express.Router();
 
 const { getBoats, newBoat, getSingleBoat, updateBoat, deleteBoat } = require('../controllers/boatController')
 
-router.route('/boats').get(getBoats);
+const { isAuthenticatedUser } = require('../middlewares/auth');
+
+router.route('/boats').get(isAuthenticatedUser, getBoats);
 router.route('/boat/:id').get(getSingleBoat);
 
 router.route('/admin/boat/new').post(newBoat);
