@@ -5,11 +5,11 @@ const { getBoats, newBoat, getSingleBoat, updateBoat, deleteBoat } = require('..
 
 const { isAuthenticatedUser } = require('../middlewares/auth');
 
-router.route('/boats').get(isAuthenticatedUser, getBoats);
+router.route('/boats').get(getBoats);
 router.route('/boat/:id').get(getSingleBoat);
 
-router.route('/admin/boat/new').post(newBoat);
+router.route('/admin/boat/new').post(isAuthenticatedUser, newBoat);
 
-router.route('/admin/boat/:id').put(updateBoat).delete(deleteBoat);
+router.route('/admin/boat/:id').put(isAuthenticatedUser, updateBoat).delete(isAuthenticatedUser, deleteBoat);
 
 module.exports = router
