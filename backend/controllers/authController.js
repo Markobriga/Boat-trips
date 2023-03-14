@@ -174,12 +174,25 @@ exports.logout = catchAsyncErrors( async( req,res,next ) => {
 })
 
 // Get all users => /api/v1/admin/users
-
-exports.allUsers = catchAsyncErrors( async (req, res, next) => {
+exports.getAllUsers = catchAsyncErrors( async (req, res, next) => {
     const users = await User.find();
 
     res.status(200).json({
         success: true,
         users
+    })
+})
+
+// Get a user => /api/v1/admin/user/:id
+exports.getUser = catchAsyncErrors( async (req, res, next) => {
+    const user = await User.findById(req.params.id);
+
+    if(!user) {
+        return next(new ErrorHandler('User not found',404));
+    }
+
+    res.status(200).json({
+        success: true,
+        user
     })
 })
