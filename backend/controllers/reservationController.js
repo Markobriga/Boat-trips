@@ -24,6 +24,8 @@ exports.newReservation = catchAsyncErrors( async (req, res, next) => {
         user: req.user._id
     })
 
+    await updateNumberOfReservations(reservation.trip, reservation.amountAdult + reservation.amountChild);
+
     res.status(200).json({
         status:'success',
         reservation
