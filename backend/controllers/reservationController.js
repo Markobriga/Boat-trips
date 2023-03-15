@@ -97,3 +97,20 @@ async function updateNumberOfReservations(id, quantity) {
     await trip.save({validateBeforeSave: false});
 }
 
+// Delete reservation => /api/v1/admin/reservation/:id
+exports.deleteReservation = catchAsyncErrors( async (req, res, next) => {
+
+    let reservation = await Reservation.findById(req.params.id);
+
+    if(!reservation) {
+        return next(new ErrorHandler('Reservation not found', 404));
+    }
+
+    await updateNumberOfReservations(reservation.trip, -(reservation.amountAdult+reservation.amountChild));
+
+    reservation = await Reservation.findByIdAndDelete(req.params.id);
+
+    res.status(200).json({
+        success: true
+    })
+})
