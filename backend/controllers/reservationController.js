@@ -74,3 +74,26 @@ exports.getAllReservations = catchAsyncErrors( async (req, res, next) => {
     })
 })
 
+// Process reservation => /api/v1/admin/reservation/:id
+exports.processReservation = catchAsyncErrors( async (req, res, next) => {
+
+    const reservation = await Reservation.findById(req.params.id);
+
+    if(!reservation) {
+        return next(new ErrorHandler('Reservation not found', 404));
+    }
+
+    await updateNumberOfReservations(reservation.trip, reservation.amountAdult+reservation.amountChild);
+
+    res.status(200).json({
+        success: true
+    })
+})
+
+async function updateNumberOfReservations(id, quantity) {
+
+    const trip = await Trip.findById(id);
+    trip.numberOfReservations = trip.numberOfReservations + quantity;
+    await trip.save({validateBeforeSave: false});
+}
+
