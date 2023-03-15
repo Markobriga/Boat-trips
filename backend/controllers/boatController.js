@@ -121,3 +121,18 @@ exports.createReview = catchAsyncErrors( async(req, res, next) => {
         boat
     })
 })
+
+// Get boat reviews => /api/v1/reviews
+exports.getReviews = catchAsyncErrors( async(req, res, next) => {
+
+    const boat = await Boat.findById(req.query.id);
+
+    if(!boat) {
+        return next(new ErrorHandler('Boat not found', 404));
+    }
+
+    res.status(200).json({
+        success: true,
+        reviews: boat.reviews
+    })
+})
