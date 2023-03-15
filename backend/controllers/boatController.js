@@ -136,3 +136,29 @@ exports.getReviews = catchAsyncErrors( async(req, res, next) => {
         reviews: boat.reviews
     })
 })
+
+// Delete boat review => /api/v1/reviews
+exports.deleteReview = catchAsyncErrors( async(req, res, next) => {
+
+    const boat = await Boat.findById(req.query.boatId);
+
+    const reviews = boat.reviews.filter(r => r._id.toString() !== req.query.id.toString());
+
+    const numOfReviews = reviews.length;
+
+    const ratings = boat.reviews.reduce((acc, item) => item.rating + acc, 0) / reviews.length;
+
+    await Boat.findByIdAndUpdate(req.query.boatId, {
+        reviews,
+        numOfReviews,
+        ratings
+    }, {
+        new: true,
+        runValidators: true,
+        useFindAndModify: false
+    })
+
+    res.status(200).json({
+        success: true
+    })
+})
