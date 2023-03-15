@@ -1,7 +1,7 @@
 const express = require('express')
 const router = express.Router();
 
-const { getBoats, newBoat, getSingleBoat, updateBoat, deleteBoat } = require('../controllers/boatController')
+const { getBoats, newBoat, getSingleBoat, updateBoat, deleteBoat, createReview } = require('../controllers/boatController')
 
 const { isAuthenticatedUser, authorizeRoles } = require('../middlewares/auth');
 
@@ -11,5 +11,7 @@ router.route('/boat/:id').get(getSingleBoat);
 router.route('/admin/boat/new').post(isAuthenticatedUser, authorizeRoles('admin'), newBoat);
 
 router.route('/admin/boat/:id').put(isAuthenticatedUser, authorizeRoles('admin'), updateBoat).delete(isAuthenticatedUser, authorizeRoles('admin'), deleteBoat);
+
+router.route('/review').put(isAuthenticatedUser, createReview);
 
 module.exports = router

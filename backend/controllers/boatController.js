@@ -3,6 +3,7 @@ const Boat = require('../models/boat')
 const ErrorHandler = require('../utils/errorHandler');
 const catchAsyncErrors = require('../middlewares/catchAsyncErrors');
 const APIFeatures = require('../utils/apiFeatures');
+const { isValidObjectId } = require('mongoose');
 
 // Create a new boat => /api/v1/admin/boat/new
 exports.newBoat = catchAsyncErrors( async (req, res, next) => {
@@ -73,6 +74,47 @@ exports.deleteBoat = catchAsyncErrors( async(req, res, next) => {
     }
 
     boat = await Boat.findByIdAndRemove(req.params.id)
+
+    res.status(200).json({
+        success: true,
+        boat
+    })
+})
+
+// Create new review => /api/v1/review
+exports.createReview = catchAsyncErrors( async(req, res, next) => {
+
+    const { rating, comment, boatId } = req.body;
+    
+    const review = {
+        user: req.user._id,
+        name: req.user.name,
+        rating: Number(rating),
+        comment
+    }
+
+    const boat = await Boat.findById(boatId);
+
+    const isReviewed = boat.reviews.find(
+        review => review.user.toString() === req.user._id.toString()
+    )
+
+    if(isReviewed) {
+        boat.reviews.forEach(review =>{
+            if(review.user.toString() === req.user._id.toString()) {
+                review.comment = comment;
+                review.rating = rating;
+            }
+        })
+        
+    } else {
+        boat.reviews.push(review);
+        boat.numOfReviews = boat.reviews.length;
+    }
+
+    boat.ratings = boat.reviews.reduce((acc, item) => item.rating + acc, 0) / boat.reviews.length;
+
+    await boat.save({validateBeforeSave: false});
 
     res.status(200).json({
         success: true,
