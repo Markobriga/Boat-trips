@@ -57,3 +57,20 @@ exports.getMyReservations = catchAsyncErrors( async (req, res, next) => {
     })
 })
 
+// Get all reservations => /api/v1/admin/reservations
+exports.getAllReservations = catchAsyncErrors( async (req, res, next) => {
+
+    const reservations = await Reservation.find();
+
+    let totalPrice = 0;
+    reservations.forEach(reservation => {
+        totalPrice += reservation.price;
+    })
+
+    res.status(200).json({
+        success: true,
+        totalPrice,
+        reservations
+    })
+})
+
