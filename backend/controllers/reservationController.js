@@ -30,3 +30,30 @@ exports.newReservation = catchAsyncErrors( async (req, res, next) => {
     })
 
 })
+
+// Get single reservation => /api/v1/reservation/:id
+exports.getSingleReservation = catchAsyncErrors( async (req, res, next) => {
+
+    const reservation = await Reservation.findById(req.params.id).populate('user', 'name email');
+
+    if(!reservation) {
+        return next(new ErrorHandler('Reservation not found', 404));
+    }
+
+    res.status(200).json({
+        success: true,
+        reservation
+    })
+})
+
+// Get logged in user reservation => /api/v1/reservations/me
+exports.getMyReservations = catchAsyncErrors( async (req, res, next) => {
+
+    const reservations = await Reservation.find({user: req.user.id});
+
+    res.status(200).json({
+        success: true,
+        reservations
+    })
+})
+
