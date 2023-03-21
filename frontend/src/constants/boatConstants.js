@@ -1,0 +1,5 @@
+export const ALL_BOATS_REQUEST = 'ALL_BOATS_REQUEST'; 
+export const ALL_BOATS_SUCCESS = 'ALL_BOATS_SUCCESS'; 
+export const ALL_BOATS_FAIL = 'ALL_BOATS_FAIL'; 
+
+export const CLEAR_ERRORS = 'CLEAR_ERRORS'; 

@@ -2,8 +2,10 @@ import { createStore, combineReducers, applyMiddleware } from 'redux'
 import thunk from 'redux-thunk'
 import { composeWithDevTools } from 'redux-devtools-extension'
 
-const reducer = combineReducers({
+import { boatsReducer } from './reducers/boatReducers'
 
+const reducer = combineReducers({
+    boats: boatsReducer
 })
 
 let initialState = {}
