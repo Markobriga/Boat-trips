@@ -8,9 +8,9 @@ const Footer = () => {
             <div className="mx-auto max-w-screen-xl flex flex-wrap justify-between items-center">
                 <div className="flex md:justify-between flex-col lg:flex-row ">
                     <div className="mb-6 md:mb-0 flex-1 text-start">
-                        <a href="#" class="flex items-center">
-                            <img src="https://flowbite.com/docs/images/logo.svg" class="h-6 mr-3 sm:h-9" alt="FlowBite Logo" />
-                            <span class="self-center text-2xl font-semibold whitespace-nowrap text-white">Boat Trips</span>
+                        <a href="#" className="flex items-center">
+                            <img src="https://flowbite.com/docs/images/logo.svg" className="h-6 mr-3 sm:h-9" alt="FlowBite Logo" />
+                            <span className="self-center text-2xl font-semibold whitespace-nowrap text-white">Boat Trips</span>
                         </a>
                         <div className='pt-5 pr-10'>Book your boat trip from Makarska Rivijera to most popular islands with the best value for money and price guarantee.</div>
                     </div>
