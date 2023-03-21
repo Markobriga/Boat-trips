@@ -32,11 +32,11 @@ const Footer = () => {
                     </div>
                     <div className='flex-1 text-start'>
                         <div className="text-2xl font-semibold pt-8 lg:pt-0">Follow us</div>
-                        <div className='pt-5'><SocialIcon network="facebook" fgColor="#ffffff"/></div>
-                        <div className='pt-2'><SocialIcon network="instagram" fgColor="#ffffff"/></div>
-                        <div className='pt-2'><SocialIcon network="tiktok" fgColor="#ffffff"/></div>
-                        
-                        
+                        <div className='flex'>
+                            <div className='pt-5 pr-3'><SocialIcon network="facebook" fgColor="#ffffff"/></div>
+                            <div className='pt-5 pr-3'><SocialIcon network="instagram" fgColor="#ffffff"/></div>
+                            <div className='pt-5'><SocialIcon network="tiktok" fgColor="#ffffff"/></div>
+                        </div>
                         
                     </div>
 
