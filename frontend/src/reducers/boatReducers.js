@@ -1,4 +1,4 @@
-import { ALL_BOATS_REQUEST, ALL_BOATS_SUCCESS, ALL_BOATS_FAIL, CLEAR_ERRORS} from '../constants/boatConstants'
+import { ALL_BOATS_REQUEST, ALL_BOATS_SUCCESS, ALL_BOATS_FAIL, BOAT_DETAILS_REQUEST, BOAT_DETAILS_SUCCESS, BOAT_DETAILS_FAIL, CLEAR_ERRORS} from '../constants/boatConstants'
 
 export const boatsReducer = (state = { boats: [] }, action) => {
     switch(action.type) {
@@ -25,6 +25,38 @@ export const boatsReducer = (state = { boats: [] }, action) => {
             }
 
         default:
+            return state
+    }
+}
+
+export const boatDetailsReducer = (state = {boat : {}}, action) => {
+    switch(action.type) {
+
+        case BOAT_DETAILS_REQUEST:
+            return {
+                ...state,
+                loading: true
+            }
+        
+        case BOAT_DETAILS_SUCCESS:
+            return {
+                loading: false,
+                boat: action.payload
+            }
+
+        case BOAT_DETAILS_FAIL:
+            return {
+                ...state,
+                error: action.payload
+            }
+
+        case CLEAR_ERRORS:
+            return {
+               ...state,
+                error: null
+            }
+
+        default: 
             return state
     }
 }
