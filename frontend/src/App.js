@@ -5,6 +5,7 @@ import Header from './modules/Header';
 import Footer from './modules/Footer';
 import Home from './pages/Home'
 import Boats from './pages/Boats';
+import BoatDetails from './pages/BoatDetails';
 
 function App() {
   return (
@@ -13,7 +14,8 @@ function App() {
         <Header />
         <Routes>
           <Route path="/" Component={Home} exact />
-          <Route path="/boats" Component={Boats} />
+          <Route path="/boats" Component={Boats} exact/>
+          <Route path="/boat/:id" Component={BoatDetails} exact/>
         </Routes>
         <Footer />
       </div>
