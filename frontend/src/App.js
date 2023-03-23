@@ -6,6 +6,7 @@ import Footer from './modules/Footer';
 import Home from './pages/Home'
 import Boats from './pages/Boats';
 import BoatDetails from './pages/BoatDetails';
+import Login from './pages/Login';
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
           <Route path="/" Component={Home} exact />
           <Route path="/boats" Component={Boats} exact/>
           <Route path="/boat/:id" Component={BoatDetails} exact/>
+          <Route path="/login" Component={Login} exact/>
         </Routes>
         <Footer />
       </div>
