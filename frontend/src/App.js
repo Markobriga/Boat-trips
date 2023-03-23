@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import {BrowserRouter as Router, Route, Routes} from 'react-router-dom';
 
 import './App.css';
@@ -9,7 +10,15 @@ import BoatDetails from './pages/BoatDetails';
 import Login from './pages/Login';
 import Register from './pages/Register';
 
+import { loadUser } from './actions/userAction';
+import store from './store';
+
 function App() {
+
+  useEffect(()=>{
+    store.dispatch(loadUser())
+  },[])
+
   return (
     <Router>
       <div className="App">
