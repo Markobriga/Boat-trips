@@ -12,8 +12,6 @@ exports.registerUser = catchAsyncErrors( async( req,res,next ) => {
 
     const {name, email, password, confirmPassword} = req.body;
 
-    console.log(req.body.name, req.body.email, req.body.password)
-
     if(password !== confirmPassword) {
         return next(new ErrorHandler('Passwords do not match',401))
     }
