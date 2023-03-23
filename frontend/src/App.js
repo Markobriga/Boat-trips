@@ -7,6 +7,7 @@ import Home from './pages/Home'
 import Boats from './pages/Boats';
 import BoatDetails from './pages/BoatDetails';
 import Login from './pages/Login';
+import Register from './pages/Register';
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
           <Route path="/boats" Component={Boats} exact/>
           <Route path="/boat/:id" Component={BoatDetails} exact/>
           <Route path="/login" Component={Login} exact/>
+          <Route path="/register" Component={Register} exact/>
         </Routes>
         <Footer />
       </div>
