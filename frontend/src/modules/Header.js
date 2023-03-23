@@ -2,10 +2,21 @@ import React ,{useState} from 'react';
 import { Dialog } from '@headlessui/react'
 import { XMarkIcon } from '@heroicons/react/24/outline'
 import { Link } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux'
+import { logout } from '../actions/userAction';
+
 
 const Header = () => {
 
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
+
+    const dispatch = useDispatch();
+
+    const {user, loading} = useSelector(state=>state.auth);
+
+    const logoutHandler = () => {
+        dispatch(logout());
+    }
 
     return (
         <header>
@@ -16,13 +27,23 @@ const Header = () => {
                         <span className="self-center text-2xl font-semibold whitespace-nowrap text-white">Boat Trips</span>
                     </a>
                     <div className="flex items-center lg:order-2">
-                        <Link to="/login" className="text-white dark:text-white  focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-4 lg:px-5 py-2 lg:py-2.5 mr-2 dark:hover:bg-gray-700 focus:outline-none dark:focus:ring-gray-800 hover:text-primary-700 ">Log in</Link>
-                        <Link to="/register" className="text-white bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:ring-primary-300 font-medium rounded-lg text-sm px-4 lg:px-5 py-2 lg:py-2.5 mr-2 dark:bg-primary-600 dark:hover:bg-primary-700 focus:outline-none dark:focus:ring-primary-800">Sign up</Link>
+                        {user ? (
+                            <div>
+                                <span className='text-white font-medium text-sm mr-4'>Hi, {user && user.name}</span>
+                                <Link to="/" onClick={logoutHandler} className="text-white bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:ring-primary-300 font-medium rounded-lg text-sm px-4 lg:px-5 py-2 lg:py-2.5 mr-2 dark:bg-primary-600 dark:hover:bg-primary-700 focus:outline-none dark:focus:ring-primary-800">Logout</Link>
+                            </div>
+                        ) : !loading && (
+                            <div>
+                                <Link to="/login" className="text-white dark:text-white  focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-4 lg:px-5 py-2 lg:py-2.5 mr-2 dark:hover:bg-gray-700 focus:outline-none dark:focus:ring-gray-800 hover:text-primary-700 ">Log in</Link>
+                                <Link to="/register" className="text-white bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:ring-primary-300 font-medium rounded-lg text-sm px-4 lg:px-5 py-2 lg:py-2.5 mr-2 dark:bg-primary-600 dark:hover:bg-primary-700 focus:outline-none dark:focus:ring-primary-800">Sign up</Link>
+                            </div>
+                        )}
                         <button data-collapse-toggle="mobile-menu-2" type="button" className="inline-flex items-center p-2 ml-1 text-sm text-white rounded-lg lg:hidden hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600" aria-controls="mobile-menu-2" aria-expanded="false" onClick={() => setMobileMenuOpen(true)}>
                             <span className="sr-only">Open main menu</span>
                             <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fillRule="evenodd" d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 15a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z" clipRule="evenodd"></path></svg>
                             <svg className="hidden w-6 h-6" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fillRule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clipRule="evenodd"></path></svg>
                         </button>
+                        
                         <Dialog as="div" className="lg:hidden" open={mobileMenuOpen} onClose={setMobileMenuOpen}>
                             <div className="fixed inset-0 z-10" />
                             <Dialog.Panel className="fixed inset-y-0 right-0 z-10 w-full overflow-y-auto bg-cyan-500 px-6 py-6 sm:max-w-sm sm:ring-1 sm:ring-gray-900/10">
@@ -81,9 +102,15 @@ const Header = () => {
                                 <div className="py-6">
                                     <Link
                                     to="/login"
-                                    className="-mx-3 block rounded-lg py-2.5 px-3 text-base font-semibold leading-7 text-white hover:bg-gray-50 hover:text-primary-700 "
+                                    className="-mx-3 block rounded-lg py-2 px-3 text-base font-semibold leading-7 text-white hover:bg-gray-50 hover:text-primary-700 "
                                     >
                                     Log in
+                                    </Link>
+                                    <Link
+                                    to="/register"
+                                    className="-mx-3 block rounded-lg py-2 px-3 text-base font-semibold leading-7 text-white hover:bg-gray-50 hover:text-primary-700 "
+                                    >
+                                    Sign up
                                     </Link>
                                 </div>
                                 </div>
