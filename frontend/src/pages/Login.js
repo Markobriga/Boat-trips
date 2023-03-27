@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate,  } from "react-router-dom";
 import { login, clearErrors } from "../actions/userAction";
 import Loader from "../components/Loader";
 
@@ -17,7 +17,7 @@ const Login = () => {
     useEffect(()=> {
 
         if(isAuthenticated){
-            navigate(-1)
+            navigate("/")
         }
 
         if(error) {

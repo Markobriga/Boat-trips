@@ -17,6 +17,7 @@ import UpdateProfile from './pages/UpdateProfile';
 import UpdatePassword from './pages/UpdatePassword';
 import ProtectedRoute from './components/route/ProtectedRoute';
 import ForgotPassword from './pages/ForgotPassword';
+import NewPassword from './pages/NewPassword';
 
 function App() {
 
@@ -35,6 +36,7 @@ function App() {
           <Route path="/login" Component={Login} exact/>
           <Route path="/register" Component={Register} exact/>
           <Route path="/password/forgot" Component={ForgotPassword} exact/>
+          <Route path="/password/reset/:token" Component={NewPassword} exact/>
           <Route path="/profile" element={<ProtectedRoute>
             <Profile />
           </ProtectedRoute>} exact />
