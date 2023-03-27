@@ -3,12 +3,13 @@ import thunk from 'redux-thunk'
 import { composeWithDevTools } from 'redux-devtools-extension'
 
 import { boatsReducer, boatDetailsReducer } from './reducers/boatReducers'
-import { authReducer } from './reducers/userReducers'
+import { authReducer, userReducer } from './reducers/userReducers'
 
 const reducer = combineReducers({
     boats: boatsReducer,
     boatDetails: boatDetailsReducer,
-    auth: authReducer
+    auth: authReducer,
+    user: userReducer
 })
 
 let initialState = {}
