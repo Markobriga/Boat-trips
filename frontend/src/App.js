@@ -13,6 +13,7 @@ import Register from './pages/Register';
 import { loadUser } from './actions/userAction';
 import store from './store';
 import Profile from './pages/Profile';
+import ProtectedRoute from './components/route/ProtectedRoute';
 
 function App() {
 
@@ -30,7 +31,11 @@ function App() {
           <Route path="/boat/:id" Component={BoatDetails} exact/>
           <Route path="/login" Component={Login} exact/>
           <Route path="/register" Component={Register} exact/>
-          <Route path="/profile" Component={Profile} exact/>
+          <Route path="/profile" element={<ProtectedRoute>
+            <Profile />
+          </ProtectedRoute>} exact />
+           
+          
         </Routes>
         <Footer />
       </div>
