@@ -14,6 +14,7 @@ import { loadUser } from './actions/userAction';
 import store from './store';
 import Profile from './pages/Profile';
 import UpdateProfile from './pages/UpdateProfile';
+import UpdatePassword from './pages/UpdatePassword';
 import ProtectedRoute from './components/route/ProtectedRoute';
 
 function App() {
@@ -37,6 +38,9 @@ function App() {
           </ProtectedRoute>} exact />
           <Route path="/profile/update" element={<ProtectedRoute>
             <UpdateProfile />
+          </ProtectedRoute>} exact />
+          <Route path="/password/update" element={<ProtectedRoute>
+            <UpdatePassword />
           </ProtectedRoute>} exact />
            
           
