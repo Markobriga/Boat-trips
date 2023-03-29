@@ -36,6 +36,39 @@ exports.getTrips = catchAsyncErrors( async(req, res, next) => {
     })
 })
 
+// Get all trips by boat => /api/v1/trips/:id
+exports.getTripsByBoat = catchAsyncErrors( async(req, res, next) => {
+    
+    const trips = await Trip.find({boat: req.params.boat})
+
+    res.status(200).json({
+        success: true,
+        trips
+    })
+})
+
+// Get all next trips => /api/v1/trips/next
+exports.getNextTrips = catchAsyncErrors( async(req, res, next) => {
+
+    const trips = await Trip.find({ date: { $gt: new Date()}})
+
+    res.status(200).json({
+        success: true,
+        trips
+    })
+})
+
+// Get all next trips by boat => /api/v1/trips/next/:boat
+exports.getNextTripsByBoat = catchAsyncErrors( async(req, res, next) => {
+
+    const trips = await Trip.find({ boat: req.params.boat ,date: { $gt: new Date()}})
+
+    res.status(200).json({
+        success: true,
+        trips
+    })
+})
+
 
 // Get a single trip => /api/v1/trip/:id
 exports.getSingleTrip = catchAsyncErrors( async(req, res, next) => {
