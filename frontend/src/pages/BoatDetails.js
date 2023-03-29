@@ -45,7 +45,7 @@ const BoatDetails = () => {
                             Next trips
                         </div>
                         {nextTripsByBoat.trips && nextTripsByBoat.trips.map(trip => (
-                            <Link key={trip._id} className="flex">
+                            <Link to={`/trip/${trip._id}`} key={trip._id} className="flex">
                                 <div className="pr-2 ml-1">
                                     {format(new Date(trip.date), 'dd.MM.yyyy')}
                                 </div>
