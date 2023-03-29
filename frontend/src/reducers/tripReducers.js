@@ -68,7 +68,7 @@ export const nextTripsByBoatReducer = (state = { nextTripsByBoat: []}, action) =
         case NEXT_TRIPS_BY_BOAT_SUCCESS:
             return {
                 loading: false,
-                trips: action.payload
+                nextTripsByBoat: action.payload
             }
         case NEXT_TRIPS_BY_BOAT_FAIL:
             return {
