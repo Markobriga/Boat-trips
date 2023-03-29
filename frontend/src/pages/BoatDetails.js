@@ -11,7 +11,7 @@ const BoatDetails = () => {
     const dispatch = useDispatch();
     const { id } = useParams();
     const { loading, error, boat }  = useSelector(state => state.boatDetails)
-    const { nextTripsByBoat } = useSelector(state => state.nextTripsByBoat)
+    const { loadingTrips, nextTripsByBoat } = useSelector(state => state.nextTripsByBoat)
 
     useEffect(() => {
         
@@ -25,14 +25,14 @@ const BoatDetails = () => {
 
     },[dispatch, error, id])
 
-    const changeDateFormat = (date) => {
-        
-    }
 
     return (
-        <div className="max-w-screen-xl mx-auto">
-            { loading ? <Loader /> : 
-            <div className="py-8 max-w-screen-xl mx-4">
+        <div className="max-w-screen-xl mx-auto flex justify-center">
+            { (loading || loadingTrips) ? 
+            <div className="justify-center">
+                <Loader />
+            </div> : 
+            <div className="py-8 w-full mx-4">
                 <div className="font-bold text-2xl pb-5 w-3/4">
                     {boat.name}
                 </div>
