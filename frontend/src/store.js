@@ -4,10 +4,14 @@ import { composeWithDevTools } from 'redux-devtools-extension'
 
 import { boatsReducer, boatDetailsReducer } from './reducers/boatReducers'
 import { authReducer, userReducer, forgotPasswordReducer } from './reducers/userReducers'
+import { tripsReducer, tripDetailsReducer } from './reducers/tripReducers'
+
 
 const reducer = combineReducers({
     boats: boatsReducer,
     boatDetails: boatDetailsReducer,
+    trips: tripsReducer,
+    tripDetails: tripDetailsReducer,
     auth: authReducer,
     user: userReducer,
     forgotPassword: forgotPasswordReducer
