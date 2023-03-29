@@ -1,18 +1,22 @@
 import React, {useEffect} from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getBoatDetails, clearErrors } from "../actions/boatAction";
+import { getNextTripsByBoat } from "../actions/tripAction";
 import Loader from "../components/Loader";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
+import { format } from 'date-fns'
 
 const BoatDetails = () => {
 
     const dispatch = useDispatch();
     const { id } = useParams();
     const { loading, error, boat }  = useSelector(state => state.boatDetails)
+    const { nextTripsByBoat } = useSelector(state => state.nextTripsByBoat)
 
     useEffect(() => {
         
         dispatch(getBoatDetails(id))
+        dispatch(getNextTripsByBoat(id))
 
         if(error) {
             console.log(error)
@@ -20,6 +24,10 @@ const BoatDetails = () => {
         }
 
     },[dispatch, error, id])
+
+    const changeDateFormat = (date) => {
+        
+    }
 
     return (
         <div className="max-w-screen-xl mx-auto">
@@ -36,6 +44,20 @@ const BoatDetails = () => {
                         <div className="">
                             Next trips
                         </div>
+                        {nextTripsByBoat.trips && nextTripsByBoat.trips.map(trip => (
+                            <Link key={trip._id} className="flex">
+                                <div className="pr-2 ml-1">
+                                    {format(new Date(trip.date), 'dd.MM.yyyy')}
+                                </div>
+                                <div className="flex">
+                                    {trip.location.map(location => (
+                                        <div key={location.name} className="ml-1"> 
+                                            {location}
+                                        </div>
+                                    ))}
+                                </div>
+                            </Link>
+                        ))}
                     </div>
                 </div>
                 <div className="pt-5 w-3/4">
