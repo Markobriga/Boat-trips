@@ -22,7 +22,7 @@ export const getTrips = () => async (dispatch) => {
 
 export const getTripsDetails = (id) => async (dispatch) => {
     try {
-        dispatch({ type: TRIP_DETAILS_FAIL })
+        dispatch({ type: TRIP_DETAILS_REQUEST })
         
         const { data } = await axios.get(`/api/v1/trip/${id}`)
 
