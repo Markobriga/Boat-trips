@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { ALL_TRIPS_REQUEST, ALL_TRIPS_SUCCESS, ALL_TRIPS_FAIL, TRIP_DETAILS_REQUEST, TRIP_DETAILS_SUCCESS, TRIP_DETAILS_FAIL, NEXT_TRIPS_BY_BOAT_REQUEST, NEXT_TRIPS_BY_BOAT_SUCCESS, NEXT_TRIPS_BY_BOAT_FAIL, CLEAR_ERRORS } from "../constants/tripConstansts" 
+import { ALL_TRIPS_REQUEST, ALL_TRIPS_SUCCESS, ALL_TRIPS_FAIL, TRIP_DETAILS_REQUEST, TRIP_DETAILS_SUCCESS, TRIP_DETAILS_FAIL, NEXT_TRIPS_BY_BOAT_REQUEST, NEXT_TRIPS_BY_BOAT_SUCCESS, NEXT_TRIPS_BY_BOAT_FAIL, NEXT_TRIPS_REQUEST, NEXT_TRIPS_SUCCESS, NEXT_TRIPS_FAIL, CLEAR_ERRORS } from "../constants/tripConstansts" 
 
 export const getTrips = () => async (dispatch) => {
     try {
@@ -34,6 +34,27 @@ export const getTripsDetails = (id) => async (dispatch) => {
     } catch (error) {
         dispatch ({
             type: TRIP_DETAILS_FAIL,
+            payload: error.response.data.message
+        })
+    }
+}
+
+export const getNextTrips = () => async (dispatch) => {
+    try {
+
+        dispatch({ type: NEXT_TRIPS_REQUEST })
+
+        const { data } = axios.get('/api/v1/trips/next')
+
+        dispatch ({
+            type: NEXT_TRIPS_SUCCESS,
+            payload: data
+        })
+        
+
+    } catch (error) {
+        dispatch ({
+            type: NEXT_TRIPS_FAIL,
             payload: error.response.data.message
         })
     }

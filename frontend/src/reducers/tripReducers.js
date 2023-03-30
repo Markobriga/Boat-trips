@@ -1,19 +1,22 @@
-import { ALL_TRIPS_REQUEST, ALL_TRIPS_SUCCESS, ALL_TRIPS_FAIL, TRIP_DETAILS_REQUEST, TRIP_DETAILS_SUCCESS, TRIP_DETAILS_FAIL, NEXT_TRIPS_BY_BOAT_REQUEST, NEXT_TRIPS_BY_BOAT_SUCCESS, NEXT_TRIPS_BY_BOAT_FAIL, CLEAR_ERRORS } from "../constants/tripConstansts" 
+import { ALL_TRIPS_REQUEST, ALL_TRIPS_SUCCESS, ALL_TRIPS_FAIL, TRIP_DETAILS_REQUEST, TRIP_DETAILS_SUCCESS, TRIP_DETAILS_FAIL, NEXT_TRIPS_BY_BOAT_REQUEST, NEXT_TRIPS_BY_BOAT_SUCCESS, NEXT_TRIPS_BY_BOAT_FAIL, NEXT_TRIPS_REQUEST, NEXT_TRIPS_SUCCESS, NEXT_TRIPS_FAIL, CLEAR_ERRORS } from "../constants/tripConstansts" 
 
 export const tripsReducer = (state = { trips: [] }, action) => {
     switch (action.type) {
         case ALL_TRIPS_REQUEST:
+        case NEXT_TRIPS_REQUEST:
             return {
                 loading: true,
                 trips: []
             }
         case ALL_TRIPS_SUCCESS:
+        case NEXT_TRIPS_SUCCESS:
             return {
                 loading: false,
                 trips: action.payload.trips,
                 tripsCount: action.payload.count
             }
         case ALL_TRIPS_FAIL:
+        case NEXT_TRIPS_FAIL:
             return {
                 loading: false,
                 error: action.payload
@@ -85,3 +88,4 @@ export const nextTripsByBoatReducer = (state = { nextTripsByBoat: []}, action) =
             return state
     }
 }
+
