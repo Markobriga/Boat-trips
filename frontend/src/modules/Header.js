@@ -59,7 +59,7 @@ const Header = () => {
                                 </a>
                                 <button
                                 type="button"
-                                className="-m-2.5 rounded-md p-2.5 text-gray-700"
+                                className="-m-2.5 rounded-md p-2.5 text-white"
                                 onClick={() => setMobileMenuOpen(false)}
                                 >
                                     <span className="sr-only">Close menu</span>
@@ -71,30 +71,35 @@ const Header = () => {
                                 <div className="space-y-2 py-6">
                                     <Link
                                     to="trips"
+                                    onClick={() => setMobileMenuOpen(false)}
                                     className="-mx-3 block rounded-lg py-2 px-3 text-base font-semibold leading-7 text-white hover:bg-gray-50 hover:text-primary-700 "
                                     >
                                     Boat trips
                                     </Link>
                                     <Link
                                     to="/boats"
+                                    onClick={() => setMobileMenuOpen(false)}
                                     className="-mx-3 block rounded-lg py-2 px-3 text-base font-semibold leading-7 text-white hover:bg-gray-50 hover:text-primary-700 "
                                     >
                                     Boats
                                     </Link>
                                     <Link
                                     to="aboutus"
+                                    onClick={() => setMobileMenuOpen(false)}
                                     className="-mx-3 block rounded-lg py-2 px-3 text-base font-semibold leading-7 text-white hover:bg-gray-50 hover:text-primary-700 "
                                     >
                                     About us
                                     </Link>
                                     <Link
                                     to="/blog"
+                                    onClick={() => setMobileMenuOpen(false)}
                                     className="-mx-3 block rounded-lg py-2 px-3 text-base font-semibold leading-7 text-white hover:bg-gray-50 hover:text-primary-700 "
                                     >
                                     Blog
                                     </Link>
                                     <Link
                                     to="/contact"
+                                    onClick={() => setMobileMenuOpen(false)}
                                     className="-mx-3 block rounded-lg py-2 px-3 text-base font-semibold leading-7 text-white hover:bg-gray-50 hover:text-primary-700 "
                                     >
                                     Contact
@@ -103,12 +108,14 @@ const Header = () => {
                                 <div className="py-6">
                                     <Link
                                     to="/login"
+                                    onClick={() => setMobileMenuOpen(false)}
                                     className="-mx-3 block rounded-lg py-2 px-3 text-base font-semibold leading-7 text-white hover:bg-gray-50 hover:text-primary-700 "
                                     >
                                     Log in
                                     </Link>
                                     <Link
                                     to="/register"
+                                    onClick={() => setMobileMenuOpen(false)}
                                     className="-mx-3 block rounded-lg py-2 px-3 text-base font-semibold leading-7 text-white hover:bg-gray-50 hover:text-primary-700 "
                                     >
                                     Sign up
