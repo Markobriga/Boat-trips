@@ -13,7 +13,8 @@ export const tripsReducer = (state = { trips: [] }, action) => {
             return {
                 loading: false,
                 trips: action.payload.trips,
-                tripsCount: action.payload.count
+                tripsCount: action.payload.count,
+                resPerPage: action.payload.resPerPage
             }
         case ALL_TRIPS_FAIL:
         case NEXT_TRIPS_FAIL:
