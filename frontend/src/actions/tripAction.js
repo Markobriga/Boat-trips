@@ -44,7 +44,7 @@ export const getNextTrips = () => async (dispatch) => {
 
         dispatch({ type: NEXT_TRIPS_REQUEST })
 
-        const { data } = axios.get('/api/v1/trips/next')
+        const { data } = await axios.get('/api/v1/trips/next')
 
         dispatch ({
             type: NEXT_TRIPS_SUCCESS,
