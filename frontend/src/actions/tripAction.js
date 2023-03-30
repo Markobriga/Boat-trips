@@ -39,12 +39,20 @@ export const getTripsDetails = (id) => async (dispatch) => {
     }
 }
 
-export const getNextTrips = () => async (dispatch) => {
+export const getNextTrips = (price, location) => async (dispatch) => {
     try {
 
         dispatch({ type: NEXT_TRIPS_REQUEST })
 
-        const { data } = await axios.get('/api/v1/trips/next')
+         let locationQuery = ''
+
+        location.map(location => {
+            locationQuery = locationQuery + "&location=" + location;
+        })
+ 
+        let link = `/api/v1/trips/next?priceAdult[lte]=${price[1]}&priceAdult[gte]=${price[0]}${locationQuery}`
+
+        const { data } = await axios.get(link)
 
         dispatch ({
             type: NEXT_TRIPS_SUCCESS,
