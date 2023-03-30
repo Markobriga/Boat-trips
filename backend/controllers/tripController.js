@@ -50,10 +50,18 @@ exports.getTripsByBoat = catchAsyncErrors( async(req, res, next) => {
 // Get all next trips => /api/v1/trips/next
 exports.getNextTrips = catchAsyncErrors( async(req, res, next) => {
 
-    const trips = await Trip.find({ date: { $gt: new Date()}})
+    const resPerPage = 10;
+
+    const apiFeatures = new APIFeatures(Trip.find({ date: { $gt: new Date()}}), req.query)
+    .search()
+    .filter()
+    .pagination(resPerPage);
+
+    const trips = await apiFeatures.query;
 
     res.status(200).json({
         success: true,
+        count: trips.length,
         trips
     })
 })
