@@ -19,6 +19,7 @@ import UpdatePassword from './pages/UpdatePassword';
 import ProtectedRoute from './components/route/ProtectedRoute';
 import ForgotPassword from './pages/ForgotPassword';
 import NewPassword from './pages/NewPassword';
+import TripDetails from './pages/TripDetails';
 
 function App() {
 
@@ -33,6 +34,7 @@ function App() {
         <Routes>
           <Route path="/" Component={Home} exact />
           <Route path="/trips" Component={Trips} exact />
+          <Route path="/trip/:id" Component={TripDetails} exact />
           <Route path="/boats" Component={Boats} exact/>
           <Route path="/boat/:id" Component={BoatDetails} exact/>
           <Route path="/login" Component={Login} exact/>
