@@ -20,6 +20,7 @@ import ProtectedRoute from './components/route/ProtectedRoute';
 import ForgotPassword from './pages/ForgotPassword';
 import NewPassword from './pages/NewPassword';
 import TripDetails from './pages/TripDetails';
+import Reservation from './pages/Reservation';
 
 function App() {
 
@@ -49,6 +50,9 @@ function App() {
           </ProtectedRoute>} exact />
           <Route path="/password/update" element={<ProtectedRoute>
             <UpdatePassword />
+          </ProtectedRoute>} exact />
+          <Route path="/reservation" element={<ProtectedRoute>
+            <Reservation />
           </ProtectedRoute>} exact />
         </Routes>
         <Footer />

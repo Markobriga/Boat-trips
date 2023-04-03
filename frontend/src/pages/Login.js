@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Link, useNavigate,  } from "react-router-dom";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 import { login, clearErrors } from "../actions/userAction";
 import Loader from "../components/Loader";
 
@@ -10,14 +10,17 @@ const Login = () => {
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const navigate = useNavigate();
+    const location = useLocation();
 
     const dispatch = useDispatch()
     const { isAuthenticated, error, loading } = useSelector(state => state.auth)
 
+    const redirect = location.search ? '/' + location.search.split('=')[1] : '/'
+
     useEffect(()=> {
 
         if(isAuthenticated){
-            navigate("/")
+            navigate(redirect)
         }
 
         if(error) {

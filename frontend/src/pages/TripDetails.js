@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Loader from "../components/Loader";
-import { Link, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { format } from 'date-fns'
 import { clearErrors, getTripsDetails } from "../actions/tripAction";
 import { getBoatDetails } from "../actions/boatAction";
@@ -17,6 +17,8 @@ const TripDetails = () => {
 
     const [adult, setAdult] = useState(1)
     const [child, setChild] = useState(0)
+
+    const navigate = useNavigate()
 
     useEffect(() => {
 
@@ -35,8 +37,9 @@ const TripDetails = () => {
             dispatch(getBoatDetails(trip.boat))
     },[trip])
 
-    const addToCart = () => {
+    const checkoutHandler = () => {
         dispatch(addTripToCart(id, adult, child))
+        navigate("/login?redirect=reservation")
     }
 
     return (
@@ -130,7 +133,7 @@ const TripDetails = () => {
                             </div>
                         </div>
 
-                        <button type="button" onClick={addToCart} disabled={adult+child+trip.numberOfReservations>boat.maxNumberOfReservations} className="mt-4 py-2 bg-primary-700 text-white w-full font-medium rounded-lg">
+                        <button type="button" onClick={checkoutHandler} disabled={(adult+child+trip.numberOfReservations>boat.maxNumberOfReservations) || adult+child === 0} className="mt-4 py-2 bg-primary-700 text-white w-full font-medium rounded-lg">
                             Checkout
                         </button>
                     </div>
