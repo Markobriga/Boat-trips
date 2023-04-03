@@ -6,6 +6,7 @@ import { format } from 'date-fns'
 import { clearErrors, getTripsDetails } from "../actions/tripAction";
 import { getBoatDetails } from "../actions/boatAction";
 import { MinusIcon, PlusIcon } from "@heroicons/react/24/outline";
+import { addTripToCart } from "../actions/cartAction";
 
 const TripDetails = () => {
 
@@ -33,6 +34,10 @@ const TripDetails = () => {
         if(trip)
             dispatch(getBoatDetails(trip.boat))
     },[trip])
+
+    const addToCart = () => {
+        dispatch(addTripToCart(id, adult, child))
+    }
 
     return (
         <div className="max-w-screen-xl mx-auto flex justify-center">
@@ -125,7 +130,7 @@ const TripDetails = () => {
                             </div>
                         </div>
 
-                        <button type="button" className="mt-4 py-2 bg-primary-700 text-white w-full font-medium rounded-lg">
+                        <button type="button" onClick={addToCart} disabled={adult+child+trip.numberOfReservations>boat.maxNumberOfReservations} className="mt-4 py-2 bg-primary-700 text-white w-full font-medium rounded-lg">
                             Checkout
                         </button>
                     </div>

@@ -5,6 +5,7 @@ import { composeWithDevTools } from 'redux-devtools-extension'
 import { boatsReducer, boatDetailsReducer } from './reducers/boatReducers'
 import { authReducer, userReducer, forgotPasswordReducer } from './reducers/userReducers'
 import { tripsReducer, tripDetailsReducer, nextTripsByBoatReducer } from './reducers/tripReducers'
+import { cartReducer } from './reducers/cartReducers'
 
 
 const reducer = combineReducers({
@@ -13,12 +14,19 @@ const reducer = combineReducers({
     trips: tripsReducer,
     tripDetails: tripDetailsReducer,
     nextTripsByBoat: nextTripsByBoatReducer,
+    cart: cartReducer,
     auth: authReducer,
     user: userReducer,
     forgotPassword: forgotPasswordReducer
 })
 
-let initialState = {}
+let initialState = {
+    cart: {
+        cartTrip: localStorage.getItem('cartTrip')
+            ? JSON.parse(localStorage.getItem('cartTrip'))
+            : {}
+    }
+}
 
 const middleware = [thunk]
 const store = createStore(reducer, initialState, composeWithDevTools(applyMiddleware(...middleware)))
