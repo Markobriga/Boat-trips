@@ -19,12 +19,14 @@ const boats = require('./routes/boat')
 const trips = require('./routes/trip')
 const auth = require('./routes/auth')
 const reservation = require('./routes/reservation')
+const payment = require('./routes/payment')
 
 
 app.use('/api/v1', boats)
 app.use('/api/v1', trips)
 app.use('/api/v1', auth)
 app.use('/api/v1', reservation)
+app.use('/api/v1', payment)
 
 // Middleware to handle errors
 app.use(errorMiddleware);
