@@ -17,5 +17,5 @@ export const addTripToCart = (id, amountAdult, amountChild) => async (dispatch, 
         }
     })
 
-    localStorage.setItem("cart", JSON.stringify(getState().cart.cartTrip))
+    sessionStorage.setItem("cart", JSON.stringify(getState().cart.cartTrip))
 }
