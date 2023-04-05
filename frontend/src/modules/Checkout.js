@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from "react";
 import { useStripe, useElements, CardNumberElement, CardExpiryElement, CardCvcElement } from '@stripe/react-stripe-js'
 import axios from "axios";
-import { useDispatch, useSelector } from "react-redux";
+import { ReactReduxContext, useDispatch, useSelector } from "react-redux";
 import { getBoatDetails } from "../actions/boatAction";
 import Loader from "../components/Loader";
 
@@ -22,14 +22,76 @@ const Checkout = ({ formStep, nextFormStep, prevFormStep}) => {
 
     const {loading, user} = useSelector(state => state.auth)
 
+    const { cartTrip } = useSelector(state => state.cart)
     const { boat } = useSelector(state => state.boatDetails)
 
     const [order, setOrder] = useState();
+    const [personalInfo, setPersonalInfo] = useState()
 
     useEffect(()=> {
-        const trip = JSON.parse(sessionStorage.getItem("cart"))
-        trip && setOrder(trip) && dispatch(getBoatDetails(trip.boat))
+        cartTrip && setOrder(cartTrip) && dispatch(getBoatDetails(cartTrip.boat))
+        const userInfo = JSON.parse(sessionStorage.getItem("personalInfo"))
+        userInfo && setPersonalInfo(userInfo)
+        console.log(personalInfo)
     },[])
+
+    const paymentData = {
+        amount: Math.round((order?.amountAdult*order?.priceAdult + order?.amountChild*order?.priceChild)*100)
+    }
+
+    const submitHandler = async (e) => {
+        e.preventDefault()
+        
+        document.querySelector('#pay_btn').disabled = true;
+
+        let res;
+
+        try {
+
+            const config = {
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            }
+
+            res = await axios.post('/api/v1/payment/process', paymentData, config)
+
+            const clientSecret = res.data.client_secret
+
+            if(!stripe && !elements) {
+                return;
+            }
+
+            const result = await stripe.confirmCardPayment(clientSecret, {
+                payment_method: {
+                    card: elements.getElement(CardNumberElement),
+                    billing_details: {
+                        name: personalInfo.name,
+                        email: personalInfo.email
+                    }
+                }
+            })
+
+            if(result.error) {
+                console.log(result.error.message)
+                document.querySelector('#pay_btn').disabled = false
+            } else {
+                if(result.paymentIntent.status === 'succeeded') {
+
+                    // New reservation and navigate
+
+            
+                } else {
+                    console.log('Issue with payment')
+                }
+            }
+
+
+        } catch (error) {
+            document.querySelector('#pay_btn').disabled = false;
+            console.log(error)
+        }
+    }
 
     return (
         <div className={formStep === 1 ? "flex max-w-screen-xl w-full mx-auto" : "hidden"}>
@@ -58,7 +120,7 @@ const Checkout = ({ formStep, nextFormStep, prevFormStep}) => {
                     <button onClick={prevFormStep} className="mt-10 text-white bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:ring-primary-300 font-medium rounded-lg text-sm px-4 lg:px-5 py-2 lg:py-2.5 mr-2 dark:bg-primary-600 dark:hover:bg-primary-700 focus:outline-none dark:focus:ring-primary-800">
                         Back
                     </button> 
-                    <button className="mt-10 text-white bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:ring-primary-300 font-medium rounded-lg text-sm px-4 lg:px-5 py-2 lg:py-2.5 mr-2 dark:bg-primary-600 dark:hover:bg-primary-700 focus:outline-none dark:focus:ring-primary-800">
+                    <button id="pay_btn" onClick={submitHandler} className="mt-10 text-white bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:ring-primary-300 font-medium rounded-lg text-sm px-4 lg:px-5 py-2 lg:py-2.5 mr-2 dark:bg-primary-600 dark:hover:bg-primary-700 focus:outline-none dark:focus:ring-primary-800">
                         PAY
                     </button>
                 </div>

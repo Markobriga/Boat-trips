@@ -16,13 +16,12 @@ const PersonalInfo = ({formStep, nextFormStep}) => {
     const [email, setEmail] = useState(user.email)
     const [order, setOrder] = useState();
 
-    
+    const { cartTrip } = useSelector(state => state.cart)
     const { boat } = useSelector(state => state.boatDetails)
 
     useEffect(()=> {
-        const trip = JSON.parse(sessionStorage.getItem("cart"))
-        trip && setOrder(trip) && dispatch(getBoatDetails(trip.boat))
-    },[loading])
+         cartTrip && setOrder(cartTrip) && dispatch(getBoatDetails(cartTrip.boat))
+    },[cartTrip])
 
     const processToPayment = () => {
         const personaInfo = {
@@ -31,7 +30,7 @@ const PersonalInfo = ({formStep, nextFormStep}) => {
             phoneNumber: phoneNumber
         }
         if (isValidPhoneNumber(phoneNumber)===true) {
-            sessionStorage.setItem("personaInfo", JSON.stringify(personaInfo))
+            sessionStorage.setItem("personalInfo", JSON.stringify(personaInfo))
             nextFormStep();
         }
     }
