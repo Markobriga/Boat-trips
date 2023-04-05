@@ -4,7 +4,8 @@ import axios from "axios";
 import { ReactReduxContext, useDispatch, useSelector } from "react-redux";
 import { getBoatDetails } from "../actions/boatAction";
 import Loader from "../components/Loader";
-
+import { createReservation, clearErrors } from "../actions/reservationAction";
+import { useNavigate } from "react-router-dom";
 
 const options = {
     style: {
@@ -19,21 +20,36 @@ const Checkout = ({ formStep, nextFormStep, prevFormStep}) => {
     const stripe = useStripe();
     const elements = useElements();
     const dispatch = useDispatch();
+    const navigate = useNavigate();
 
     const {loading, user} = useSelector(state => state.auth)
 
     const { cartTrip } = useSelector(state => state.cart)
     const { boat } = useSelector(state => state.boatDetails)
+    const { error } = useSelector(state => state.newReservation)
 
     const [order, setOrder] = useState();
     const [personalInfo, setPersonalInfo] = useState()
+
 
     useEffect(()=> {
         cartTrip && setOrder(cartTrip) && dispatch(getBoatDetails(cartTrip.boat))
         const userInfo = JSON.parse(sessionStorage.getItem("personalInfo"))
         userInfo && setPersonalInfo(userInfo)
-        console.log(personalInfo)
-    },[])
+
+        if(error) {
+            console.log(error)
+            dispatch(clearErrors())
+        }
+    },[dispatch, error])
+
+    const reservation = {
+        user: user._id,
+        trip: cartTrip.trip,
+        amountAdult: cartTrip.amountAdult,
+        amountChild: cartTrip.amountChild,
+        price: cartTrip.amountAdult*cartTrip.priceAdult + cartTrip.amountChild*cartTrip.priceChild + cartTrip.amountChild
+    }
 
     const paymentData = {
         amount: Math.round((order?.amountAdult*order?.priceAdult + order?.amountChild*order?.priceChild)*100)
@@ -79,7 +95,14 @@ const Checkout = ({ formStep, nextFormStep, prevFormStep}) => {
                 if(result.paymentIntent.status === 'succeeded') {
 
                     // New reservation and navigate
+                    reservation.phoneNumber = personalInfo.phoneNumber
+                    reservation.paymentInfo = {
+                        id: result.paymentIntent.id,
+                        status: result.paymentIntent.status
+                    }
 
+                    dispatch(createReservation(reservation))
+                    nextFormStep()
             
                 } else {
                     console.log('Issue with payment')

@@ -2,6 +2,7 @@ import React, {useState} from "react";
 import FormCard from "../components/formCard";
 import PersonalInfo from "../modules/PersonalInfo";
 import Checkout from "../modules/Checkout";
+import ReservationSuccess from "../modules/ReservationSuccess";
 
 const Reservation = () => {
     const [formStep, setFormStep] = useState(0);
@@ -25,6 +26,7 @@ const Reservation = () => {
                         prevFormStep={prevFormStep}
                     />
                 )}
+                {formStep > 1 && <ReservationSuccess />}
             </FormCard>
         </div>
     )
