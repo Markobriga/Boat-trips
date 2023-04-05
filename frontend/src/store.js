@@ -6,7 +6,7 @@ import { boatsReducer, boatDetailsReducer } from './reducers/boatReducers'
 import { authReducer, userReducer, forgotPasswordReducer } from './reducers/userReducers'
 import { tripsReducer, tripDetailsReducer, nextTripsByBoatReducer } from './reducers/tripReducers'
 import { cartReducer } from './reducers/cartReducers'
-
+import { newReservationReducer } from './reducers/reservationReducers'
 
 const reducer = combineReducers({
     boats: boatsReducer,
@@ -17,7 +17,8 @@ const reducer = combineReducers({
     cart: cartReducer,
     auth: authReducer,
     user: userReducer,
-    forgotPassword: forgotPasswordReducer
+    forgotPassword: forgotPasswordReducer,
+    newReservation: newReservationReducer,
 })
 
 let initialState = {
