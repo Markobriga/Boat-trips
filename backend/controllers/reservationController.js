@@ -12,7 +12,8 @@ exports.newReservation = catchAsyncErrors( async (req, res, next) => {
         amountAdult,
         amountChild,
         price,
-        paymentInfo
+        paymentInfo,
+        phoneNumber,
     } = req.body;
 
     const reservation = await Reservation.create({
@@ -21,6 +22,7 @@ exports.newReservation = catchAsyncErrors( async (req, res, next) => {
         amountChild,
         price,
         paymentInfo,
+        phoneNumber,
         user: req.user._id
     })
 

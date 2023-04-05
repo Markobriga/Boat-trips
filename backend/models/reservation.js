@@ -6,6 +6,10 @@ const reservationSchema = mongoose.Schema({
         required: true,
         ref: 'User'
     },
+    phoneNumber: {
+        type: String,
+        required: true
+    },
     trip: {
         type: mongoose.Schema.Types.ObjectId,
         required: true,
