@@ -7,6 +7,7 @@ import { Link, useParams } from "react-router-dom";
 import { format } from 'date-fns'
 import ReactStars from "react-rating-stars-component";
 import { NEW_REVIEW_RESET } from "../constants/boatConstants";
+import ListReviews from "../components/ListReviews";
 
 const BoatDetails = () => {
 
@@ -108,15 +109,21 @@ const BoatDetails = () => {
                                 onChange={(e)=>setComment(e.target.value)}
                                 placeholder="Write your experience"
                                 className="bg-hci-svijetlo-siva py-1 rounded-lg px-1 mb-1 text-black "/>
-                            <div className="self-start">
+                            <div className="self-end">
                                 <button onClick={reviewHandler} className="text-white bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:ring-primary-300 font-medium rounded-lg text-sm px-4 lg:px-5 py-2 lg:py-2.5 mr-2 dark:bg-primary-600 dark:hover:bg-primary-700 focus:outline-none dark:focus:ring-primary-800">Submit your review</button>
                             </div>
+                            
                         </div>
                         : 
                         <div className="text-start">
                             Login to post your review
                         </div>
+                        
                     }
+                    <hr className="w-full mt-2"/>
+                    {boat.reviews && boat.reviews.length > 0 && (
+                        <ListReviews reviews={boat.reviews} />
+                    )}
                     
                 </div>
 
