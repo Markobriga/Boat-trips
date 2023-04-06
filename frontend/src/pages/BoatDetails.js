@@ -1,17 +1,25 @@
-import React, {useEffect} from "react";
+import React, {useEffect, useState} from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getBoatDetails, clearErrors } from "../actions/boatAction";
+import { getBoatDetails, clearErrors, newReview } from "../actions/boatAction";
 import { getNextTripsByBoat } from "../actions/tripAction";
 import Loader from "../components/Loader";
 import { Link, useParams } from "react-router-dom";
 import { format } from 'date-fns'
+import ReactStars from "react-rating-stars-component";
+import { NEW_REVIEW_RESET } from "../constants/boatConstants";
 
 const BoatDetails = () => {
+
+    const [rating, setRating] = useState(0);
+    const [comment, setComment] = useState('');
 
     const dispatch = useDispatch();
     const { id } = useParams();
     const { loading, error, boat }  = useSelector(state => state.boatDetails)
     const { loadingTrips, nextTripsByBoat } = useSelector(state => state.nextTripsByBoat)
+    const { user } = useSelector(state => state.auth)
+    const { reviewError, success } = useSelector(state => state.newReview)
+
 
     useEffect(() => {
         
@@ -23,8 +31,26 @@ const BoatDetails = () => {
             dispatch(clearErrors())
         }
 
-    },[dispatch, error, id])
+        if(reviewError) {
+            console.log(reviewError)
+            dispatch(clearErrors())
+        }
 
+        if(success) {
+            dispatch({type: NEW_REVIEW_RESET})
+        }
+
+    },[dispatch, error, reviewError, success, id])
+
+    const reviewHandler = () => {
+        const formData = new FormData()
+
+        formData.set('rating', rating)
+        formData.set('comment', comment)
+        formData.set('boatId', id)
+
+        dispatch(newReview(formData))
+    }
 
     return (
         <div className="max-w-screen-xl mx-auto flex justify-center">
@@ -60,7 +86,7 @@ const BoatDetails = () => {
                         ))}
                     </div>
                 </div>
-                <div className="pt-5 w-3/4">
+                <div className="pt-5 w-3/4 flex flex-col">
                     <div className="font-medium text-xl ">
                         Description
                     </div>
@@ -70,6 +96,28 @@ const BoatDetails = () => {
                     <div className="font-medium text-xl pt-5">
                         Reviews
                     </div>
+                    {user ? 
+                        <div className="flex flex-col">
+                            <ReactStars 
+                                count={5}
+                                onChange={(value)=>setRating(value)}
+                                value={rating}
+                                size={24}    
+                            />
+                            <textarea value={comment}
+                                onChange={(e)=>setComment(e.target.value)}
+                                placeholder="Write your experience"
+                                className="bg-hci-svijetlo-siva py-1 rounded-lg px-1 mb-1 text-black "/>
+                            <div className="self-start">
+                                <button onClick={reviewHandler} className="text-white bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:ring-primary-300 font-medium rounded-lg text-sm px-4 lg:px-5 py-2 lg:py-2.5 mr-2 dark:bg-primary-600 dark:hover:bg-primary-700 focus:outline-none dark:focus:ring-primary-800">Submit your review</button>
+                            </div>
+                        </div>
+                        : 
+                        <div className="text-start">
+                            Login to post your review
+                        </div>
+                    }
+                    
                 </div>
 
             </div>}
