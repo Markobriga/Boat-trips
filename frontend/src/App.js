@@ -24,6 +24,7 @@ import Reservation from './pages/Reservation';
 import axios from 'axios';
 import { Elements } from '@stripe/react-stripe-js';
 import { loadStripe } from '@stripe/stripe-js';
+import MyReservations from './pages/MyReservations';
 
 function App() {
 
@@ -62,6 +63,9 @@ function App() {
           </ProtectedRoute>} exact />
           <Route path="/password/update" element={<ProtectedRoute>
             <UpdatePassword />
+          </ProtectedRoute>} exact />
+          <Route path="/reservations/me" element={<ProtectedRoute>
+            <MyReservations />
           </ProtectedRoute>} exact />
           {stripeApiKey &&
             <Route path="/reservation" element={
