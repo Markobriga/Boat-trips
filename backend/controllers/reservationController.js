@@ -53,7 +53,7 @@ exports.getSingleReservation = catchAsyncErrors( async (req, res, next) => {
 // Get logged in user reservation => /api/v1/reservations/me
 exports.getMyReservations = catchAsyncErrors( async (req, res, next) => {
 
-    const reservations = await Reservation.find({user: req.user.id});
+    const reservations = await Reservation.find({user: req.user.id}).populate('trip');
 
     res.status(200).json({
         success: true,
