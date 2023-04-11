@@ -25,6 +25,9 @@ import axios from 'axios';
 import { Elements } from '@stripe/react-stripe-js';
 import { loadStripe } from '@stripe/stripe-js';
 import MyReservations from './pages/MyReservations';
+import Dashboard from './pages/Dashboard';
+import NewOwner from './pages/NewOwner';
+import OwnersList from './pages/OwnersList';
 
 function App() {
 
@@ -75,6 +78,15 @@ function App() {
                 </ProtectedRoute>
               </Elements>} exact />
           }
+          <Route path="/dashboard" element={<ProtectedRoute>
+            <Dashboard />
+          </ProtectedRoute>} exact />
+          <Route path="/admin/owners" element={<ProtectedRoute>
+            <OwnersList />
+          </ProtectedRoute>} exact />
+          <Route path="/admin/owner" element={<ProtectedRoute>
+            <NewOwner />
+          </ProtectedRoute>} exact />
         </Routes>
         <Footer />
       </div>
