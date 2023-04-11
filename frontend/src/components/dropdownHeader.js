@@ -9,6 +9,8 @@ export default function DropdownHeader({user}) {
       }
 
     return (
+      <div className='relative inline-block text-left'>
+        {user.role !== 'user' ? 
         <Menu as="div" className="relative inline-block text-left">
           <div>
             <Menu.Button className='text-white font-medium text-sm mr-4'>
@@ -40,49 +42,30 @@ export default function DropdownHeader({user}) {
                     </Link>
                   )}
                 </Menu.Item>
+                
                 <Menu.Item>
                   {({ active }) => (
-                    <a
-                      href="#"
+                    <Link
+                      to="/dashboard"
                       className={classNames(
                         active ? 'bg-gray-100 text-gray-900' : 'text-gray-700',
                         'block px-4 py-2 text-sm'
                       )}
                     >
                       Dashboard
-                    </a>
+                    </Link>
                   )}
                 </Menu.Item>
-                <Menu.Item>
-                  {({ active }) => (
-                    <a
-                      href="#"
-                      className={classNames(
-                        active ? 'bg-gray-100 text-gray-900' : 'text-gray-700',
-                        'block px-4 py-2 text-sm'
-                      )}
-                    >
-                      License
-                    </a>
-                  )}
-                </Menu.Item>
-                
-                <Menu.Item>
-                    {({ active }) => (
-                        <button
-                        className={classNames(
-                            active ? 'bg-gray-100 text-gray-900' : 'text-gray-700',
-                            'block w-full px-4 py-2 text-left text-sm'
-                        )}
-                        >
-                        Sign out
-                        </button>
-                        )}
-                </Menu.Item>
-              
               </div>
             </Menu.Items>
           </Transition>
         </Menu>
+      : 
+      <div className="relative inline-block text-left">
+        <Link to="/profile" className='text-white font-medium text-sm mr-4'>
+          Hi, {user && user.name}
+        </Link>
+      </div>}
+      </div>
       )
 }
