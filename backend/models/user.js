@@ -27,6 +27,11 @@ const userSchema = new mongoose.Schema({
         type: String,
         default: 'user'
     },
+    boat: {
+        type: mongoose.Schema.ObjectId,
+        ref: 'Boat',
+        default: null
+    },
     createdAt: {
         type: Date,
         default: Date.now
