@@ -224,6 +224,17 @@ exports.getAllUsers = catchAsyncErrors( async (req, res, next) => {
     })
 })
 
+// Get all owners => /api/v1/admin/owners
+exports.getAllOwners = catchAsyncErrors( async (req, res, next) => {
+
+    const owners = await User.find({role: 'owner'});
+
+    res.status(200).json({
+        success: true,
+        owners
+    })
+})
+
 // Get a user => /api/v1/admin/user/:id
 exports.getUser = catchAsyncErrors( async (req, res, next) => {
     const user = await User.findById(req.params.id);
