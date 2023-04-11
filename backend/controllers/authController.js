@@ -227,7 +227,7 @@ exports.getAllUsers = catchAsyncErrors( async (req, res, next) => {
 // Get all owners => /api/v1/admin/owners
 exports.getAllOwners = catchAsyncErrors( async (req, res, next) => {
 
-    const owners = await User.find({role: 'owner'});
+    const owners = await User.find({role: 'owner'}).populate("boat")
 
     res.status(200).json({
         success: true,
