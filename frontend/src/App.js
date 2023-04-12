@@ -28,6 +28,7 @@ import MyReservations from './pages/MyReservations';
 import Dashboard from './pages/Dashboard';
 import NewOwner from './pages/NewOwner';
 import OwnersList from './pages/OwnersList';
+import MyBoat from './pages/MyBoat';
 
 function App() {
 
@@ -86,6 +87,9 @@ function App() {
           </ProtectedRoute>} exact />
           <Route path="/admin/owner" element={<ProtectedRoute>
             <NewOwner />
+          </ProtectedRoute>} exact />
+          <Route path="/owner/boat" element={<ProtectedRoute>
+            <MyBoat />
           </ProtectedRoute>} exact />
         </Routes>
         <Footer />
