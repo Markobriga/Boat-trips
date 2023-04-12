@@ -43,6 +43,17 @@ exports.getSingleBoat = catchAsyncErrors( async(req, res, next) => {
     })
 })
 
+// Get boat by owner id => /api/v1/admin/boat/:id
+exports.getBoatByOwner = catchAsyncErrors( async(req, res, next) => {
+
+    const boat = await Boat.findOne({user: req.params.id})
+
+    res.status(200).json({
+        success: true,
+        boat
+    })
+})
+
 // Update a boat => /api/v1/admin/boat/:id
 exports.updateBoat = catchAsyncErrors( async(req, res, next) => {
 
