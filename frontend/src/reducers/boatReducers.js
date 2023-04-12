@@ -1,4 +1,4 @@
-import { ALL_BOATS_REQUEST, ALL_BOATS_SUCCESS, ALL_BOATS_FAIL, BOAT_DETAILS_REQUEST, BOAT_DETAILS_SUCCESS, BOAT_DETAILS_FAIL, NEW_REVIEW_REQUEST, NEW_REVIEW_SUCCESS, NEW_REVIEW_FAIL, NEW_REVIEW_RESET, NEW_BOAT_REQUEST, NEW_BOAT_SUCCESS, NEW_BOAT_FAIL, NEW_BOAT_RESET, CLEAR_ERRORS} from '../constants/boatConstants'
+import { ALL_BOATS_REQUEST, ALL_BOATS_SUCCESS, ALL_BOATS_FAIL, BOAT_DETAILS_REQUEST, BOAT_DETAILS_SUCCESS, BOAT_DETAILS_FAIL, NEW_REVIEW_REQUEST, NEW_REVIEW_SUCCESS, NEW_REVIEW_FAIL, NEW_REVIEW_RESET, NEW_BOAT_REQUEST, NEW_BOAT_SUCCESS, NEW_BOAT_FAIL, NEW_BOAT_RESET, BOAT_BY_OWNER_REQUEST, BOAT_BY_OWNER_SUCCESS, BOAT_BY_OWNER_FAIL, CLEAR_ERRORS} from '../constants/boatConstants'
 
 export const boatsReducer = (state = { boats: [] }, action) => {
     switch(action.type) {
@@ -83,6 +83,38 @@ export const boatDetailsReducer = (state = {boat : {}}, action) => {
             }
 
         case BOAT_DETAILS_FAIL:
+            return {
+                ...state,
+                error: action.payload
+            }
+
+        case CLEAR_ERRORS:
+            return {
+               ...state,
+                error: null
+            }
+
+        default: 
+            return state
+    }
+}
+
+export const boatByOwnerReducer = (state = {boat : {}}, action) => {
+    switch(action.type) {
+
+        case BOAT_BY_OWNER_REQUEST:
+            return {
+                ...state,
+                loading: true
+            }
+        
+        case BOAT_BY_OWNER_SUCCESS:
+            return {
+                loading: false,
+                boat: action.payload
+            }
+
+        case BOAT_BY_OWNER_FAIL:
             return {
                 ...state,
                 error: action.payload
