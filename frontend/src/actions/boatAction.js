@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { ALL_BOATS_REQUEST, ALL_BOATS_SUCCESS, ALL_BOATS_FAIL, BOAT_DETAILS_REQUEST, BOAT_DETAILS_SUCCESS, BOAT_DETAILS_FAIL, NEW_REVIEW_REQUEST, NEW_REVIEW_SUCCESS, NEW_REVIEW_FAIL, NEW_BOAT_REQUEST, NEW_BOAT_SUCCESS, NEW_BOAT_FAIL, BOAT_BY_OWNER_REQUEST, BOAT_BY_OWNER_SUCCESS, BOAT_BY_OWNER_FAIL, CLEAR_ERRORS} from '../constants/boatConstants'
+import { ALL_BOATS_REQUEST, ALL_BOATS_SUCCESS, ALL_BOATS_FAIL, BOAT_DETAILS_REQUEST, BOAT_DETAILS_SUCCESS, BOAT_DETAILS_FAIL, NEW_REVIEW_REQUEST, NEW_REVIEW_SUCCESS, NEW_REVIEW_FAIL, NEW_BOAT_REQUEST, NEW_BOAT_SUCCESS, NEW_BOAT_FAIL, UPDATE_BOAT_REQUEST, UPDATE_BOAT_SUCCESS, UPDATE_BOAT_FAIL, BOAT_BY_OWNER_REQUEST, BOAT_BY_OWNER_SUCCESS, BOAT_BY_OWNER_FAIL, CLEAR_ERRORS} from '../constants/boatConstants'
 
 export const getBoats = () => async (dispatch) => {
     try {
@@ -47,6 +47,30 @@ export const newBoat = (boatData) => async (dispatch) => {
     }
 }
 
+export const updateBoat = (id, boatData) => async (dispatch) => {
+    try {
+        dispatch({ type: UPDATE_BOAT_REQUEST })
+
+        const config = {
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        }
+
+        const { data } = await axios.put(`/api/v1/admin/boat/${id}`, boatData, config)
+
+        dispatch({
+            type: UPDATE_BOAT_SUCCESS,
+            payload: data.success
+        })
+
+    } catch (error) {
+        dispatch({
+            type: UPDATE_BOAT_FAIL,
+            payload: error.response.data.message
+        })
+    }
+}
 
 export const getBoatDetails = (id) => async (dispatch) => {
     try {
