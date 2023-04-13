@@ -1,4 +1,4 @@
-import { ALL_TRIPS_REQUEST, ALL_TRIPS_SUCCESS, ALL_TRIPS_FAIL, TRIP_DETAILS_REQUEST, TRIP_DETAILS_SUCCESS, TRIP_DETAILS_FAIL, NEXT_TRIPS_BY_BOAT_REQUEST, NEXT_TRIPS_BY_BOAT_SUCCESS, NEXT_TRIPS_BY_BOAT_FAIL, NEXT_TRIPS_REQUEST, NEXT_TRIPS_SUCCESS, NEXT_TRIPS_FAIL, NEW_TRIP_REQUEST, NEW_TRIP_SUCCESS, NEW_TRIP_FAIL, NEW_TRIP_RESET, CLEAR_ERRORS } from "../constants/tripConstansts" 
+import { ALL_TRIPS_REQUEST, ALL_TRIPS_SUCCESS, ALL_TRIPS_FAIL, TRIP_DETAILS_REQUEST, TRIP_DETAILS_SUCCESS, TRIP_DETAILS_FAIL, NEXT_TRIPS_BY_BOAT_REQUEST, NEXT_TRIPS_BY_BOAT_SUCCESS, NEXT_TRIPS_BY_BOAT_FAIL, NEXT_TRIPS_REQUEST, NEXT_TRIPS_SUCCESS, NEXT_TRIPS_FAIL, NEW_TRIP_REQUEST, NEW_TRIP_SUCCESS, NEW_TRIP_FAIL, NEW_TRIP_RESET, TRIPS_BY_BOAT_REQUEST, TRIPS_BY_BOAT_SUCCESS, TRIPS_BY_BOAT_FAIL, CLEAR_ERRORS } from "../constants/tripConstansts" 
 
 export const tripsReducer = (state = { trips: [] }, action) => {
     switch (action.type) {
@@ -128,3 +128,30 @@ export const nextTripsByBoatReducer = (state = { nextTripsByBoat: []}, action) =
     }
 }
 
+export const tripsByBoatReducer = (state = { tripsByBoat: []}, action) => {
+    switch (action.type) {
+        case TRIPS_BY_BOAT_REQUEST:
+            return {
+                ...state,
+                loading: true,
+            }
+        case TRIPS_BY_BOAT_SUCCESS:
+            return {
+                loading: false,
+                tripsByBoat: action.payload
+            }
+        case TRIPS_BY_BOAT_FAIL:
+            return {
+                ...state,
+                error: action.payload
+            }
+        case CLEAR_ERRORS:
+            return {
+                ...state,
+                error: null
+            }
+
+        default: 
+            return state
+    }
+}
