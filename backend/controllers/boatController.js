@@ -8,7 +8,7 @@ const { isValidObjectId } = require('mongoose');
 // Create a new boat => /api/v1/admin/boat/new
 exports.newBoat = catchAsyncErrors( async (req, res, next) => {
 
-    const boat = await Boat.create({name: req.body.name, description:req.body.description, start:req.body.start, maxNumberOfReservations:req.body.maxNumberOfReservations, owner:req.body.owner, user:req.body.user, locations: req.body.locations.split(',')})
+    const boat = await Boat.create({name: req.body.name, description:req.body.description, start:req.body.start, maxNumberOfReservations:req.body.maxNumberOfReservations, owner:req.body.owner, user:req.body.user, locations: req.body.locations.split(',').sort()})
 
     res.status(201).json({
         success: true,
@@ -63,7 +63,7 @@ exports.updateBoat = catchAsyncErrors( async(req, res, next) => {
         return next(new ErrorHandler('Boat not found', 404));
     }
 
-    boat = await Boat.findByIdAndUpdate(req.params.id, req.body, {
+    boat = await Boat.findByIdAndUpdate(req.params.id, {name: req.body.name, description:req.body.description, start:req.body.start, maxNumberOfReservations:req.body.maxNumberOfReservations, owner:req.body.owner, user:req.body.user, locations: req.body.locations.split(',').sort()}, {
         new: true,
         runValidators: true,
         useFindAndModify: false

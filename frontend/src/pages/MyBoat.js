@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
 import Sidebar from "../components/Sidebar";
 import { useDispatch, useSelector } from "react-redux";
-import { clearErrors, getBoatByOwner, getBoatDetails, newBoat } from "../actions/boatAction";
+import { clearErrors, getBoatByOwner, getBoatDetails, newBoat, updateBoat } from "../actions/boatAction";
 import Loader from "../components/Loader"
-import { NEW_BOAT_RESET } from "../constants/boatConstants";
+import { NEW_BOAT_RESET, UPDATE_BOAT_RESET } from "../constants/boatConstants";
 
 const MyBoat = () => {
 
@@ -16,10 +16,9 @@ const MyBoat = () => {
     const [start, setStart] = useState()
     const [locations, setLocations] = useState([])
     const [maxNumberOfReservations, setMaxNumberOfReservations] = useState()
-    const [counter, setCounter] = useState(0)
-    const [addedLocations, setAddedLocations] = useState([])
 
     const { error, success } = useSelector(state => state.newBoat);
+    const { error: updateError, isUpdated } = useSelector(state => state.boat);
 
     useEffect(()=>{
         
@@ -50,7 +49,16 @@ const MyBoat = () => {
             dispatch({ type: NEW_BOAT_RESET })
         }
 
-    },[dispatch, error, success])
+        if(updateError) {
+            console.log(updateError)
+            dispatch(clearErrors())
+        }
+
+        if(isUpdated) {
+            dispatch({type: UPDATE_BOAT_RESET})
+        }
+
+    },[dispatch, error, success, isUpdated, updateError])
 
     
 
@@ -78,37 +86,12 @@ const MyBoat = () => {
 
     const handleAdd = (e) => {
         e.preventDefault()
-        setCounter(counter+1)
-        setAddedLocations([...addedLocations, ''])
-    }
-
-    const handleChangeAdded = (index, e) => {
-        e.preventDefault()
-        setAddedLocations(existingLocations => {
-            return [
-                ...existingLocations.slice(0,index),
-                e.target.value,
-                ...existingLocations.slice(index+1)
-            ]
-        })
-
-    }
-
-    const handleDeleteAdded = (index,e) => {
-        e.preventDefault()
-        setAddedLocations(existingLocations => {
-            return [
-                ...existingLocations.slice(0,index),
-                ...existingLocations.slice(index+1)
-            ]
-        })
+        setLocations([...locations, ''])
     }
 
     const handleSubmit = (e) => {
         e.preventDefault()
         const formData = new FormData()
-
-        console.log('added', addedLocations )
 
         formData.set('name', name)
         formData.set('description', description)
@@ -116,13 +99,24 @@ const MyBoat = () => {
         formData.set('maxNumberOfReservations', maxNumberOfReservations)
         formData.set('owner', user.name)
         formData.set('user', user._id)
-        formData.set('locations', addedLocations)
+        formData.set('locations', locations)
 
         dispatch(newBoat(formData))
     }
 
-    const handleUpdate = () => {
+    const handleUpdate = (e) => {
+        e.preventDefault()
+        const formData = new FormData()
 
+        formData.set('name', name)
+        formData.set('description', description)
+        formData.set('start', start)
+        formData.set('maxNumberOfReservations', maxNumberOfReservations)
+        formData.set('owner', user.name)
+        formData.set('user', user._id)
+        formData.set('locations', locations)
+
+        dispatch(updateBoat(boat._id, formData))
     }
 
 
@@ -157,21 +151,13 @@ const MyBoat = () => {
                                 </button>
                             </div>
                         )}
-                        {addedLocations?.map((location, index)=>
-                             <div key={index} className="flex items-baseline">
-                                <input type="locations" name="locations" id="locations" className="bg-gray-50 border mb-2 border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required="" value={ location || ''} onChange={(e)=>handleChangeAdded(index, e)}/>
-                                <button onClick={(e)=>handleDeleteAdded(index,e)} className="text-red-500">
-                                    Delete
-                                </button>
-                            </div>
-                        )}
                         <button onClick={handleAdd} className="px-2.5">Add new</button>
                     </div>
                     <div>
                         <label htmlFor="maxNumberOfReservations" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white text-start">Max number of reservations</label>
                         <input type="number" name="maxNumberOfReservations" id="maxNumberOfReservations" className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required="" value={maxNumberOfReservations || ''} onChange={(e)=>setMaxNumberOfReservations(e.target.value)}/>
                     </div>
-                    {user?.boat ? 
+                    {boat ? 
                         <button onClick={handleUpdate} type="submit" className=" text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">Update</button>
                         :
                         <button onClick={handleSubmit} type="submit" className=" text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">Add boat</button>
