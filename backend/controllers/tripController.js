@@ -36,10 +36,10 @@ exports.getTrips = catchAsyncErrors( async(req, res, next) => {
     })
 })
 
-// Get all trips by boat => /api/v1/trips/:id
+// Get all trips by boat(owner) => /api/v1/owner/trips/:id
 exports.getTripsByBoat = catchAsyncErrors( async(req, res, next) => {
     
-    const trips = await Trip.find({boat: req.params.boat})
+    const trips = await Trip.find({user: req.params.user}).sort({date: 1})
 
     res.status(200).json({
         success: true,
