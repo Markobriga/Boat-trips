@@ -6,6 +6,19 @@ const tripSchema = new mongoose.Schema({
         ref: 'Boat',
         required: true
     },
+    user: {
+        type: mongoose.Schema.ObjectId,
+        ref: 'User',
+        required: true
+    },
+    tripName:{
+        type: String,
+        required: [true, 'Please enter a trip name']
+    },
+    boatName: {
+        type: String,
+        required: true
+    },
     priceAdult: {
         type: Number,
         required: [true, 'Please enter the price for adults']
