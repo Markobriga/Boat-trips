@@ -59,6 +59,10 @@ exports.updateBoat = catchAsyncErrors( async(req, res, next) => {
 
     let boat = await Boat.findById(req.params.id)
 
+    if(boat.user != req.body.user) {
+        return next(new ErrorHandler('Not having the permission', 403))
+    }
+
     if(!boat) {
         return next(new ErrorHandler('Boat not found', 404));
     }
