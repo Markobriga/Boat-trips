@@ -29,6 +29,8 @@ import Dashboard from './pages/Dashboard';
 import NewOwner from './pages/NewOwner';
 import OwnersList from './pages/OwnersList';
 import MyBoat from './pages/MyBoat';
+import MyTrips from './pages/MyTrips';
+import NewTrip from './pages/NewTrip';
 
 function App() {
 
@@ -90,6 +92,12 @@ function App() {
           </ProtectedRoute>} exact />
           <Route path="/owner/boat" element={<ProtectedRoute>
             <MyBoat />
+          </ProtectedRoute>} exact />
+          <Route path="/owner/trips" element={<ProtectedRoute>
+            <MyTrips />
+          </ProtectedRoute>} exact />
+          <Route path="/owner/trip/new" element={<ProtectedRoute>
+            <NewTrip />
           </ProtectedRoute>} exact />
         </Routes>
         <Footer />

@@ -12,9 +12,9 @@ router.route('/trips/:boat').get(getTripsByBoat);
 router.route('/trips/next/:boat').get(getNextTripsByBoat);
 
 
-router.route('/admin/trip/new').post(isAuthenticatedUser, authorizeRoles('admin'), newTrip);
+router.route('/admin/trip/new').post(isAuthenticatedUser, authorizeRoles('owner'), newTrip);
 
-router.route('/admin/trip/:id').put(isAuthenticatedUser, authorizeRoles('admin'), updateTrip).delete(isAuthenticatedUser, authorizeRoles('admin'), deleteTrip);
+router.route('/admin/trip/:id').put(isAuthenticatedUser, authorizeRoles('owner'), updateTrip).delete(isAuthenticatedUser, authorizeRoles('owner'), deleteTrip);
 
 
 module.exports = router;
