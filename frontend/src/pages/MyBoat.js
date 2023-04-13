@@ -116,7 +116,7 @@ const MyBoat = () => {
         formData.set('maxNumberOfReservations', maxNumberOfReservations)
         formData.set('owner', user.name)
         formData.set('user', user._id)
-        formData.set('location', addedLocations)
+        formData.set('locations', addedLocations)
 
         dispatch(newBoat(formData))
     }

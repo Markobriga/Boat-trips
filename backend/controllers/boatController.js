@@ -8,7 +8,7 @@ const { isValidObjectId } = require('mongoose');
 // Create a new boat => /api/v1/admin/boat/new
 exports.newBoat = catchAsyncErrors( async (req, res, next) => {
 
-    const boat = await Boat.create(req.body)
+    const boat = await Boat.create({name: req.body.name, description:req.body.description, start:req.body.start, maxNumberOfReservations:req.body.maxNumberOfReservations, owner:req.body.owner, user:req.body.user, locations: req.body.locations.split(',')})
 
     res.status(201).json({
         success: true,
