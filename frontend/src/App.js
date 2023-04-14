@@ -33,6 +33,7 @@ import MyTrips from './pages/MyTrips';
 import NewTrip from './pages/NewTrip';
 import UpdateTrip from './pages/UpdateTrip';
 import MyBookers from './pages/MyBookers';
+import NewBooker from './pages/NewBooker';
 
 function App() {
 
@@ -106,6 +107,9 @@ function App() {
           </ProtectedRoute>} exact />
           <Route path="/owner/bookers" element={<ProtectedRoute>
             <MyBookers />
+          </ProtectedRoute>} exact />
+          <Route path="/owner/booker/new" element={<ProtectedRoute>
+            <NewBooker />
           </ProtectedRoute>} exact />
         </Routes>
         <Footer />
