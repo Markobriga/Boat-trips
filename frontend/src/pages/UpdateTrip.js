@@ -4,13 +4,15 @@ import { getBoatByOwner } from '../actions/boatAction';
 import Loader from '../components/Loader';
 import DatePicker from 'tailwind-datepicker-react'
 import Sidebar from "../components/Sidebar";
-import { getTripsDetails } from "../actions/tripAction";
-import { useParams } from "react-router-dom";
+import { clearErrors, getTripsDetails, updateTrip } from "../actions/tripAction";
+import { useNavigate, useParams } from "react-router-dom";
 import DateComponent from "../components/Date";
+import { UPDATE_TRIP_RESET } from "../constants/tripConstansts";
 
 const UpdateTrip = () => {
 
     const dispatch = useDispatch()
+    const navigate = useNavigate()
     const { user } = useSelector(state=>state.auth)
     const { loading, boat } = useSelector(state=>state.boatByOwner)
     const { loading:loadingTrip , error, trip } = useSelector(state => state.tripDetails)
@@ -25,7 +27,7 @@ const UpdateTrip = () => {
     const [date, setDate] = useState(new Date())
     const [checkedState, setCheckedState] = useState()
 
-    
+    const { error: updateError, isUpdated } = useSelector(state => state.trip);
 
     useEffect(()=> {
         if(user) {
@@ -33,7 +35,7 @@ const UpdateTrip = () => {
             dispatch(getTripsDetails(id))
         }
 
-    },[user])
+    },[user,dispatch])
 
     useEffect(()=>{
         if(boat.locations && trip.location) {
@@ -51,9 +53,18 @@ const UpdateTrip = () => {
             )
             setCheckedState(temp)
         }
-    },[boat,trip])
+    },[boat,trip,dispatch])
 
-    
+    useEffect(()=> {
+        if(updateError) {
+            console.log(updateError)
+            dispatch(clearErrors())
+        }
+
+        if(isUpdated) {
+            dispatch({type: UPDATE_TRIP_RESET})
+        }
+    },[dispatch, isUpdated, updateError])
 
     const handleOnChange = (position) => {
         let temp=[]
@@ -74,8 +85,21 @@ const UpdateTrip = () => {
         setDate(selectedDate)
     }
 
-    const handleSubmit = () => {
-        
+    const handleSubmit = (e) => {
+        const formData = new FormData()
+
+        formData.set('tripName', name)
+        formData.set('boatName', boat.name)
+        formData.set('priceAdult', priceAdult)
+        formData.set('priceChild', priceChild)
+        formData.set('date', date)
+        formData.set('duration', duration)
+        formData.set('location', locations)
+        formData.set('boat', boat._id)
+        formData.set('user', user._id)
+
+        dispatch(updateTrip(trip._id, formData))
+        navigate("/owner/trips")
     }
 
     return (
