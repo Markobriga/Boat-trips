@@ -98,11 +98,15 @@ exports.updateTrip = catchAsyncErrors( async(req, res, next) => {
 
     let trip = await Trip.findById(req.params.id)
 
+    if(req.body.user != trip.user) {
+        return next(new ErrorHandler('Not having the permission', 403))
+    }
+
     if(!trip) {
         return next(new ErrorHandler('No trip found', 404));
     }
 
-    trip = await Trip.findByIdAndUpdate(req.params.id, req.body, {
+    trip = await Trip.findByIdAndUpdate(req.params.id, {boat: req.body.boat, user: req.body.user, tripName:req.body.tripName, boatName:req.body.boatName, priceAdult: req.body.priceAdult, priceChild: req.body.priceChild, date: req.body.date, duration: req.body.duration, location: req.body.location.split(',').sort()}, {
         new: true,
         runValidators: true,
         useFindAndModify: false
