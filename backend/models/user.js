@@ -27,9 +27,9 @@ const userSchema = new mongoose.Schema({
         type: String,
         default: 'user'
     },
-    boat: {
+    owner: {
         type: mongoose.Schema.ObjectId,
-        ref: 'Boat'
+        ref: 'User'
     },
     createdAt: {
         type: Date,

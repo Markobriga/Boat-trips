@@ -198,19 +198,30 @@ exports.registerOwner = catchAsyncErrors( async (req, res, next) => {
 // Register booker => /api/v1/owner/register/booker
 exports.registerBooker = catchAsyncErrors( async (req, res, next) => {
 
-    const {name, email, password, boat} = req.body;
+    const {name, email, password, owner} = req.body;
 
     const user = await User.create({
         name,
         email,
         password,
         role: 'booker',
-        boat
+        owner
     });
 
     res.status(200).json({
         success: true,
         user
+    })
+})
+
+// Get all bookers => /api/v1/owner/bookers/:id
+exports.getAllBookers = catchAsyncErrors( async (req, res, next) => {
+
+    const bookers = await User.find({role: 'booker', owner: req.params.id})
+
+    res.status(200).json({
+        success: true,
+        bookers
     })
 })
 
