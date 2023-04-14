@@ -27,10 +27,12 @@ const tripSchema = new mongoose.Schema({
         type: Number,
         required: [true, 'Please enter the price for children']
     },
-    location: {
+    location: [
+        {
         type: String,
         required: [true, 'Please enter visiting islands'],
-    },
+        }
+    ],
     numberOfReservations: {
         type: Number,
         default: 0

@@ -64,7 +64,7 @@ const MyTrips = () => {
                                         {format(new Date(trip.date), 'dd.MM.yyyy')}
                                     </td>
                                     <td className="px-6 py-4">
-                                        {trip.location}
+                                        {trip.location.toString()}
                                     </td>
                                     <td className="px-6 py-4">
                                         {trip.numberOfReservations}

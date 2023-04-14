@@ -7,7 +7,7 @@ const APIFeatures = require('../utils/apiFeatures');
 // Create a new trip => /api/v1/admin/trip/new
 exports.newTrip = catchAsyncErrors( async(req, res, next) => {
 
-    const trip = await Trip.create(req.body)
+    const trip = await Trip.create({boat: req.body.boat, user: req.body.user, tripName:req.body.tripName, boatName:req.body.boatName, priceAdult: req.body.priceAdult, priceChild: req.body.priceChild, date: req.body.date, duration: req.body.duration, location: req.body.location.split(',').sort()});
 
     res.status(201).json({
         status:'success',
