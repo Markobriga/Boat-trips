@@ -163,7 +163,7 @@ export const allUsersReducer = (state = { users: [] }, action) => {
                 users: action.payload
             }
         case ALL_OWNERS_FAIL:
-        case ALL_OWNERS_FAIL:
+        case ALL_BOOKERS_FAIL:
             return {
                 ...state,
                 loading: false,
