@@ -38,7 +38,7 @@ const UpdateTrip = () => {
     },[user,dispatch])
 
     useEffect(()=>{
-        if(boat.locations && trip.location) {
+        if(boat.locations && trip?.location) {
             setName(trip.tripName)
             setPriceAdult(trip.priceAdult)
             setPriceChild(trip.priceChild)
@@ -136,7 +136,7 @@ const UpdateTrip = () => {
                     <div className="block text-sm font-medium text-gray-900 dark:text-white text-start">
                         Locations
                     </div>
-                    {checkedState && boat.locations && boat.locations.map((location, index) => 
+                    {checkedState && trip.location && boat.locations && boat.locations.map((location, index) => 
                         <div key={index} className="flex items-center">
                             <input id={`checkbox-${index}`} checked={checkedState[index]} onChange={()=>handleOnChange(index)} type="checkbox" className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600" />
                             <label htmlFor={`checkbox-${index}`} className="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">{location}</label>
