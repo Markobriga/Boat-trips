@@ -32,6 +32,7 @@ import MyBoat from './pages/MyBoat';
 import MyTrips from './pages/MyTrips';
 import NewTrip from './pages/NewTrip';
 import UpdateTrip from './pages/UpdateTrip';
+import MyBookers from './pages/MyBookers';
 
 function App() {
 
@@ -102,6 +103,9 @@ function App() {
           </ProtectedRoute>} exact />
           <Route path="/owner/trip/:id" element={<ProtectedRoute>
             <UpdateTrip />
+          </ProtectedRoute>} exact />
+          <Route path="/owner/bookers" element={<ProtectedRoute>
+            <MyBookers />
           </ProtectedRoute>} exact />
         </Routes>
         <Footer />
