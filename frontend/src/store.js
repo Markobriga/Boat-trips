@@ -4,7 +4,7 @@ import { composeWithDevTools } from 'redux-devtools-extension'
 
 import { boatsReducer, boatDetailsReducer, newReviewReducer, newBoatReducer, boatByOwnerReducer, boatReducer } from './reducers/boatReducers'
 import { authReducer, userReducer, forgotPasswordReducer, allUsersReducer } from './reducers/userReducers'
-import { tripsReducer, tripDetailsReducer, nextTripsByBoatReducer, newTripReducer, tripsByBoatReducer } from './reducers/tripReducers'
+import { tripsReducer, tripDetailsReducer, nextTripsByBoatReducer, newTripReducer, tripsByBoatReducer, tripReducer } from './reducers/tripReducers'
 import { cartReducer } from './reducers/cartReducers'
 import { myReservationsReducer, newReservationReducer } from './reducers/reservationReducers'
 
@@ -17,6 +17,7 @@ const reducer = combineReducers({
     trips: tripsReducer,
     tripsByBoat: tripsByBoatReducer,
     newTrip: newTripReducer,
+    trip: tripReducer,
     tripDetails: tripDetailsReducer,
     nextTripsByBoat: nextTripsByBoatReducer,
     cart: cartReducer,
