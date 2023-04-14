@@ -1,17 +1,21 @@
-import React, { useEffect, useState } from 'react';
-import Sidebar from '../components/Sidebar';
+import React, {useEffect, useState} from "react";
 import { useDispatch, useSelector } from 'react-redux';
 import { getBoatByOwner } from '../actions/boatAction';
 import Loader from '../components/Loader';
 import DatePicker from 'tailwind-datepicker-react'
-import { clearErrors, newTrip } from '../actions/tripAction';
-import { NEW_TRIP_RESET } from '../constants/tripConstansts';
+import Sidebar from "../components/Sidebar";
+import { getTripsDetails } from "../actions/tripAction";
+import { useParams } from "react-router-dom";
+import DateComponent from "../components/Date";
 
-const NewTrip = () => {
+const UpdateTrip = () => {
 
     const dispatch = useDispatch()
     const { user } = useSelector(state=>state.auth)
     const { loading, boat } = useSelector(state=>state.boatByOwner)
+    const { loading:loadingTrip , error, trip } = useSelector(state => state.tripDetails)
+    const { id } = useParams()
+
 
     const [name, setName] = useState()
     const [priceAdult, setPriceAdult] = useState()
@@ -20,42 +24,36 @@ const NewTrip = () => {
     const [locations, setLocations] = useState([])
     const [date, setDate] = useState(new Date())
     const [checkedState, setCheckedState] = useState()
-    const [show, setShow] = useState(false)
 
-    const { error, success } = useSelector(state => state.newTrip);
+    
 
-    useEffect(()=>{
+    useEffect(()=> {
         if(user) {
             dispatch(getBoatByOwner(user._id))
+            dispatch(getTripsDetails(id))
         }
-        
+
     },[user])
 
     useEffect(()=>{
-        if(boat.locations) {
-            setCheckedState(new Array(boat.locations.length).fill(false))
+        if(boat.locations && trip.location) {
+            setName(trip.tripName)
+            setPriceAdult(trip.priceAdult)
+            setPriceChild(trip.priceChild)
+            setDuration(trip.duration)
+            setDate(trip.date)
+            setLocations([...trip.location])
+
+            let temp=new Array(boat.locations.length).fill(false)
+
+            temp = boat.locations.map((item)=>
+                locations.includes(item) ? true : false
+            )
+            setCheckedState(temp)
         }
-    },[boat])
+    },[boat,trip])
 
-    useEffect(()=>{
-
-        if (error) {
-            console.log(error)
-            dispatch(clearErrors())
-        }
-
-        if (success) {
-            dispatch({ type: NEW_TRIP_RESET })
-        }
-
-    },[error, success, dispatch])
-
-    const options = {
-        autoHide: true,
-        minDate: new Date(),
-        defaultDate: new Date(),
-    }
-
+    
 
     const handleOnChange = (position) => {
         let temp=[]
@@ -72,39 +70,21 @@ const NewTrip = () => {
         setLocations(temp)
     }
 
-    const handleClose = (state) => {
-        setShow(state)
-    }
-
     const handleChange = (selectedDate) => {
         setDate(selectedDate)
     }
 
-    const handleSubmit = (e) => {
-        e.preventDefault()
-        const formData = new FormData()
-
-        formData.set('tripName', name)
-        formData.set('boatName', boat.name)
-        formData.set('priceAdult', priceAdult)
-        formData.set('priceChild', priceChild)
-        formData.set('date', date)
-        formData.set('duration', duration)
-        formData.set('location', locations)
-        formData.set('boat', boat._id)
-        formData.set('user', user._id)
-
-        dispatch(newTrip(formData))
+    const handleSubmit = () => {
+        
     }
-    
 
     return (
         <div className="mx-auto max-w-screen-xl flex w-full">
             <Sidebar />
-            {loading ? <Loader /> :
+            {(loading && loadingTrip) ? <Loader /> :
             <div className='w-full'>
                 <div className="text-start py-3 px-3 font-medium text-xl">
-                    New Trip
+                    Update Trip
                 </div>
                 <form className="space-y-2 mb-5 px-3 md:space-y-4" action="#">
                     <div>
@@ -115,7 +95,7 @@ const NewTrip = () => {
                         <div className="block text-sm font-medium text-gray-900 dark:text-white text-start">
                             Date
                         </div>
-                        <DatePicker options={options} onChange={handleChange} show={show} setShow={handleClose}/>
+                        <DateComponent initialDate={date} handleChange={handleChange}/>
                     </div>
                     <div>
                         <label htmlFor="priceAdult" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white text-start">Price Adult (€)</label>
@@ -140,10 +120,10 @@ const NewTrip = () => {
                     )}
                     <button onClick={handleSubmit} type="submit" className=" text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">Add trip</button>
                 </form>
-            </div>
+            </div> 
             }
         </div>
     )
 }
 
-export default NewTrip;
+export default UpdateTrip;

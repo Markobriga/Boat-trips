@@ -70,7 +70,7 @@ const MyTrips = () => {
                                         {trip.numberOfReservations}
                                     </td>
                                     <td className="px-6 py-4">
-                                        <a href="#" className="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</a>
+                                        <Link to={`/owner/trip/${trip._id}`} className="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</Link>
                                     </td>
                                 </tr>
                             ))}
