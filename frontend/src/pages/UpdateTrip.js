@@ -142,7 +142,7 @@ const UpdateTrip = () => {
                             <label htmlFor={`checkbox-${index}`} className="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">{location}</label>
                         </div>
                     )}
-                    <button onClick={handleSubmit} type="submit" className=" text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">Add trip</button>
+                    <button onClick={handleSubmit} type="submit" className=" text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">Update trip</button>
                 </form>
             </div> 
             }
