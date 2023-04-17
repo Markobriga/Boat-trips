@@ -6,6 +6,7 @@ const bodyParser = require('body-parser');
 const multer = require('multer');
 const upload = multer();
 const dotenv = require('dotenv');
+const cloudinary = require('cloudinary');
 
 const errorMiddleware = require('./middlewares/errors');
 
@@ -16,6 +17,12 @@ app.use(cookieParser());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(upload.array()); 
 app.use(express.static('public'));
+
+cloudinary.config({
+    cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+    api_key: process.env.CLOUDINARY_API_KEY,
+    api_secret: process.env.CLOUDINARY_API_SECRET
+})
 
 // Import all routes
 const boats = require('./routes/boat')
