@@ -16,6 +16,8 @@ const MyBoat = () => {
     const [start, setStart] = useState()
     const [locations, setLocations] = useState([])
     const [maxNumberOfReservations, setMaxNumberOfReservations] = useState()
+    const [images, setImages] = useState([]);
+    const [oldImages, setOldImages] = useState([]);
 
     const { error, success } = useSelector(state => state.newBoat);
     const { error: updateError, isUpdated } = useSelector(state => state.boat);
@@ -35,6 +37,7 @@ const MyBoat = () => {
             setStart(boat.start)
             setLocations([...boat.locations])
             setMaxNumberOfReservations(boat.maxNumberOfReservations)
+            setOldImages(boat.images)
         }
     },[boat])
 
@@ -59,8 +62,6 @@ const MyBoat = () => {
         }
 
     },[dispatch, error, success, isUpdated, updateError])
-
-    
 
     const handleChange = (index, e) => {
         e.preventDefault()
@@ -89,6 +90,26 @@ const MyBoat = () => {
         setLocations([...locations, ''])
     }
 
+    const onChange = e => {
+
+        const files = Array.from(e.target.files)
+
+        //setImages([])
+        setOldImages([])
+
+        files.forEach(file => {
+            const reader = new FileReader();
+
+            reader.onload = () => {
+                if (reader.readyState === 2) {
+                    setImages(oldArray => [...oldArray, reader.result])
+                }
+            }
+
+            reader.readAsDataURL(file)
+        })
+    }
+
     const handleSubmit = (e) => {
         e.preventDefault()
         const formData = new FormData()
@@ -100,6 +121,10 @@ const MyBoat = () => {
         formData.set('owner', user.name)
         formData.set('user', user._id)
         formData.set('locations', locations)
+
+        images.forEach(image => {
+            formData.append('images', image)
+        })
 
         dispatch(newBoat(formData))
     }
@@ -115,6 +140,10 @@ const MyBoat = () => {
         formData.set('owner', user.name)
         formData.set('user', user._id)
         formData.set('locations', locations)
+
+        images.forEach(image => {
+            formData.append('images', image)
+        })
 
         dispatch(updateBoat(boat._id, formData))
     }
@@ -157,6 +186,19 @@ const MyBoat = () => {
                         <label htmlFor="maxNumberOfReservations" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white text-start">Max number of reservations</label>
                         <input type="number" name="maxNumberOfReservations" id="maxNumberOfReservations" className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required="" value={maxNumberOfReservations || ''} onChange={(e)=>setMaxNumberOfReservations(e.target.value)}/>
                     </div>
+                    <div>
+                        <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white text-start" htmlFor="file_input">Upload images</label>
+                        <input className="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400" id="file_input" type="file" multiple onChange={onChange}/>
+                        <div className="flex mr-1">
+                            {oldImages && oldImages.map(img => (
+                                <img src={img.url} key={img} alt="Images Preview" className="mt-3 mr-2" width="55" height="52"/>
+                            ))}
+                            {images.map(img => (
+                                <img src={img} key={img} alt="Images Preview" className="mt-3 mr-2" width="55" height="52"/>
+                            ))}
+                        </div>
+                    </div>
+                    
                     {boat ? 
                         <button onClick={handleUpdate} type="submit" className=" text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">Update</button>
                         :

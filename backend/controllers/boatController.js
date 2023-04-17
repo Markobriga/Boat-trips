@@ -4,11 +4,34 @@ const ErrorHandler = require('../utils/errorHandler');
 const catchAsyncErrors = require('../middlewares/catchAsyncErrors');
 const APIFeatures = require('../utils/apiFeatures');
 const { isValidObjectId } = require('mongoose');
+const cloudinary = require('cloudinary')
 
 // Create a new boat => /api/v1/admin/boat/new
 exports.newBoat = catchAsyncErrors( async (req, res, next) => {
 
-    const boat = await Boat.create({name: req.body.name, description:req.body.description, start:req.body.start, maxNumberOfReservations:req.body.maxNumberOfReservations, owner:req.body.owner, user:req.body.user, locations: req.body.locations.split(',').sort()})
+    let images = []
+    if (typeof req.body.images === 'string') {
+        images.push(req.body.images)
+    } else {
+        images = req.body.images
+    }
+
+    let imagesLinks = [];
+
+    for (let i = 0; i < images.length; i++) {
+        const result = await cloudinary.v2.uploader.upload(images[i], {
+            folder: 'boats'
+        });
+
+        imagesLinks.push({
+            public_id: result.public_id,
+            url: result.secure_url
+        })
+    }
+
+    req.body.images = imagesLinks
+
+    const boat = await Boat.create({name: req.body.name, images: req.body.images, description:req.body.description, start:req.body.start, maxNumberOfReservations:req.body.maxNumberOfReservations, owner:req.body.owner, user:req.body.user, locations: req.body.locations.split(',').sort()})
 
     res.status(201).json({
         success: true,
@@ -67,7 +90,38 @@ exports.updateBoat = catchAsyncErrors( async(req, res, next) => {
         return next(new ErrorHandler('Boat not found', 404));
     }
 
-    boat = await Boat.findByIdAndUpdate(req.params.id, {name: req.body.name, description:req.body.description, start:req.body.start, maxNumberOfReservations:req.body.maxNumberOfReservations, owner:req.body.owner, user:req.body.user, locations: req.body.locations.split(',').sort()}, {
+    let images = []
+    if (typeof req.body.images === 'string') {
+        images.push(req.body.images)
+    } else {
+        images = req.body.images
+    }
+
+    if (images !== undefined) {
+
+        // Deleting images associated with the boat
+        for (let i = 0; i < boat.images.length; i++) {
+            const result = await cloudinary.v2.uploader.destroy(boat.images[i].public_id)
+        }
+
+        let imagesLinks = [];
+
+        for (let i = 0; i < images.length; i++) {
+            const result = await cloudinary.v2.uploader.upload(images[i], {
+                folder: 'boats'
+            });
+
+            imagesLinks.push({
+                public_id: result.public_id,
+                url: result.secure_url
+            })
+        }
+
+        req.body.images = imagesLinks
+
+    }
+
+    boat = await Boat.findByIdAndUpdate(req.params.id, {name: req.body.name, images: req.body.images, description:req.body.description, start:req.body.start, maxNumberOfReservations:req.body.maxNumberOfReservations, owner:req.body.owner, user:req.body.user, locations: req.body.locations.split(',').sort()}, {
         new: true,
         runValidators: true,
         useFindAndModify: false
