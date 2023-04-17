@@ -6,19 +6,20 @@ import TripCard from "../components/tripCard";
 import Slider from "rc-slider"
 import 'rc-slider/assets/index.css';
 
-const createSliderWithTooltip = Slider.createSliderWithTooltip;
-
 const Trips = () => {
 
     const locations = [
-        'Brac',
+        'Brač',
         'Hvar',
-        'Korcula'
+        'Korčula',
+        'Šolta'
     ]
 
     const [currentPage, setCurrentPage] = useState(1)
-    const [price, setPrice] = useState([1,200])
-    const [showingPrice, setShowingPrice] = useState([1,200])
+    const [priceAdult, setPriceAdult] = useState([1,200])
+    const [showingPriceAdult, setShowingPriceAdult] = useState([1,200])
+    const [priceChild, setPriceChild] = useState([1,200])
+    const [showingPriceChild, setShowingPriceChild] = useState([1,200])
     const [location, setLocation] = useState([])
     const [checkedState, setCheckedState] = useState(new Array(locations.length).fill(false))
     const [rating, setRating] = useState(0)
@@ -30,8 +31,8 @@ const Trips = () => {
     const { loading, trips, error, count, resPerPage } = useSelector(state => state.trips)
 
     useEffect(()=> {
-        dispatch(getNextTrips(price, location))
-    },[dispatch, price, location])
+        dispatch(getNextTrips(priceAdult, priceChild, location))
+    },[dispatch, priceAdult, priceChild, location])
 
     function setCurrentPageNo(pageNumber) {
         setCurrentPage(pageNumber)
@@ -56,16 +57,16 @@ const Trips = () => {
     return (
         <div className="mx-auto max-w-screen-xl flex w-full py-10">
             {loading ? <Loader /> : (
-                <div className="flex w-full">
-                    <div className="pl-5 pr-10 w-1/4">
+                <div className="flex flex-col md:flex-row md:w-full">
+                    <div className="pl-5 pr-10 md:w-1/4">
                         <div className="text-lg font-semibold">
                             FILTERS
                         </div>
                         <div className="text-start font-semibold">
-                            Price
+                            Price Adult
                         </div>
                         <div className="text-start">
-                            {showingPrice[0]}€-{showingPrice[1]}€
+                            {showingPriceAdult[0]}€-{showingPriceAdult[1]}€
                         </div>
                         <Slider
                             range
@@ -77,11 +78,35 @@ const Trips = () => {
                                 placement: "top",
                                 visible: true
                             }}
-                            value={showingPrice}
-                            onChange={showingPrice => setShowingPrice(showingPrice)}
-                            onAfterChange={showingPrice => {
-                                setPrice(showingPrice)
-                                setShowingPrice(showingPrice)
+                            value={showingPriceAdult}
+                            onChange={showingPriceAdult => setShowingPriceAdult(showingPriceAdult)}
+                            onAfterChange={showingPriceAdult => {
+                                setPriceAdult(showingPriceAdult)
+                                setShowingPriceAdult(showingPriceAdult)
+                            }}
+                        />
+                        <hr className="my-5"/>
+                        <div className="text-start font-semibold">
+                            Price Child
+                        </div>
+                        <div className="text-start">
+                            {showingPriceChild[0]}€-{showingPriceChild[1]}€
+                        </div>
+                        <Slider
+                            range
+                            min={1}
+                            max={200}
+                            defaultValue={[1, 200]}
+                            tipFormatter={value => `${value}€`}
+                            tipProps={{
+                                placement: "top",
+                                visible: true
+                            }}
+                            value={showingPriceChild}
+                            onChange={showingPriceChild => setShowingPriceChild(showingPriceChild)}
+                            onAfterChange={showingPriceChild => {
+                                setPriceChild(showingPriceChild)
+                                setShowingPriceChild(showingPriceChild)
                             }}
                         />
                         <hr className="my-5"/>
@@ -102,7 +127,7 @@ const Trips = () => {
                         </div>
 
                         </div>
-                    <div className="flex flex-col pb-3 pl-10 sm:w-3/4">
+                    <div className="flex flex-col pb-3 px-5 md:pl-10 md:w-3/4">
                         {trips && trips.map((trip) => (
                             <TripCard key={trip._id} trip={trip}/>
                         ))}

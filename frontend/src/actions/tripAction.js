@@ -91,7 +91,7 @@ export const getTripsDetails = (id) => async (dispatch) => {
     }
 }
 
-export const getNextTrips = (price, location) => async (dispatch) => {
+export const getNextTrips = (priceAdult, priceChild, location, rating=0) => async (dispatch) => {
     try {
 
         dispatch({ type: NEXT_TRIPS_REQUEST })
@@ -102,7 +102,7 @@ export const getNextTrips = (price, location) => async (dispatch) => {
             locationQuery = locationQuery + "&location=" + location;
         })
  
-        let link = `/api/v1/trips/next?priceAdult[lte]=${price[1]}&priceAdult[gte]=${price[0]}${locationQuery}`
+        let link = `/api/v1/trips/next?priceAdult[lte]=${priceAdult[1]}&priceAdult[gte]=${priceAdult[0]}&priceChild[lte]=${priceChild[1]}&priceChild[gte]=${priceChild[0]}${locationQuery}`
 
         const { data } = await axios.get(link)
 
