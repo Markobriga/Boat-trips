@@ -39,7 +39,7 @@ exports.getTrips = catchAsyncErrors( async(req, res, next) => {
 // Get all trips by boat(owner) => /api/v1/owner/trips/:id
 exports.getTripsByBoat = catchAsyncErrors( async(req, res, next) => {
     
-    const trips = await Trip.find({user: req.params.user}).sort({date: 1})
+    const trips = await Trip.find({user: req.params.user}).sort('date')
 
     res.status(200).json({
         success: true,
@@ -52,7 +52,7 @@ exports.getNextTrips = catchAsyncErrors( async(req, res, next) => {
 
     const resPerPage = 10;
 
-    const apiFeatures = new APIFeatures(Trip.find({ date: { $gt: new Date()}}).populate("boat"), req.query)
+    const apiFeatures = new APIFeatures(Trip.find({ date: { $gt: new Date()}}).populate("boat").sort('date'), req.query)
     .search()
     .filter()
     .pagination(resPerPage);
@@ -70,7 +70,7 @@ exports.getNextTrips = catchAsyncErrors( async(req, res, next) => {
 // Get all next trips by boat => /api/v1/trips/next/:boat
 exports.getNextTripsByBoat = catchAsyncErrors( async(req, res, next) => {
 
-    const trips = await Trip.find({ boat: req.params.boat ,date: { $gt: new Date()}})
+    const trips = await Trip.find({ boat: req.params.boat ,date: { $gt: new Date()}}).sort('date')
 
     res.status(200).json({
         success: true,
