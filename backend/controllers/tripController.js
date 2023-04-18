@@ -82,7 +82,7 @@ exports.getNextTripsByBoat = catchAsyncErrors( async(req, res, next) => {
 // Get a single trip => /api/v1/trip/:id
 exports.getSingleTrip = catchAsyncErrors( async(req, res, next) => {
 
-    const trip = await Trip.findById(req.params.id);
+    const trip = await Trip.findById(req.params.id).populate("boat");
 
     if (!trip) {
         return next(new ErrorHandler('No trip found', 404));

@@ -7,13 +7,13 @@ import { clearErrors, getTripsDetails } from "../actions/tripAction";
 import { getBoatDetails } from "../actions/boatAction";
 import { MinusIcon, PlusIcon } from "@heroicons/react/24/outline";
 import { addTripToCart } from "../actions/cartAction";
+import ImageSlider from "../components/ImageSlider";
 
 const TripDetails = () => {
 
     const dispatch = useDispatch();
     const { id } = useParams()
     const { loading, error, trip } = useSelector(state => state.tripDetails)
-    const { loadingBoat, boat } = useSelector(state => state.boatDetails)
 
     const [adult, setAdult] = useState(1)
     const [child, setChild] = useState(0)
@@ -23,19 +23,12 @@ const TripDetails = () => {
     useEffect(() => {
 
         dispatch(getTripsDetails(id))
-        if(trip)
-            dispatch(getBoatDetails(trip.boat))
 
         if (error) {
             console.log(error)
             dispatch(clearErrors())
         }
     },[dispatch, error, id])
-
-    useEffect(() => {
-        if(trip)
-            dispatch(getBoatDetails(trip.boat))
-    },[trip])
 
     const checkoutHandler = () => {
         dispatch(addTripToCart(id, adult, child))
@@ -44,18 +37,22 @@ const TripDetails = () => {
 
     return (
         <div className="max-w-screen-xl mx-auto flex justify-center">
-            { (loading && loadingBoat) ?
+            { (loading) ?
             <div className="justify-center">
                 <Loader />
             </div> : 
+            trip &&
             <div className="py-8 w-full mx-4">
+                
                 <div className="font-bold text-2xl pb-5 w-3/4">
-                    {boat.name}
+                    {trip.tripName}
                 </div>
-                {trip &&
+                
                 <div className="flex">
                     <div className="mr-10 flex-auto w-3/4">
-                        <img className="rounded-md" src={require('../images/Makarski-Jadran.jpg')} alt="" />
+                        { trip.boat.images &&
+                            <ImageSlider images={trip.boat.images}/>
+                        }
                     </div>
                     <div className="w-1/4">
                         <div className="font-semibold text-xl pb-2">
@@ -77,7 +74,7 @@ const TripDetails = () => {
                                         <MinusIcon className="h-6 w-6" /> 
                                     </button>
                                     <div className="w-7 text-center">{adult}</div>
-                                    <button type="button" disabled={adult+child+trip.numberOfReservations>boat.maxNumberOfReservations} onClick={()=>{setAdult(adult+1)}} className="bg-gray-100 rounded-md ">
+                                    <button type="button" disabled={adult+child+trip.numberOfReservations>trip.boat.maxNumberOfReservations} onClick={()=>{setAdult(adult+1)}} className="bg-gray-100 rounded-md ">
                                         <PlusIcon className="h-6 w-6" /> 
                                     </button>
                                 </div>
@@ -92,7 +89,7 @@ const TripDetails = () => {
                                         <MinusIcon className="h-6 w-6" /> 
                                     </button>
                                     <div className="w-7 text-center">{child}</div>
-                                    <button type="button" disabled={adult+child+trip.numberOfReservations>boat.maxNumberOfReservations} onClick={()=>{setChild(child+1)}} className="bg-gray-100 rounded-md ">
+                                    <button type="button" disabled={adult+child+trip.numberOfReservations>trip.boat.maxNumberOfReservations} onClick={()=>{setChild(child+1)}} className="bg-gray-100 rounded-md ">
                                         <PlusIcon className="h-6 w-6" /> 
                                     </button>
                                 </div>
@@ -133,12 +130,12 @@ const TripDetails = () => {
                             </div>
                         </div>
 
-                        <button type="button" onClick={checkoutHandler} disabled={(adult+child+trip.numberOfReservations>boat.maxNumberOfReservations) || adult+child === 0} className="mt-4 py-2 bg-primary-700 text-white w-full font-medium rounded-lg">
+                        <button type="button" onClick={checkoutHandler} disabled={(adult+child+trip.numberOfReservations>trip.boat.maxNumberOfReservations) || adult+child === 0} className="mt-4 py-2 bg-primary-700 text-white w-full font-medium rounded-lg">
                             Checkout
                         </button>
                     </div>
 
-                </div>}
+                </div>
                 
                 
             </div>
