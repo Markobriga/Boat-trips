@@ -8,6 +8,8 @@ import { format } from 'date-fns'
 import ReactStars from "react-rating-stars-component";
 import { NEW_REVIEW_RESET } from "../constants/boatConstants";
 import ListReviews from "../components/ListReviews";
+import ImageSlider from "../components/ImageSlider";
+
 
 const BoatDetails = () => {
 
@@ -65,7 +67,9 @@ const BoatDetails = () => {
                 </div>
                 <div className="flex ">
                     <div className="mr-10 flex-auto w-3/4">
-                        <img className="rounded-md" src={require('../images/Makarski-Jadran.jpg')} alt="" />
+                        { boat.images &&
+                            <ImageSlider images={boat.images}/>
+                        }
                     </div>
                     <div className="border-2 rounded-md flex-auto w-1/4">
                         <div className="">
