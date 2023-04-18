@@ -62,43 +62,50 @@ const BoatDetails = () => {
                 <Loader />
             </div> : 
             <div className="py-8 w-full mx-4">
-                <div className="font-bold text-2xl pb-5 w-3/4">
+                <div className="font-bold text-2xl pb-5 lg:w-2/3">
                     {boat.name}
                 </div>
-                <div className="flex ">
-                    <div className="mr-10 flex-auto w-3/4">
+                <div className="flex flex-col lg:flex-row">
+                    <div className="mx-2 lg:ml-0 lg:mr-10 flex-auto lg:w-2/3">
                         { boat.images &&
                             <ImageSlider images={boat.images}/>
                         }
                     </div>
-                    <div className="border-2 rounded-md flex-auto w-1/4">
-                        <div className="">
+                    <div className=" flex-auto lg:w-1/3 ">
+                        <div className="text-xl font-semibold pb-2 pt-8 lg:pt-0 lg:text-start lg:pl-2">
                             Next trips
                         </div>
-                        {nextTripsByBoat.trips && nextTripsByBoat.trips.map(trip => (
-                            <Link to={`/trip/${trip._id}`} key={trip._id} className="flex">
-                                <div className="pr-2 ml-1">
-                                    {format(new Date(trip.date), 'dd.MM.yyyy')}
-                                </div>
-                                <div className="flex">
-                                    {trip.location.map(location => (
-                                        <div key={location.name} className="ml-1"> 
-                                            {location}
+                        <div className="border-2 rounded-md mx-2 lg:mx-0 lg:w-full text-start">
+                            <div className="bg-gray-100 rounded-md flex text-lg py-2 px-2">
+                                <div className="flex-1">Date</div>
+                                <div className="flex-1">Locations</div>
+                            </div>
+                            {nextTripsByBoat.trips && nextTripsByBoat.trips.length > 0 ? nextTripsByBoat.trips.map(trip => (
+                                <div>
+                                    <Link to={`/trip/${trip._id}`} key={trip._id} className="flex py-2 px-2">
+                                        <div className="flex-1">
+                                            {format(new Date(trip.date), 'dd.MM.yyyy')}
                                         </div>
-                                    ))}
+                                        <div className="flex-1">{trip.location.toString()}</div>
+                                        
+                                        
+                                    </Link>
+                                    <hr className="mx-2"></hr>
                                 </div>
-                            </Link>
-                        ))}
+                            )):
+                                <div className="px-2 py-2">There are no scheduled trips</div>
+                            }
+                        </div>
                     </div>
                 </div>
-                <div className="pt-5 w-3/4 flex flex-col">
-                    <div className="font-medium text-xl ">
+                <div className="pt-8 mx-2 lg:w-2/3 flex flex-col">
+                    <div className="font-medium text-xl mb-2">
                         Description
                     </div>
                     <div className="text-start">
                         {boat.description}
                     </div>
-                    <div className="font-medium text-xl pt-5">
+                    <div className="font-medium text-xl pt-8">
                         Reviews
                     </div>
                     {user ? 
