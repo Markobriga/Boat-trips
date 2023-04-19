@@ -43,18 +43,23 @@ const TripDetails = () => {
             </div> : 
             trip &&
             <div className="py-8 w-full mx-4">
-                
-                <div className="font-bold text-2xl pb-5 w-3/4">
-                    {trip.tripName}
+                <div className="pb-5 md:w-2/3">
+                    <span className="font-bold text-2xl ">
+                        {trip.tripName}
+                    </span>
+                    <span className="text-2xl italic pl-1.5">
+                        <Link to={`/boat/${trip.boat._id}`}>
+                            by {trip.boatName}
+                        </Link>
+                    </span>
                 </div>
-                
-                <div className="flex">
-                    <div className="mr-10 flex-auto w-3/4">
+                <div className="flex flex-col md:flex-row">
+                    <div className="mx-4 md:mx-0 md:mr-10 flex-auto w-auto md:w-2/3 ">
                         { trip.boat.images &&
                             <ImageSlider images={trip.boat.images}/>
                         }
                     </div>
-                    <div className="w-1/4">
+                    <div className="md:w-1/3 pt-5 mx-4 md:mx-0 md:pt-0">
                         <div className="font-semibold text-xl pb-2">
                                 Reservation
                             </div>

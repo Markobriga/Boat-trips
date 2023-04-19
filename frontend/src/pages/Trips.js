@@ -62,8 +62,8 @@ const Trips = () => {
     return (
         <div className="mx-auto max-w-screen-xl flex w-full py-10">
             {loading ? <Loader /> : (
-                <div className="flex flex-col md:flex-row md:w-full">
-                    <div className="pl-5 pr-10 md:w-1/4">
+                <div className="flex flex-col lg:flex-row w-full">
+                    <div className="pl-5 pr-10 pb-5 lg:w-1/4">
                         <div className="text-lg font-semibold">
                             FILTERS
                         </div>
@@ -139,7 +139,7 @@ const Trips = () => {
                         </div>
 
                         </div>
-                    <div className="flex flex-col pb-3 px-5 md:pl-10 md:w-3/4">
+                    <div className="flex flex-col pb-3 px-5 lg:pl-10 lg:w-3/4">
                         {trips && trips.map((trip) => (
                             <TripCard key={trip._id} trip={trip}/>
                         ))}
