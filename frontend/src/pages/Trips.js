@@ -5,6 +5,7 @@ import { getNextTrips } from '../actions/tripAction'
 import TripCard from "../components/tripCard";
 import Slider from "rc-slider"
 import 'rc-slider/assets/index.css';
+import DateComponent from "../components/Date";
 
 const Trips = () => {
 
@@ -22,17 +23,16 @@ const Trips = () => {
     const [showingPriceChild, setShowingPriceChild] = useState([1,200])
     const [location, setLocation] = useState([])
     const [checkedState, setCheckedState] = useState(new Array(locations.length).fill(false))
-    const [rating, setRating] = useState(0)
-
-    
+    const [date, setDate] = useState(new Date())
+    const [showDate, setShowDate] = useState(false)
 
     const dispatch = useDispatch()
 
     const { loading, trips, error, count, resPerPage } = useSelector(state => state.trips)
 
     useEffect(()=> {
-        dispatch(getNextTrips(priceAdult, priceChild, location))
-    },[dispatch, priceAdult, priceChild, location])
+        dispatch(getNextTrips(priceAdult, priceChild, location, date, showDate))
+    },[dispatch, priceAdult, priceChild, location, date, showDate])
 
     function setCurrentPageNo(pageNumber) {
         setCurrentPage(pageNumber)
@@ -54,6 +54,11 @@ const Trips = () => {
         setLocation(temp)
     }
 
+    const handleChange = (selectedDate) => {
+        setDate(selectedDate)
+        setShowDate(true)
+    }
+
     return (
         <div className="mx-auto max-w-screen-xl flex w-full py-10">
             {loading ? <Loader /> : (
@@ -62,6 +67,13 @@ const Trips = () => {
                         <div className="text-lg font-semibold">
                             FILTERS
                         </div>
+                        <div className="relative">
+                            <div className="text-start font-semibold">
+                                Date
+                            </div>
+                            <DateComponent initialDate={date} handleChange={handleChange}/>
+                        </div>
+                        <hr className="my-5"/>
                         <div className="text-start font-semibold">
                             Price Adult
                         </div>
