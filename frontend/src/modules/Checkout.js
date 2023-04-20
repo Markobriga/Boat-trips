@@ -119,8 +119,8 @@ const Checkout = ({ formStep, nextFormStep, prevFormStep}) => {
     return (
         <div className={formStep === 1 ? "flex max-w-screen-xl w-full mx-auto" : "hidden"}>
             {loading ? <Loader /> : (
-            <div className="flex w-full">    
-            <div className="w-1/2 pr-5">
+            <div className="flex w-full flex-col sm:flex-row">    
+            <div className="px-4 sm:px-0 sm:w-1/2 sm:pr-5">
                 <div className="text-start text-2xl py-2">
                     Payment details
                 </div>
@@ -139,7 +139,7 @@ const Checkout = ({ formStep, nextFormStep, prevFormStep}) => {
                     </div>
                 
                 </div>
-                <div className="flex justify-between">
+                <div className="hidden sm:flex justify-between">
                     <button onClick={prevFormStep} className="mt-10 text-white bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:ring-primary-300 font-medium rounded-lg text-sm px-4 lg:px-5 py-2 lg:py-2.5 mr-2 dark:bg-primary-600 dark:hover:bg-primary-700 focus:outline-none dark:focus:ring-primary-800">
                         Back
                     </button> 
@@ -148,7 +148,7 @@ const Checkout = ({ formStep, nextFormStep, prevFormStep}) => {
                     </button>
                 </div>
             </div>
-            <div className="w-1/2 pl-5">
+            <div className="px-4 sm:px-0 sm:w-1/2 sm:pl-5">
                 <div className="border flex flex-col items-start rounded-lg mt-4 px-4">
                     <div className="font-medium py-3">
                         Reservation summary
@@ -162,7 +162,7 @@ const Checkout = ({ formStep, nextFormStep, prevFormStep}) => {
                             <div>Adults x</div>
                             <div>{order?.amountAdult}</div>
                         </div>
-                        <div>{order?.amountAdult*order?.priceAdult}€</div>
+                        <div>{(order?.amountAdult*order?.priceAdult).toFixed(2)}€</div>
                     </div>
                     {order?.amountChild > 0 && (
                         <div className="flex justify-between w-full text-sm">
@@ -170,7 +170,7 @@ const Checkout = ({ formStep, nextFormStep, prevFormStep}) => {
                                 <div>Children x</div>
                                 <div>{order?.amountChild}</div>
                             </div>
-                        <div>{order?.amountChild*order?.priceChild}€</div>
+                        <div>{(order?.amountChild*order?.priceChild).toFixed(2)}€</div>
                     </div>
                     )}
                     <hr className="w-full my-3"></hr>
@@ -179,12 +179,20 @@ const Checkout = ({ formStep, nextFormStep, prevFormStep}) => {
                             Total (EUR)
                         </div>
                         <div>
-                            {order?.amountAdult*order?.priceAdult + order?.amountChild*order?.priceChild}€
+                            {(order?.amountAdult*order?.priceAdult + order?.amountChild*order?.priceChild).toFixed(2)}€
                         </div>
                     </div>
                 </div>
 
             </div>
+            <div className="sm:hidden flex justify-between px-4">
+                    <button onClick={prevFormStep} className="mt-10 text-white bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:ring-primary-300 font-medium rounded-lg text-sm px-4 lg:px-5 py-2 lg:py-2.5 dark:bg-primary-600 dark:hover:bg-primary-700 focus:outline-none dark:focus:ring-primary-800">
+                        Back
+                    </button> 
+                    <button id="pay_btn" onClick={submitHandler} className="mt-10 text-white bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:ring-primary-300 font-medium rounded-lg text-sm px-4 lg:px-5 py-2 lg:py-2.5 dark:bg-primary-600 dark:hover:bg-primary-700 focus:outline-none dark:focus:ring-primary-800">
+                        PAY
+                    </button>
+                </div>
             </div>)}
         </div>
     )
