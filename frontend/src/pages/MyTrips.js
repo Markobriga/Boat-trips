@@ -20,7 +20,8 @@ const MyTrips = () => {
     },[user])
 
     return(
-        <div className="mx-auto max-w-screen-xl flex w-full">
+        <div className="mx-auto max-w-screen-xl w-full">
+            <div className="flex">
             <Sidebar />
             {loading ? <Loader /> :
             <div className="w-full">
@@ -32,7 +33,7 @@ const MyTrips = () => {
                         Add new trip
                     </Link>
                 </div>
-                
+                <div className="hidden md:block">
                 <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
                     <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
                         <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
@@ -77,9 +78,60 @@ const MyTrips = () => {
                         </tbody>
                     </table>
                 </div>
+                </div>
 
             </div>
+
             }
+            </div>
+            {!loading && (
+                <div className="block md:hidden">
+                <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
+                    <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+                        <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                            <tr>
+                                <th scope="col" className="px-6 py-3">
+                                    Trip name
+                                </th>
+                                <th scope="col" className="px-6 py-3">
+                                    Date
+                                </th>
+                                <th scope="col" className="px-6 py-3">
+                                    Locations
+                                </th>
+                                <th scope="col" className="px-6 py-3">
+                                    Number of reservations
+                                </th>
+                                <th scope="col" className="px-6 py-3">
+                                    Action
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {tripsByBoat.trips && tripsByBoat.trips.map((trip, index) => (
+                                <tr className={index%2==0 ? "bg-white border-b dark:bg-gray-900 dark:border-gray-700" : "border-b bg-gray-50 dark:bg-gray-800 dark:border-gray-700"}>
+                                    <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                        {trip.tripName}
+                                    </th>
+                                    <td className="px-6 py-4">
+                                        {format(new Date(trip.date), 'dd.MM.yyyy')}
+                                    </td>
+                                    <td className="px-6 py-4">
+                                        {trip.location.toString()}
+                                    </td>
+                                    <td className="px-6 py-4">
+                                        {trip.numberOfReservations}
+                                    </td>
+                                    <td className="px-6 py-4">
+                                        <Link to={`/owner/trip/${trip._id}`} className="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</Link>
+                                    </td>
+                                </tr>
+                            ))}
+                        </tbody>
+                    </table>
+                </div>
+                </div>
+            )}
         </div>
     )
 }
