@@ -295,3 +295,23 @@ exports.deleteUser = catchAsyncErrors( async (req, res, next) => {
         success: true
     })
 })
+
+// Delete a booker => /api/v1/owner/booker/:id
+exports.deleteBooker = catchAsyncErrors( async (req, res, next) => {
+
+    let booker = await User.findById(req.params.id);
+
+    if(!booker) {
+        return next(new ErrorHandler('Booker not found',404));
+    }
+
+    if(booker.role !== 'booker') {
+        return next(new ErrorHandler('Not having the permission',403))
+    }
+
+    booker = await User.findByIdAndRemove(req.params.id)
+
+    res.status(200).json({
+        success: true
+    })
+})

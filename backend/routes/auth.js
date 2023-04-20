@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 
-const { registerUser, loginUser, forgotPassword, resetPassword, getUserProfile, updatePassword, updateProfile, logout, getAllUsers, getUser, updateUser, deleteUser, registerOwner, registerBooker, getAllOwners, getAllBookers } = require('../controllers/authController');
+const { registerUser, loginUser, forgotPassword, resetPassword, getUserProfile, updatePassword, updateProfile, logout, getAllUsers, getUser, updateUser, deleteUser, registerOwner, registerBooker, getAllOwners, getAllBookers, deleteBooker } = require('../controllers/authController');
 
 const { isAuthenticatedUser, authorizeRoles } = require('../middlewares/auth');
 
@@ -20,6 +20,7 @@ router.route('/logout').get(logout);
 router.route('/admin/register/owner').post(isAuthenticatedUser, authorizeRoles('admin') ,registerOwner)
 router.route('/owner/register/booker').post(isAuthenticatedUser, authorizeRoles('owner') ,registerBooker)
 router.route('/owner/bookers/:id').get(isAuthenticatedUser, authorizeRoles('owner') ,getAllBookers)
+router.route('/owner/booker/:id').delete(isAuthenticatedUser, authorizeRoles('owner') ,deleteBooker)
 
 router.route('/admin/users').get(isAuthenticatedUser, authorizeRoles('admin'), getAllUsers);
 router.route('/admin/owners').get(isAuthenticatedUser, authorizeRoles('admin'), getAllOwners);
