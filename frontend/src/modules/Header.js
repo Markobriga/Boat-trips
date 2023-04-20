@@ -16,7 +16,9 @@ const Header = () => {
     const {user, loading} = useSelector(state=>state.auth);
 
     const logoutHandler = () => {
+        setMobileMenuOpen(false)
         dispatch(logout());
+        
     }
 
     return (
@@ -29,9 +31,9 @@ const Header = () => {
                     </a>
                     <div className="flex items-center lg:order-2">
                         {user ? (
-                            <div>
+                            <div className='flex items-center'>
                                 <DropdownHeader user={user} />
-                                <Link to="/" onClick={logoutHandler} className="text-white bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:ring-primary-300 font-medium rounded-lg text-sm px-4 lg:px-5 py-2 lg:py-2.5 mr-2 dark:bg-primary-600 dark:hover:bg-primary-700 focus:outline-none dark:focus:ring-primary-800">Logout</Link>
+                                <Link to="/" onClick={logoutHandler} className="hidden sm:flex text-white bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:ring-primary-300 font-medium rounded-lg text-sm px-4 lg:px-5 py-2 lg:py-2.5 mr-2 dark:bg-primary-600 dark:hover:bg-primary-700 focus:outline-none dark:focus:ring-primary-800">Logout</Link>
                             </div>
                         ) : !loading && (
                             <div>
@@ -51,11 +53,6 @@ const Header = () => {
                             <div className="flex items-center justify-between">
                                 <a href="#" className="-m-1.5 p-1.5">
                                 <span className="sr-only">Your Company</span>
-                                <img
-                                    className="h-8 w-auto"
-                                    src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600"
-                                    alt=""
-                                />
                                 </a>
                                 <button
                                 type="button"
@@ -106,20 +103,30 @@ const Header = () => {
                                     </Link>
                                 </div>
                                 <div className="py-6">
-                                    <Link
-                                    to="/login"
-                                    onClick={() => setMobileMenuOpen(false)}
-                                    className="-mx-3 block rounded-lg py-2 px-3 text-base font-semibold leading-7 text-white hover:bg-gray-50 hover:text-primary-700 "
+                                    {user ? (<Link
+                                    to="/"
+                                    onClick={logoutHandler}
+                                    className="-mx-3 block sm:hidden rounded-lg py-2 px-3 text-base font-semibold leading-7 text-white hover:bg-gray-50 hover:text-primary-700 "
                                     >
-                                    Log in
-                                    </Link>
-                                    <Link
-                                    to="/register"
-                                    onClick={() => setMobileMenuOpen(false)}
-                                    className="-mx-3 block rounded-lg py-2 px-3 text-base font-semibold leading-7 text-white hover:bg-gray-50 hover:text-primary-700 "
-                                    >
-                                    Sign up
-                                    </Link>
+                                    Logout
+                                    </Link>) : !loading && (
+                                    <div>
+                                        <Link
+                                        to="/login"
+                                        onClick={() => setMobileMenuOpen(false)}
+                                        className="-mx-3 block rounded-lg py-2 px-3 text-base font-semibold leading-7 text-white hover:bg-gray-50 hover:text-primary-700 "
+                                        >
+                                        Log in
+                                        </Link>
+                                        <Link
+                                        to="/register"
+                                        onClick={() => setMobileMenuOpen(false)}
+                                        className="-mx-3 block rounded-lg py-2 px-3 text-base font-semibold leading-7 text-white hover:bg-gray-50 hover:text-primary-700 "
+                                        >
+                                        Sign up
+                                        </Link>
+                                    </div>
+                                    )}
                                 </div>
                                 </div>
                             </div>
