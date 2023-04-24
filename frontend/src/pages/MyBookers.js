@@ -2,10 +2,11 @@ import React, { useEffect } from "react";
 import Sidebar from "../components/Sidebar";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { allBookers } from "../actions/userAction";
+import { allBookers, deleteBooker } from "../actions/userAction";
 import { clearErrors } from "../actions/boatAction";
 import Loader from "../components/Loader";
 import { format } from "date-fns";
+import { DELETE_BOOKER_RESET } from "../constants/userConstants";
 
 const MyBookers = () => {
 
@@ -13,6 +14,7 @@ const MyBookers = () => {
 
     const { user } = useSelector(state=>state.auth)
     const { loading, error, users } = useSelector(state=>state.allUsers)
+    const { isDeleted } = useSelector(state=>state.user)
 
     useEffect(() => {
         if(user) {
@@ -23,7 +25,15 @@ const MyBookers = () => {
             console.log(error)
             dispatch(clearErrors())
         }
-    },[user])
+
+        if(isDeleted) {
+            dispatch({type: DELETE_BOOKER_RESET})
+        }
+    },[user, isDeleted])
+
+    const deleteBookerHandler = (id) => {
+        dispatch(deleteBooker(id))
+    }
 
     return (
         <div className="mx-auto max-w-screen-xl w-full">
@@ -71,7 +81,7 @@ const MyBookers = () => {
                                         {format(new Date(user.createdAt), 'dd.MM.yyyy')}
                                     </td>
                                     <td className="px-6 py-4">
-                                        <button  className="font-medium text-red-600 dark:text-red-500 hover:underline">Delete</button>
+                                        <button onClick={()=>deleteBookerHandler(user._id)} className="font-medium text-red-600 dark:text-red-500 hover:underline">Delete</button>
                                     </td>
                                 </tr>
                             ))}
@@ -115,7 +125,7 @@ const MyBookers = () => {
                                         {format(new Date(user.createdAt), 'dd.MM.yyyy')}
                                     </td>
                                     <td className="px-6 py-4">
-                                        <button  className="font-medium text-red-600 dark:text-red-500 hover:underline">Delete</button>
+                                        <button onClick={()=>deleteBookerHandler(user._id)} className="font-medium text-red-600 dark:text-red-500 hover:underline">Delete</button>
                                     </td>
                                 </tr>
                             ))}

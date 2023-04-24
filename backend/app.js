@@ -19,7 +19,7 @@ app.use(cookieParser());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(upload.array()); 
 app.use(express.static('public'));
-app.use(fileUpload());
+//app.use(fileUpload());
 
 // Import all routes
 const boats = require('./routes/boat')
