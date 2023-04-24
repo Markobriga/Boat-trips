@@ -47,6 +47,17 @@ exports.getTripsByBoat = catchAsyncErrors( async(req, res, next) => {
     })
 })
 
+// Get last 10 trips by boat(owner) => /api/v1/owner/lasttrips/:id
+exports.getLastTrips = catchAsyncErrors( async(req, res, next) => {
+
+    const trips = await Trip.find({user: req.params.user, date: { $lt: new Date()}}).sort('date').limit(10)
+
+    res.status(200).json({
+        success: true,
+        trips
+    })
+})
+
 // Get all next trips => /api/v1/trips/next
 exports.getNextTrips = catchAsyncErrors( async(req, res, next) => {
 
