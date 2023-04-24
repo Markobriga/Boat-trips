@@ -34,7 +34,6 @@ const Register = () => {
 
     const submitHandler = (e) => {
         e.preventDefault()
-        console.log(name, email, password, confirmPassword)
 
         const formData = new FormData();
         formData.set('name', name)
@@ -42,7 +41,6 @@ const Register = () => {
         formData.set('password', password)
         formData.set('confirmPassword', confirmPassword)
 
-        console.log(formData.get('name'))
         dispatch(register(formData))
     }
 
