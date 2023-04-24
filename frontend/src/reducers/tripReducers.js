@@ -161,7 +161,7 @@ export const nextTripsByBoatReducer = (state = { nextTripsByBoat: []}, action) =
     }
 }
 
-export const lastTripsByBoatReducer = (state = { lastTripsByBoat: []}, action) => {
+export const lastTripsByBoatReducer = (state = { lastTrips: []}, action) => {
     switch (action.type) {
         case LAST_TRIPS_REQUEST:
             return {
