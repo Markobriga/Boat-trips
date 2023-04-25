@@ -28,12 +28,19 @@ const Dashboard = () => {
                     <div className="text-start py-3 px-3 font-medium text-xl">
                         Dashboard
                     </div>
-                    <div className="">
+                    <div className="h-80 hidden md:block">
                         {lastTrips.trips && <VerticalBar trips={lastTrips.trips}/>}
                     </div>
                 </div>
                 }
             </div>
+            {!loading && (
+                <div className="md:hidden block">
+                    <div className="h-60">
+                        {lastTrips.trips && <VerticalBar trips={lastTrips.trips}/>}
+                    </div>
+                </div>
+            )}
         </div>
     )
 }

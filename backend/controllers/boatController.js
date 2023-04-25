@@ -52,6 +52,17 @@ exports.getBoats = catchAsyncErrors( async(req, res, next) => {
     })
 })
 
+// Get all boats (admin) => /api/v1/admin/boats
+exports.getAdminBoats = catchAsyncErrors( async(req, res, next) => {
+
+    const boats = await Boat.find().populate('user')
+
+    res.status(200).json({
+        success: true,
+        boats
+    })
+})
+
 // Get single boat details => /api/v1/boat/:id
 exports.getSingleBoat = catchAsyncErrors( async(req, res, next) => {
 

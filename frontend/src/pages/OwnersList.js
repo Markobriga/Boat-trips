@@ -2,16 +2,17 @@ import React, {useEffect} from "react";
 import Sidebar from "../components/Sidebar";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { allOwners, clearErrors } from "../actions/userAction";
+import { clearErrors, getAdminBoats } from "../actions/boatAction";
+
 
 const OwnersList = () => {
 
     const dispatch = useDispatch()
 
-    const { loading, error, users } = useSelector(state=>state.allUsers)
+    const { boats, loading, error } = useSelector(state=> state.boats)
 
     useEffect(() => {
-        dispatch(allOwners())
+        dispatch(getAdminBoats())
 
         if(error) {
             console.log(error)
@@ -31,24 +32,26 @@ const OwnersList = () => {
                         Add new owner
                     </Link>
                 </div>
-                <table className="mb-10">
-                    <thead>
-                        <tr>
-                            <th className="px-10">Name</th>
-                            <th className="px-10">Email</th>
-                            <th className="px-10">Boat</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {users.map(user => (
-                            <tr key={user._id}>
-                                <td className="px-10">{user.name}</td>
-                                <td className="px-10">{user.email}</td>
-                                <td className="px-10">{user.boat?.name}</td>
+                <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
+                    <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+                        <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                            <tr>
+                                <th scope="col" className="px-6 py-3">Name</th>
+                                <th scope="col" className="px-6 py-3">Email</th>
+                                <th scope="col" className="px-6 py-3">Boat</th>
                             </tr>
-                        ))}
-                    </tbody>
-                </table>
+                        </thead>
+                        <tbody>
+                            {boats.map((boat, index) => (
+                                <tr key={boat._id} className={index%2==0 ? "bg-white border-b dark:bg-gray-900 dark:border-gray-700" : "border-b bg-gray-50 dark:bg-gray-800 dark:border-gray-700"}>
+                                    <td scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">{boat?.user?.name}</td>
+                                    <td className="px-6 py-4">{boat?.user?.email}</td>
+                                    <td className="px-6 py-4">{boat.name}</td>
+                                </tr>
+                            ))}
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
     )

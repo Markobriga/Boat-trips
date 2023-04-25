@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { ALL_BOATS_REQUEST, ALL_BOATS_SUCCESS, ALL_BOATS_FAIL, BOAT_DETAILS_REQUEST, BOAT_DETAILS_SUCCESS, BOAT_DETAILS_FAIL, NEW_REVIEW_REQUEST, NEW_REVIEW_SUCCESS, NEW_REVIEW_FAIL, NEW_BOAT_REQUEST, NEW_BOAT_SUCCESS, NEW_BOAT_FAIL, UPDATE_BOAT_REQUEST, UPDATE_BOAT_SUCCESS, UPDATE_BOAT_FAIL, BOAT_BY_OWNER_REQUEST, BOAT_BY_OWNER_SUCCESS, BOAT_BY_OWNER_FAIL, CLEAR_ERRORS} from '../constants/boatConstants'
+import { ALL_BOATS_REQUEST, ALL_BOATS_SUCCESS, ALL_BOATS_FAIL, BOAT_DETAILS_REQUEST, BOAT_DETAILS_SUCCESS, BOAT_DETAILS_FAIL, NEW_REVIEW_REQUEST, NEW_REVIEW_SUCCESS, NEW_REVIEW_FAIL, NEW_BOAT_REQUEST, NEW_BOAT_SUCCESS, NEW_BOAT_FAIL, UPDATE_BOAT_REQUEST, UPDATE_BOAT_SUCCESS, UPDATE_BOAT_FAIL, BOAT_BY_OWNER_REQUEST, BOAT_BY_OWNER_SUCCESS, BOAT_BY_OWNER_FAIL, ALL_ADMIN_BOATS_REQUEST, ALL_ADMIN_BOATS_SUCCESS, ALL_ADMIN_BOATS_FAIL, CLEAR_ERRORS} from '../constants/boatConstants'
 
 export const getBoats = () => async (dispatch) => {
     try {
@@ -107,6 +107,28 @@ export const getBoatByOwner = (id) => async (dispatch) => {
             type: BOAT_BY_OWNER_FAIL,
             payload: error.response.data.message
         })
+    }
+}
+
+export const getAdminBoats = () => async (dispatch) => {
+    try {
+
+        dispatch({ type: ALL_ADMIN_BOATS_REQUEST })
+
+        const { data } = await axios.get('/api/v1/admin/boats')
+
+        dispatch({
+            type: ALL_ADMIN_BOATS_SUCCESS,
+            payload: data.boats
+        })
+
+    } catch (error) {
+
+        dispatch({
+            type:ALL_ADMIN_BOATS_FAIL,
+            payload: error.response.data.message
+        })
+
     }
 }
 
