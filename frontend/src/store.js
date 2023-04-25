@@ -7,6 +7,7 @@ import { authReducer, userReducer, forgotPasswordReducer, allUsersReducer } from
 import { tripsReducer, tripDetailsReducer, nextTripsByBoatReducer, newTripReducer, tripsByBoatReducer, tripReducer, lastTripsByBoatReducer } from './reducers/tripReducers'
 import { cartReducer } from './reducers/cartReducers'
 import { myReservationsReducer, newReservationReducer } from './reducers/reservationReducers'
+import { newPostReducer, postDetailsReducer, postReducer, postsReducer } from './reducers/postReducers'
 
 const reducer = combineReducers({
     boats: boatsReducer,
@@ -28,7 +29,11 @@ const reducer = combineReducers({
     allUsers: allUsersReducer,
     newReservation: newReservationReducer,
     myReservations: myReservationsReducer,
-    newReview: newReviewReducer
+    newReview: newReviewReducer,
+    posts: postsReducer,
+    newPost: newPostReducer,
+    post: postReducer,
+    postDetails: postDetailsReducer
 })
 
 let initialState = {
