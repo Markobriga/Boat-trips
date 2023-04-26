@@ -38,6 +38,7 @@ import Blog from './pages/Blog';
 import PostDetails from './pages/PostDetails';
 import BlogAdmin from './pages/BlogAdmin';
 import NewPost from './pages/NewPost';
+import UpdatePost from './pages/UpdatePost';
 
 function App() {
 
@@ -104,6 +105,9 @@ function App() {
           </ProtectedRoute>} exact />
           <Route path="/admin/post/new" element={<ProtectedRoute>
             <NewPost />
+          </ProtectedRoute>} exact />
+          <Route path="/admin/post/:id" element={<ProtectedRoute>
+            <UpdatePost />
           </ProtectedRoute>} exact />
           <Route path="/owner/boat" element={<ProtectedRoute>
             <MyBoat />
