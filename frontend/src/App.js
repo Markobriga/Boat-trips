@@ -36,6 +36,7 @@ import MyBookers from './pages/MyBookers';
 import NewBooker from './pages/NewBooker';
 import Blog from './pages/Blog';
 import PostDetails from './pages/PostDetails';
+import BlogAdmin from './pages/BlogAdmin';
 
 function App() {
 
@@ -96,6 +97,9 @@ function App() {
           </ProtectedRoute>} exact />
           <Route path="/admin/owner" element={<ProtectedRoute>
             <NewOwner />
+          </ProtectedRoute>} exact />
+          <Route path="/admin/blog" element={<ProtectedRoute>
+            <BlogAdmin />
           </ProtectedRoute>} exact />
           <Route path="/owner/boat" element={<ProtectedRoute>
             <MyBoat />
