@@ -34,6 +34,8 @@ import NewTrip from './pages/NewTrip';
 import UpdateTrip from './pages/UpdateTrip';
 import MyBookers from './pages/MyBookers';
 import NewBooker from './pages/NewBooker';
+import Blog from './pages/Blog';
+import PostDetails from './pages/PostDetails';
 
 function App() {
 
@@ -56,6 +58,8 @@ function App() {
         <Header />
         <Routes>
           <Route path="/" Component={Home} exact />
+          <Route path='/blog' Component={Blog} exact />
+          <Route path='/blog/:id' Component={PostDetails} exact />
           <Route path="/trips" Component={Trips} exact />
           <Route path="/trip/:id" Component={TripDetails} exact />
           <Route path="/boats" Component={Boats} exact/>
