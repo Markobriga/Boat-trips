@@ -66,6 +66,13 @@ const Header = () => {
                             <div className="mt-6 flow-root">
                                 <div className="-my-6 divide-y divide-gray-500/10">
                                 <div className="space-y-2 py-6">
+                                <Link
+                                    to="/"
+                                    onClick={() => setMobileMenuOpen(false)}
+                                    className="-mx-3 block rounded-lg py-2 px-3 text-base font-semibold leading-7 text-white hover:bg-gray-50 hover:text-primary-700 "
+                                    >
+                                    Home
+                                    </Link>
                                     <Link
                                     to="trips"
                                     onClick={() => setMobileMenuOpen(false)}
@@ -81,13 +88,6 @@ const Header = () => {
                                     Boats
                                     </Link>
                                     <Link
-                                    to="aboutus"
-                                    onClick={() => setMobileMenuOpen(false)}
-                                    className="-mx-3 block rounded-lg py-2 px-3 text-base font-semibold leading-7 text-white hover:bg-gray-50 hover:text-primary-700 "
-                                    >
-                                    About us
-                                    </Link>
-                                    <Link
                                     to="/blog"
                                     onClick={() => setMobileMenuOpen(false)}
                                     className="-mx-3 block rounded-lg py-2 px-3 text-base font-semibold leading-7 text-white hover:bg-gray-50 hover:text-primary-700 "
@@ -95,12 +95,12 @@ const Header = () => {
                                     Blog
                                     </Link>
                                     <Link
-                                    to="/contact"
+                                    to="aboutus"
                                     onClick={() => setMobileMenuOpen(false)}
                                     className="-mx-3 block rounded-lg py-2 px-3 text-base font-semibold leading-7 text-white hover:bg-gray-50 hover:text-primary-700 "
                                     >
-                                    Contact
-                                    </Link>
+                                    About us
+                                    </Link> 
                                 </div>
                                 <div className="py-6">
                                     {user ? (<Link
@@ -140,20 +140,20 @@ const Header = () => {
                     <div className="hidden justify-between items-center w-full lg:flex lg:w-auto lg:order-1" >
                         <ul className="flex flex-col mt-4 font-medium lg:flex-row lg:space-x-8 lg:mt-0 text-lg text-white">
                             <li>
+                                <Link to="/" className="block py-2 pr-4 pl-3  border-b border-gray-100 hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 lg:hover:text-primary-700 lg:p-0 dark:text-gray-400 lg:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white lg:dark:hover:bg-transparent dark:border-gray-700">Home</Link>
+                            </li>
+                            <li>
                                 <Link to="/trips" className="block py-2 pr-4 pl-3  border-b border-gray-100 hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 lg:hover:text-primary-700 lg:p-0 dark:text-gray-400 lg:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white lg:dark:hover:bg-transparent dark:border-gray-700">Boat trips</Link>
                             </li>
                             <li>
                                 <Link to="/boats" className="block py-2 pr-4 pl-3  border-b border-gray-100 hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 lg:hover:text-primary-700 lg:p-0 dark:text-gray-400 lg:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white lg:dark:hover:bg-transparent dark:border-gray-700">Boats</Link>
                             </li>
                             <li>
-                                <Link to="/aboutus" className="block py-2 pr-4 pl-3  border-b border-gray-100 hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 lg:hover:text-primary-700 lg:p-0 dark:text-gray-400 lg:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white lg:dark:hover:bg-transparent dark:border-gray-700">About us</Link>
-                            </li>
-                            <li>
                                 <Link to="/blog" className="block py-2 pr-4 pl-3  border-b border-gray-100 hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 lg:hover:text-primary-700 lg:p-0 dark:text-gray-400 lg:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white lg:dark:hover:bg-transparent dark:border-gray-700">Blog</Link>
                             </li>
                             <li>
-                                <Link to="/contact" className="block py-2 pr-4 pl-3  border-b border-gray-100 hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 lg:hover:text-primary-700 lg:p-0 dark:text-gray-400 lg:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white lg:dark:hover:bg-transparent dark:border-gray-700">Contact</Link>
-                            </li>
+                                <Link to="/aboutus" className="block py-2 pr-4 pl-3  border-b border-gray-100 hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 lg:hover:text-primary-700 lg:p-0 dark:text-gray-400 lg:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white lg:dark:hover:bg-transparent dark:border-gray-700">About us</Link>
+                            </li> 
                         </ul>
                     </div>
                 </div>
