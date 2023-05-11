@@ -41,3 +41,19 @@ async function updateNumberOfReservations(id, quantity) {
     trip.numberOfReservations = trip.numberOfReservations + quantity;
     await trip.save({validateBeforeSave: false});
 }
+
+// Get booker reservations => /api/v1/booker/reservations/me
+exports.getBookerReservations = catchAsyncErrors( async (req, res, next) => {
+
+    const reservationsTemp = await BookerReservation.find({booker: req.user.id}).populate('trip');
+
+    const reservations = reservationsTemp.filter(reservation => {
+        let date = new Date(reservation.trip.date)
+        return (date >= new Date(req.query.startdate) && date <= new Date(req.query.enddate))
+    })
+
+    res.status(200).json({
+        success: true,
+        reservations
+    })
+})

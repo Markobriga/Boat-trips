@@ -9,7 +9,7 @@ router.route('/boats').get(getBoats);
 router.route('/boat/:id').get(getSingleBoat);
 
 router.route('/admin/boat/new').post(isAuthenticatedUser, authorizeRoles('owner'), newBoat);
-router.route('/admin/boat/:id').get(isAuthenticatedUser, authorizeRoles('owner'), getBoatByOwner)
+router.route('/admin/boat/:id').get(isAuthenticatedUser, authorizeRoles('owner', "booker"), getBoatByOwner)
 router.route('/admin/boat/:id').put(isAuthenticatedUser, authorizeRoles('owner'), updateBoat).delete(isAuthenticatedUser, authorizeRoles('admin'), deleteBoat);
 router.route('/admin/boats').get(isAuthenticatedUser, authorizeRoles('admin'), getAdminBoats)
 
