@@ -52,8 +52,18 @@ exports.getBookerReservations = catchAsyncErrors( async (req, res, next) => {
         return (date >= new Date(req.query.startdate) && date <= new Date(req.query.enddate))
     })
 
+    const totalAdult = reservations.reduce((accumulator, reservation)=> {
+        return accumulator + reservation.amountAdult;
+    },0)
+
+    const totalChild = reservations.reduce((accumulator, reservation)=> {
+        return accumulator + reservation.amountChild;
+    },0)
+
     res.status(200).json({
         success: true,
-        reservations
+        reservations,
+        totalAdult,
+        totalChild
     })
 })
