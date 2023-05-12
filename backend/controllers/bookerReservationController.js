@@ -67,3 +67,14 @@ exports.getBookerReservations = catchAsyncErrors( async (req, res, next) => {
         totalChild
     })
 })
+
+// Get all reservations (trip) => /api/v1/owner/reservations/:id
+exports.getAllTripsReservations = catchAsyncErrors( async (req, res, next) => {
+
+    const reservations = await BookerReservation.find({trip: req.params.id}).populate('booker')
+
+    res.status(200).json({
+        success: true,
+        reservations
+    })
+})
