@@ -51,6 +51,35 @@ exports.loginUser = catchAsyncErrors( async( req,res,next ) => {
     sendToken(user, 200, res);
 })
 
+// Login a booker => /api/v1/booker/login
+exports.loginBooker = catchAsyncErrors( async( req,res,next ) => {
+    const {email, password} = req.body;
+
+    // Check if email and password are entered by user
+    if(!email || !password) {
+        return next(new ErrorHandler('Please enter email and password',400));
+    }
+
+    const user = await User.findOne({email}).select('+password');
+
+    if(!user) {
+        return next(new ErrorHandler('Invalid email or password',401));
+    }
+
+    // Check if password is correct
+    const isMatch = await user.comparePassword(password);
+
+    if(!isMatch) {
+        return next(new ErrorHandler('Invalid email or password',401));
+    }
+
+    if(user.role !== 'booker' && user.role !== 'owner') {
+        return next(new ErrorHandler('Not authorized',401));
+    }
+
+    sendToken(user, 200, res);
+})
+
 // Forgot password => /api/v1/password/forgot
 exports.forgotPassword = catchAsyncErrors(async(req,res,next) => {
 
