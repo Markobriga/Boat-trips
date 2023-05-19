@@ -78,3 +78,21 @@ exports.getAllTripsReservations = catchAsyncErrors( async (req, res, next) => {
         reservations
     })
 })
+
+// Delete reservation => /api/v1/booker/reservation/:id
+exports.deleteBookerReservation = catchAsyncErrors( async (req, res, next) => {
+
+    let reservation = await BookerReservation.findById(req.params.id);
+
+    if(!reservation) {
+        return next(new ErrorHandler('Reservation not found', 404));
+    }
+
+    await updateNumberOfReservations(reservation.trip, -(reservation.amountAdult+reservation.amountChild));
+
+    reservation = await BookerReservation.findByIdAndDelete(req.params.id);
+
+    res.status(200).json({
+        success: true
+    })
+})
