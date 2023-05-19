@@ -8,11 +8,11 @@ const bookerReservationSchema = mongoose.Schema({
     },
     name: {
         type: String,
-        required: true
+        required: [true, "Please enter customer name"]
     },
     phoneNumber: {
         type: String,
-        required: true
+        required: [true, "Please enter customer phone number"]
     },
     trip: {
         type: mongoose.Schema.Types.ObjectId,
