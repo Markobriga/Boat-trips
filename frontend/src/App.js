@@ -91,40 +91,40 @@ function App() {
                 </ProtectedRoute>
               </Elements>} exact />
           }
-          <Route path="/dashboard" element={<ProtectedRoute>
+          <Route path="/dashboard" element={<ProtectedRoute roles={["admin", "owner"]}>
             <Dashboard />
           </ProtectedRoute>} exact />
-          <Route path="/admin/owners" element={<ProtectedRoute>
+          <Route path="/admin/owners" element={<ProtectedRoute roles={["admin"]}>
             <OwnersList />
           </ProtectedRoute>} exact />
-          <Route path="/admin/owner" element={<ProtectedRoute>
+          <Route path="/admin/owner" element={<ProtectedRoute roles={["admin"]}>
             <NewOwner />
           </ProtectedRoute>} exact />
-          <Route path="/admin/blog" element={<ProtectedRoute>
+          <Route path="/admin/blog" element={<ProtectedRoute roles={["admin"]}>
             <BlogAdmin />
           </ProtectedRoute>} exact />
-          <Route path="/admin/post/new" element={<ProtectedRoute>
+          <Route path="/admin/post/new" element={<ProtectedRoute roles={["admin"]}>
             <NewPost />
           </ProtectedRoute>} exact />
-          <Route path="/admin/post/:id" element={<ProtectedRoute>
+          <Route path="/admin/post/:id" element={<ProtectedRoute roles={["admin"]}> 
             <UpdatePost />
           </ProtectedRoute>} exact />
-          <Route path="/owner/boat" element={<ProtectedRoute>
+          <Route path="/owner/boat" element={<ProtectedRoute roles={["owner"]}>
             <MyBoat />
           </ProtectedRoute>} exact />
-          <Route path="/owner/trips" element={<ProtectedRoute>
+          <Route path="/owner/trips" element={<ProtectedRoute roles={["owner"]}>
             <MyTrips />
           </ProtectedRoute>} exact />
-          <Route path="/owner/trip/new" element={<ProtectedRoute>
+          <Route path="/owner/trip/new" element={<ProtectedRoute roles={["owner"]}>
             <NewTrip />
           </ProtectedRoute>} exact />
-          <Route path="/owner/trip/:id" element={<ProtectedRoute>
+          <Route path="/owner/trip/:id" element={<ProtectedRoute roles={["owner"]}>
             <UpdateTrip />
           </ProtectedRoute>} exact />
-          <Route path="/owner/bookers" element={<ProtectedRoute>
+          <Route path="/owner/bookers" element={<ProtectedRoute roles={["owner"]}>
             <MyBookers />
           </ProtectedRoute>} exact />
-          <Route path="/owner/booker/new" element={<ProtectedRoute>
+          <Route path="/owner/booker/new" element={<ProtectedRoute roles={["owner"]}>
             <NewBooker />
           </ProtectedRoute>} exact />
         </Routes>
