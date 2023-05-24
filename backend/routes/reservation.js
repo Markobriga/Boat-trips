@@ -9,7 +9,7 @@ router.route('/reservation/new').post(isAuthenticatedUser, newReservation);
 router.route('/reservation/:id').get(isAuthenticatedUser, getSingleReservation);
 router.route('/reservations/me').get(isAuthenticatedUser, getMyReservations);
 
-router.route('/admin/reservations').get(isAuthenticatedUser, authorizeRoles('admin'), getAllReservations)
+router.route('/owner/trip/reservations/:id').get(isAuthenticatedUser, authorizeRoles('owner'), getAllReservations)
 router.route('/admin/reservation/:id').get(isAuthenticatedUser, authorizeRoles('admin'), processReservation)
 .delete(isAuthenticatedUser,  authorizeRoles('admin'), deleteReservation);
 
