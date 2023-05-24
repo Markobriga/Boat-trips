@@ -6,7 +6,7 @@ import { boatsReducer, boatDetailsReducer, newReviewReducer, newBoatReducer, boa
 import { authReducer, userReducer, forgotPasswordReducer, allUsersReducer } from './reducers/userReducers'
 import { tripsReducer, tripDetailsReducer, nextTripsByBoatReducer, newTripReducer, tripsByBoatReducer, tripReducer, lastTripsByBoatReducer } from './reducers/tripReducers'
 import { cartReducer } from './reducers/cartReducers'
-import { myReservationsReducer, newReservationReducer } from './reducers/reservationReducers'
+import { allBookerReservationsReducer, allReservationsReducer, myReservationsReducer, newReservationReducer } from './reducers/reservationReducers'
 import { newPostReducer, postDetailsReducer, postReducer, postsReducer } from './reducers/postReducers'
 
 const reducer = combineReducers({
@@ -29,6 +29,8 @@ const reducer = combineReducers({
     allUsers: allUsersReducer,
     newReservation: newReservationReducer,
     myReservations: myReservationsReducer,
+    allReservations: allReservationsReducer,
+    allBookerReservations: allBookerReservationsReducer,
     newReview: newReviewReducer,
     posts: postsReducer,
     newPost: newPostReducer,
