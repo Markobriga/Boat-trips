@@ -142,7 +142,7 @@ const MyBoat = () => {
         formData.set('locations', locations)
 
         images.forEach(image => {
-            formData.append('images', image)
+            formData.append('images[]', image)
         })
 
         dispatch(updateBoat(boat._id, formData))

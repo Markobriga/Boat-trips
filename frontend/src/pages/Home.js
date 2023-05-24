@@ -63,12 +63,12 @@ const Home = () => {
                             the most exciting trips
                         </div>
                         <div className="mt-5 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2 justify-center">
-                            {trips && trips.map((trip,index) => (
-                                <div>
-                                    {popularIndex.includes(index) && 
-                                    <TripHomeCard trip={trip} key={trip._id} />}
-                                </div>
-                            ))}
+                            {trips && trips.map((trip,index) => {
+                                if(popularIndex.includes(index)) {
+                                    return <TripHomeCard trip={trip} key={trip._id} />
+                                }
+                                
+                            })}
                         </div>
                     </div>
                 }
