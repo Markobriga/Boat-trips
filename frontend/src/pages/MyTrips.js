@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import Sidebar from "../components/Sidebar";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { getTripsByBoat } from "../actions/tripAction";
 import { format } from "date-fns";
@@ -12,6 +12,7 @@ const MyTrips = () => {
 
     const { loading, error, tripsByBoat } = useSelector(state=>state.tripsByBoat)
     const { user } = useSelector(state=>state.auth)
+    const navigate = useNavigate()
     
     useEffect(() => {
         if(user) {
@@ -58,9 +59,9 @@ const MyTrips = () => {
                         <tbody>
                             {tripsByBoat.trips && tripsByBoat.trips.map((trip, index) => (
                                 <tr className={index%2==0 ? "bg-white border-b dark:bg-gray-900 dark:border-gray-700" : "border-b bg-gray-50 dark:bg-gray-800 dark:border-gray-700"}>
-                                    <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                    <button onClick={()=>navigate(`/owner/reservations/${trip._id}`)} scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                                         {trip.tripName}
-                                    </th>
+                                    </button>
                                     <td className="px-6 py-4">
                                         {format(new Date(trip.date), 'dd.MM.yyyy')}
                                     </td>
@@ -110,9 +111,9 @@ const MyTrips = () => {
                         <tbody>
                             {tripsByBoat.trips && tripsByBoat.trips.map((trip, index) => (
                                 <tr className={index%2==0 ? "bg-white border-b dark:bg-gray-900 dark:border-gray-700" : "border-b bg-gray-50 dark:bg-gray-800 dark:border-gray-700"}>
-                                    <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                    <button onClick={()=>navigate(`/owner/reservations/${trip._id}`)} scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                                         {trip.tripName}
-                                    </th>
+                                    </button>
                                     <td className="px-6 py-4">
                                         {format(new Date(trip.date), 'dd.MM.yyyy')}
                                     </td>

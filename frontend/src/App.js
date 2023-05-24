@@ -39,6 +39,7 @@ import PostDetails from './pages/PostDetails';
 import BlogAdmin from './pages/BlogAdmin';
 import NewPost from './pages/NewPost';
 import UpdatePost from './pages/UpdatePost';
+import TripReservations from './pages/TripReservations';
 
 function App() {
 
@@ -126,6 +127,9 @@ function App() {
           </ProtectedRoute>} exact />
           <Route path="/owner/booker/new" element={<ProtectedRoute roles={["owner"]}>
             <NewBooker />
+          </ProtectedRoute>} exact />
+          <Route path="/owner/reservations/:id" element={<ProtectedRoute roles={["owner"]}>
+            <TripReservations />
           </ProtectedRoute>} exact />
         </Routes>
         <Footer />
