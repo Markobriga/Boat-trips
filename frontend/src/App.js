@@ -40,6 +40,7 @@ import BlogAdmin from './pages/BlogAdmin';
 import NewPost from './pages/NewPost';
 import UpdatePost from './pages/UpdatePost';
 import TripReservations from './pages/TripReservations';
+import AboutUs from './pages/AboutUs';
 
 function App() {
 
@@ -58,7 +59,7 @@ function App() {
 
   return (
     <Router>
-      <div className="App">
+      <div className="App bg-gray-100">
         <Header />
         <Routes>
           <Route path="/" Component={Home} exact />
@@ -68,6 +69,7 @@ function App() {
           <Route path="/trip/:id" Component={TripDetails} exact />
           <Route path="/boats" Component={Boats} exact/>
           <Route path="/boat/:id" Component={BoatDetails} exact/>
+          <Route path="/aboutus" Component={AboutUs} exact/>
           <Route path="/login" Component={Login} exact/>
           <Route path="/register" Component={Register} exact/>
           <Route path="/password/forgot" Component={ForgotPassword} exact/>
