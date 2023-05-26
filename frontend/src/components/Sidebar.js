@@ -19,7 +19,7 @@ const Sidebar = () => {
             </button>
 
             <aside id="default-sidebar" className={isOpened ? `fixed z-40 top-0 left-0 h-screen md:relative md:h-auto w-64 transition-transform translate-x-0`: `fixed z-40  md:relative md:h-auto w-64 transition-transform -translate-x-full md:translate-x-0`} aria-label="Sidebar">
-                <div className="h-full px-3 py-4 overflow-y-auto bg-gray-50 dark:bg-gray-800">
+                <div className="h-full px-3 py-4 overflow-y-auto bg-white rounded-b-md shadow-md dark:bg-gray-800">
                     <ul className="space-y-2 font-medium">
                         <li>
                             <Link to="/dashboard" className="flex p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700">

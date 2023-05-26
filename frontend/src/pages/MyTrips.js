@@ -25,8 +25,8 @@ const MyTrips = () => {
             <div className="flex">
             <Sidebar />
             {loading ? <Loader /> :
-            <div className="w-full">
-                <div className="text-start py-3 px-3 font-medium text-xl flex justify-between">
+            <div className="w-full px-3">
+                <div className="text-start py-3 font-medium text-xl flex justify-between">
                     <div className="font-medium text-xl">
                         My Trips
                     </div>

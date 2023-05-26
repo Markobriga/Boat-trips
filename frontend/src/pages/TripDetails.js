@@ -64,13 +64,13 @@ const TripDetails = () => {
                                 Reservation
                             </div>
                         <div className="border rounded-md text-start">
-                            <div className="bg-gray-100 rounded-md  text-lg py-2">
-                                <div className="pl-4">
+                            <div className="bg-gray-700 rounded-t-md  text-lg py-2">
+                                <div className="pl-4 text-white">
                                     Participants
                                 </div>
                             </div>
                             <hr></hr>
-                            <div className="flex py-2 pl-4 justify-between align-middle">
+                            <div className="flex py-2 pl-4 justify-between align-middle bg-white">
                                 <div className="text-sm ">
                                     Adults (13-80)
                                 </div>
@@ -85,7 +85,7 @@ const TripDetails = () => {
                                 </div>
                             </div>
                             <hr className="mx-4"></hr>
-                            <div className="flex py-2 pl-4 justify-between align-middle">
+                            <div className="flex py-2 pl-4 justify-between align-middle bg-white">
                                 <div className="text-sm ">
                                     Children (3-12)
                                 </div>
@@ -101,7 +101,7 @@ const TripDetails = () => {
                             </div>
                         </div>
 
-                        <div className="border rounded-md bg-gray-100 text-start mt-5">
+                        <div className="border rounded-md bg-white text-start mt-5">
                             <div className="bg-gray-700 rounded-t-md  text-lg py-2">
                                 <div className="pl-4 text-white">
                                     Booking summary

@@ -5,7 +5,7 @@ const AboutUs = () => {
 
     return (
         <div className=" mx-auto max-w-screen-xl flex flex-col md:flex-row w-full py-10 text-left">
-            <div className="md:w-3/5 flex flex-col bg-white p-5 rounded-md md:mr-12">
+            <div className="md:w-3/5 flex flex-col bg-white p-5 rounded-md shadow-md md:mr-12">
                 <div className=" font-medium text-3xl pb-5">
                     About Us
                 </div>
@@ -28,7 +28,7 @@ const AboutUs = () => {
                 </div>
             </div>
             <div className="md:w-2/5 pt-10 md:pt-0">
-                <div className="flex flex-col items-center bg-white p-5 rounded-md mb-10">
+                <div className="flex flex-col items-center bg-white shadow-md p-5 rounded-md mb-10">
                     <div className="font-medium text-3xl pb-3">Boat Trips</div>
                     <div className="pb-3">Follow us on social networks</div>
                     <div className='flex '>
@@ -37,7 +37,7 @@ const AboutUs = () => {
                         <div className=''><SocialIcon style={{height:30, width:30}} network="tiktok" fgColor="#ffffff"/></div>
                     </div>
                 </div>
-                <div className="flex flex-col bg-white p-5 rounded-md">
+                <div className="flex flex-col bg-white shadow-md p-5 rounded-md">
                     <div className="font-medium text-xl pb-3">CONTACT</div>
                     <div className="text-left font-medium">Mobile number</div>
                     <div className="text-left pb-5">+385 91 000 0000</div>

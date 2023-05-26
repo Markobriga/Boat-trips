@@ -44,7 +44,7 @@ const PersonalInfo = ({formStep, nextFormStep}) => {
                 <div className="text-start text-2xl py-2">
                     Main traveller's contact details
                 </div>
-                <div className="border flex flex-col items-start rounded-lg">
+                <div className="border flex flex-col items-start rounded-lg bg-white shadow-md">
                     <div className="flex flex-col px-2 w-full">
                         <label htmlFor="name" className="block mt-2 text-sm font-medium text-gray-900 dark:text-white text-start">Full Name</label>
                         <input type="name" name="name" disabled={true} value={name}  id="name" className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-60 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Full Name" required="" />          
@@ -72,7 +72,7 @@ const PersonalInfo = ({formStep, nextFormStep}) => {
                 </div>
             </div>
             <div className="px-4 sm:px-0 sm:w-1/2 sm:pl-5">
-                <div className="border flex flex-col items-start rounded-lg mt-4 px-4">
+                <div className="border flex flex-col items-start rounded-lg mt-4 px-4 bg-white shadow-md">
                     <div className="font-medium py-3">
                         Reservation summary
                     </div>

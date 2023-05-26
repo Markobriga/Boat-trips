@@ -59,8 +59,9 @@ function App() {
 
   return (
     <Router>
-      <div className="App bg-gray-100">
+      <div className="App bg-gray-100 min-h-screen flex flex-col">
         <Header />
+        <div className='flex-1'>
         <Routes>
           <Route path="/" Component={Home} exact />
           <Route path='/blog' Component={Blog} exact />
@@ -134,7 +135,11 @@ function App() {
             <TripReservations />
           </ProtectedRoute>} exact />
         </Routes>
-        <Footer />
+        </div>
+        <div className=" w-full">
+          <Footer />
+        </div>
+        
       </div>
     </Router>
   );

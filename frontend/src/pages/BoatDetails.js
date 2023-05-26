@@ -75,8 +75,8 @@ const BoatDetails = () => {
                         <div className="text-xl font-semibold pb-2 pt-8 lg:pt-0 lg:text-start lg:pl-2">
                             Next trips
                         </div>
-                        <div className="border-2 rounded-md mx-2 lg:mx-0 lg:w-full text-start">
-                            <div className="bg-gray-100 rounded-md flex text-lg py-2 px-2">
+                        <div className="border-2 rounded-md mx-2 lg:mx-0 lg:w-full text-start bg-white shadow-md">
+                            <div className="bg-gray-700 text-white rounded-t-md flex text-lg py-2 px-2">
                                 <div className="flex-1">Date</div>
                                 <div className="flex-1">Locations</div>
                             </div>

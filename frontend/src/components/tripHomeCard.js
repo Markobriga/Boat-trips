@@ -7,9 +7,9 @@ const TripHomeCard = ({trip}) => {
 
     return (
         <div className='mb-5 px-2'>
-            <Link to={`/trip/${trip._id}`} className="flex flex-col items-start bg-white  hover:bg-gray-100 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700">
-                <img className="object-cover w-full  sm:max-h-48 h-auto  sm:h-auto aspect-video" src={trip.boat.images[0].url} alt="" />
-                <div className="flex flex-col text-start py-1 leading-snug sm:w-full">
+            <Link to={`/trip/${trip._id}`} className="flex flex-col items-start bg-white rounded-md shadow-md hover:bg-gray-200 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700">
+                <img className="object-cover w-full rounded-t-md  sm:max-h-48 h-auto  sm:h-auto aspect-video" src={trip.boat.images[0].url} alt="" />
+                <div className="flex flex-col text-start py-1 leading-snug px-2 sm:w-full">
                     <div className=''>{format(new Date(trip.date), 'dd.MM.yyyy')}</div>
                     <div className=''>
                         <span className="text-2xl font-bold tracking-tight text-gray-900 dark:text-white">{trip.tripName}</span>
