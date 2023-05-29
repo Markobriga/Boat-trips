@@ -4,15 +4,14 @@ import {SocialIcon} from 'react-social-icons';
 
 const Footer = () => {
     return (
-        <footer className="bg-cyan-500 px-4 lg:px-6 py-6 text-white">
+        <footer className="bg-gray-700 px-4 lg:px-6 py-6 text-white">
             <div className="mx-auto max-w-screen-xl flex flex-wrap justify-between items-center">
                 <div className="flex md:justify-between flex-col lg:flex-row ">
                     <div className="mb-6 md:mb-0 flex-1 text-start">
                         <a href="#" className="flex items-center">
-                            <img src="https://flowbite.com/docs/images/logo.svg" className="h-6 mr-3 sm:h-9" alt="FlowBite Logo" />
                             <span className="self-center text-2xl font-semibold whitespace-nowrap text-white">Boat Trips</span>
                         </a>
-                        <div className='pt-5 pr-10'>Book your boat trip from Makarska Rivijera to most popular islands with the best value for money and price guarantee.</div>
+                        <div className='pt-5 pr-10'>Book your boat trip from Makarska Riviera to most popular islands with the best value for money and price guarantee.</div>
                     </div>
                     <div className="flex-1 text-start">
                         <div className="text-2xl font-semibold pt-8 lg:pt-0">Address</div>

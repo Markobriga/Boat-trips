@@ -16,7 +16,7 @@ const Boats = () => {
     }, [dispatch])
 
     return (
-        <div className="mx-auto max-w-screen-xl flex w-full justify-center py-10">
+        <div className="mx-auto max-w-screen-xl flex w-full justify-center py-10 px-2">
             {loading ? <Loader /> : (<div className="flex-1 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3 justify-items-center">
                 {boats && boats.map( boat => (
                     <BoatCard key={boat._id} boat={boat}/>

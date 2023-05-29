@@ -27,7 +27,6 @@ const Home = () => {
                 index: index
             }))
             findPopularTrips(temp)
-            console.log(temp)
         }
     },[trips])
 
@@ -37,8 +36,6 @@ const Home = () => {
         let indexes = result.map(a => a.index)
         setPopularIndex(indexes.slice(0,3))
     }
-
-    console.log(popularIndex)
 
     return (
         <div className="flex flex-col">
@@ -73,7 +70,7 @@ const Home = () => {
                     </div>
                 }
             </div>
-            <div className="mx-auto max-w-screen-xl flex w-full justify-center py-5">
+            <div className="mx-auto max-w-screen-xl flex w-full justify-center py-5 px-2">
                 {(loading || loadingTrips) ? <Loader /> :
                     <div >
                         <div className="text-2xl md:text-5xl font-semibold">

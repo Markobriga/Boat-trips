@@ -18,7 +18,7 @@ const PostDetails = () => {
 
 
     return (
-        <div className=' flex flex-col justify-center'>
+        <div className=' flex flex-col justify-cente'>
             {loading ? 
             <div className="items-center">
                 <Loader />
@@ -34,14 +34,18 @@ const PostDetails = () => {
                     </div>
                 </div>
             </div>
-            <div className="max-w-screen-xl mx-auto w-full">
-                <div className='py-2'>
+            <div className="max-w-screen-xl mx-auto w-full ">
+                <div className=''>
                     { post.images &&
                         <ImageSlider images={post.images}/>
                     }
                 </div>
-                <div className='px-2 text-start w-full text-lg'>
-                    {post.content}
+                <div className='px-2 text-start w-full text-lg shadow-md mb-4 pb-4 bg-white'>
+                    {post.content && post.content.split('\n').map((paragraph, index) => 
+                        <p>
+                            {paragraph.split("\n\n").reduce((total, line)=>[total, <br />, line])}
+                            <br />
+                        </p>)}
                 </div>
             </div>
             </>}

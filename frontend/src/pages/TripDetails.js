@@ -116,7 +116,7 @@ const TripDetails = () => {
                                     Adults: {adult}x{trip.priceAdult.toFixed(2)}€ 
                                 </div>
                                 {child>0 && (<div className="">
-                                    Childrens: {child}x{trip.priceChild.toFixed(2)}€ 
+                                    Children: {child}x{trip.priceChild.toFixed(2)}€ 
                                 </div>
                                 )}
                             </div>
@@ -134,10 +134,11 @@ const TripDetails = () => {
                                 {(adult*trip.priceAdult+child*trip.priceChild).toFixed(2)}€
                             </div>
                         </div>
-
+                        {new Date() < new Date(trip.date) && 
                         <button type="button" onClick={checkoutHandler} disabled={(adult+child+trip.numberOfReservations>trip.boat.maxNumberOfReservations) || adult+child === 0} className="mt-4 py-2 bg-primary-700 text-white w-full font-medium rounded-lg">
                             Checkout
                         </button>
+                        }
                     </div>
 
                 </div>

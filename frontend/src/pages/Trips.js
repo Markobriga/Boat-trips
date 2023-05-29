@@ -23,7 +23,7 @@ const Trips = () => {
     const [showingPriceChild, setShowingPriceChild] = useState([1,200])
     const [location, setLocation] = useState([])
     const [checkedState, setCheckedState] = useState(new Array(locations.length).fill(false))
-    const [date, setDate] = useState(new Date())
+    const [date, setDate] = useState()
     const [showDate, setShowDate] = useState(false)
 
     const dispatch = useDispatch()
@@ -56,14 +56,20 @@ const Trips = () => {
 
     const handleChange = (selectedDate) => {
         setDate(selectedDate)
-        setShowDate(true)
+        if(selectedDate == "") {
+            setShowDate(false)
+        }
+        else {
+            setShowDate(true)
+        }
+        
     }
 
     return (
         <div className="mx-auto max-w-screen-xl flex w-full py-10">
             {loading ? <Loader /> : (
                 <div className="flex flex-col lg:flex-row w-full">
-                    <div className="pl-5 pr-10 pb-5 lg:w-1/4 ">
+                    <div className="pl-5 pr-5 lg:pr-10 pb-5 lg:w-1/4 ">
                         <div className="bg-white p-5 rounded-md shadow-md">
                         <div className="text-lg font-semibold">
                             FILTERS
@@ -72,7 +78,7 @@ const Trips = () => {
                             <div className="text-start font-semibold">
                                 Date
                             </div>
-                            <DateComponent initialDate={date} handleChange={handleChange}/>
+                            <DateComponent date={date} handleChange={handleChange}/>
                         </div>
                         <hr className="my-5"/>
                         <div className="text-start font-semibold">

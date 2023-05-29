@@ -4,7 +4,7 @@ import {SocialIcon} from 'react-social-icons';
 const AboutUs = () => {
 
     return (
-        <div className=" mx-auto max-w-screen-xl flex flex-col md:flex-row w-full py-10 text-left">
+        <div className=" mx-auto max-w-screen-xl flex flex-col md:flex-row w-full py-10 text-left px-2">
             <div className="md:w-3/5 flex flex-col bg-white p-5 rounded-md shadow-md md:mr-12">
                 <div className=" font-medium text-3xl pb-5">
                     About Us

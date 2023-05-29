@@ -136,7 +136,7 @@ function App() {
           </ProtectedRoute>} exact />
         </Routes>
         </div>
-        <div className=" w-full">
+        <div className="w-full">
           <Footer />
         </div>
         

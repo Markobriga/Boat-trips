@@ -5,11 +5,13 @@ import { useDispatch, useSelector } from "react-redux";
 import { getBoatDetails } from "../actions/boatAction";
 import Loader from "../components/Loader";
 import { isValidPhoneNumber } from 'react-phone-number-input'
+import { useNavigate } from "react-router-dom";
 
 const PersonalInfo = ({formStep, nextFormStep}) => {
 
     const { user, loading} = useSelector(state => state.auth)
     const dispatch = useDispatch()
+    const navigate = useNavigate()
 
     const [phoneNumber, setPhoneNumber] = useState("");
     const [name, setName] = useState(user.name)
@@ -20,7 +22,8 @@ const PersonalInfo = ({formStep, nextFormStep}) => {
     const { boat } = useSelector(state => state.boatDetails)
 
     useEffect(()=> {
-         cartTrip && setOrder(cartTrip) && dispatch(getBoatDetails(cartTrip.boat))
+        console.log(cartTrip)
+        cartTrip && setOrder(cartTrip) && dispatch(getBoatDetails(cartTrip.boat))
     },[cartTrip])
 
     const processToPayment = () => {
