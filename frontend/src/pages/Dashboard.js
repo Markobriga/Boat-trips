@@ -23,12 +23,15 @@ const Dashboard = () => {
         <div className="mx-auto max-w-screen-xl w-full">
             <div className="flex">
                 <Sidebar />
-                {loading ? <Loader /> :
+                {loading ? 
+                <div className="flex justify-center w-full">
+                    <Loader />
+                </div> :
                 <div className="w-full">
                     <div className="text-start py-3 px-3 font-medium text-xl">
                         Dashboard
                     </div>
-                    <div className="h-80  hidden md:block">
+                    <div className="pl-3 h-80  hidden md:block">
                         {lastTrips.trips && <VerticalBar trips={lastTrips.trips}/>}
                     </div>
                 </div>

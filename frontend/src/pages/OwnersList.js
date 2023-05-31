@@ -25,7 +25,10 @@ const OwnersList = () => {
         <div className="mx-auto max-w-screen-xl w-full">
             <div className="flex">
             <Sidebar />
-            {loading ? <Loader /> :
+            {loading ?  
+                <div className="flex justify-center w-full">
+                    <Loader />
+                </div> :
             <div className="w-full px-3">
                 <div className="flex justify-between w-full py-3">
                     <div className="font-medium text-xl">

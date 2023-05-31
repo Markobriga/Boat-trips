@@ -66,7 +66,7 @@ const Trips = () => {
     }
 
     return (
-        <div className="mx-auto max-w-screen-xl flex w-full py-10">
+        <div className="mx-auto max-w-screen-xl flex justify-center w-full py-10">
             {loading ? <Loader /> : (
                 <div className="flex flex-col lg:flex-row w-full">
                     <div className="pl-5 pr-5 lg:pr-10 pb-5 lg:w-1/4 ">

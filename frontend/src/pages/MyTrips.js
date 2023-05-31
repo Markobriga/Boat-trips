@@ -24,7 +24,10 @@ const MyTrips = () => {
         <div className="mx-auto max-w-screen-xl w-full">
             <div className="flex">
             <Sidebar />
-            {loading ? <Loader /> :
+            {loading ?  
+                <div className="flex justify-center w-full">
+                    <Loader />
+                </div> :
             <div className="w-full px-3">
                 <div className="text-start py-3 font-medium text-xl flex justify-between">
                     <div className="font-medium text-xl">
@@ -35,7 +38,7 @@ const MyTrips = () => {
                     </Link>
                 </div>
                 <div className="hidden md:block">
-                <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
+                <div className="relative overflow-x-auto shadow-md sm:rounded-lg mb-5">
                     <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
                         <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                             <tr>

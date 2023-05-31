@@ -70,7 +70,7 @@ const Home = () => {
                     </div>
                 }
             </div>
-            <div className="mx-auto max-w-screen-xl flex w-full justify-center py-5 px-2">
+            <div className="mx-auto max-w-screen-xl flex w-full justify-center py-5 px-2 pb-10">
                 {(loading || loadingTrips) ? <Loader /> :
                     <div >
                         <div className="text-2xl md:text-5xl font-semibold">

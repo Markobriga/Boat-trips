@@ -103,7 +103,11 @@ const BoatDetails = () => {
                         Description
                     </div>
                     <div className="text-start">
-                        {boat.description}
+                        {boat.description && boat.description.split('\n').map((paragraph, index) => 
+                            <p>
+                                {paragraph.split("\n\n").reduce((total, line)=>[total, <br />, line])}
+                                <br />
+                            </p>)}
                     </div>
                     <div className="font-medium text-xl pt-8">
                         Reviews

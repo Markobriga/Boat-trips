@@ -20,7 +20,10 @@ const BlogAdmin = () => {
         <div className="mx-auto max-w-screen-xl w-full">
             <div className="flex">
                 <Sidebar />
-                {loading ? <Loader /> :
+                {loading ? 
+                <div className="flex justify-center w-full">
+                    <Loader />
+                </div> :
                     <div className="w-full px-3">
                     <div className="text-start py-3 font-medium text-xl flex justify-between">
                         <div className="font-medium text-xl">

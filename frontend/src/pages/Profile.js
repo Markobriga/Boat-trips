@@ -26,7 +26,7 @@ const Profile = () => {
     return (
         <div>
             {loading ? <Loader /> : (
-                <div className="mx-auto max-w-screen-xl w-full py-10 flex flex-col">
+                <div className="mx-auto max-w-screen-xl w-full py-10 flex flex-col md:px-10">
                     <div className="bg-white p-10 w-fit rounded-md shadow-md">
                         <div className="text-start text-2xl font-semibold">My profile</div>
                         <div className="text-start ">

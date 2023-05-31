@@ -152,7 +152,10 @@ const MyBoat = () => {
     return (
         <div className="mx-auto max-w-screen-xl flex w-full">
             <Sidebar />
-            {loading ? <Loader /> : 
+            {loading ?  
+                <div className="flex justify-center w-full">
+                    <Loader />
+                </div> : 
             <div className="w-full">
                 <div className="text-start py-3 px-3 font-medium text-xl">
                     My Boat
