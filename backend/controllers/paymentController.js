@@ -17,6 +17,19 @@ exports.processPayment = catchAsyncErrors(async (req, res, next) => {
     })
 })
 
+// Refund payment => /api/v1/payment/refund
+exports.refund = catchAsyncErrors(async (req, res, next) => {
+
+    const refund = await stripe.refunds.create({
+        payment_intent: req.body.payment_intent
+    })
+
+    res.status(200).json({
+        success: true,
+        refund: refund
+    })
+})
+
 // Send stripe API Key => /api/v1/stripeapi
 exports.sendStripeAPIKey = catchAsyncErrors(async (req, res, next) => {
 
