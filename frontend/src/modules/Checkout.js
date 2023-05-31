@@ -48,7 +48,7 @@ const Checkout = ({ formStep, nextFormStep, prevFormStep}) => {
         trip: cartTrip.trip,
         amountAdult: cartTrip.amountAdult,
         amountChild: cartTrip.amountChild,
-        price: cartTrip.amountAdult*cartTrip.priceAdult + cartTrip.amountChild*cartTrip.priceChild + cartTrip.amountChild
+        price: cartTrip.amountAdult*cartTrip.priceAdult + cartTrip.amountChild*cartTrip.priceChild
     }
 
     const paymentData = {
