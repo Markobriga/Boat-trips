@@ -2,13 +2,16 @@ import React, { useEffect } from "react";
 import { Link, useNavigate } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import Loader from '../components/Loader'
-import { clearErrors, myReservations } from "../actions/reservationAction";
+import axios from "axios";
+import { clearErrors, deleteReservation, myReservations } from "../actions/reservationAction";
 import { format } from 'date-fns';
+import { DELETE_RESERVATION_RESET } from "../constants/reservationConstants";
 
 const Profile = () => {
 
     const { user, loading } = useSelector(state => state.auth)
     const { loading:loadingReservations, error, reservations } = useSelector(state=>state.myReservations)
+    const { isDeleted } = useSelector(state=>state.reservation)
     const dispatch = useDispatch();
     const navigate = useNavigate()
 
@@ -20,8 +23,37 @@ const Profile = () => {
             console.log(error)
             dispatch(clearErrors())
         }
+        if(isDeleted){
+            dispatch({type: DELETE_RESERVATION_RESET})
+        }
 
-    },[dispatch, error])
+    },[dispatch, error, isDeleted])
+
+    const cancelReservationHandler = async (reservation) => {
+        try {
+
+            const config = {
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            }
+
+            const data = {
+                paymentIntent: reservation.paymentInfo.id,
+                amount: reservation.price
+            }
+
+            let res = await axios.post('/api/v1/payment/refund', data, config)
+
+            if (res.data.success === true) {
+                dispatch(deleteReservation(reservation._id))
+            }
+
+        } catch (error) {
+            console.log(error)
+        }
+        
+    }
 
     return (
         <div>
@@ -57,6 +89,7 @@ const Profile = () => {
                                         <th scope="col" className="px-6 py-3">Adults(Children)</th>
                                         <th scope="col" className="px-6 py-3">Date</th>
                                         <th scope="col" className="px-6 py-3">Price</th>
+                                        <th scope="col" className="px-6 py-3">Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -67,6 +100,7 @@ const Profile = () => {
                                             <td className="px-6 py-4">{reservation.amountAdult}({reservation.amountChild})</td>
                                             <td className="px-6 py-4">{format(new Date(reservation.trip.date), 'dd.MM.yyyy')}</td>
                                             <td className="px-6 py-4">{reservation.price}€</td>
+                                            {new Date()<new Date(reservation.trip.date) ? <button onClick={()=>cancelReservationHandler(reservation)} className="px-6 py-4 text-red-500">CANCEL</button> : <td className="px-6 py-4"></td>}
                                         </tr>
                                     ))}
                                 </tbody>

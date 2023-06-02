@@ -11,7 +11,7 @@ router.route('/reservations/me').get(isAuthenticatedUser, getMyReservations);
 
 router.route('/owner/trip/reservations/:id').get(isAuthenticatedUser, authorizeRoles('owner'), getAllReservations)
 router.route('/admin/reservation/:id').get(isAuthenticatedUser, authorizeRoles('admin'), processReservation)
-.delete(isAuthenticatedUser,  authorizeRoles('admin'), deleteReservation);
+.delete(isAuthenticatedUser,  authorizeRoles('owner','user'), deleteReservation);
 
 router.route('/booker/reservation/new').post(isAuthenticatedUser, authorizeRoles('owner', 'booker'), newBookerReservation)
 router.route('/booker/reservations/me').get(isAuthenticatedUser, authorizeRoles('owner','booker'), getBookerReservations)

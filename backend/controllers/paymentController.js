@@ -21,7 +21,7 @@ exports.processPayment = catchAsyncErrors(async (req, res, next) => {
 exports.refund = catchAsyncErrors(async (req, res, next) => {
 
     const refund = await stripe.refunds.create({
-        payment_intent: req.body.payment_intent
+        payment_intent: req.body.paymentIntent
     })
 
     res.status(200).json({
