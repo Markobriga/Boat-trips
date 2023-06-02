@@ -50,7 +50,7 @@ exports.getTripsByBoat = catchAsyncErrors( async(req, res, next) => {
 // Get last 10 trips by boat(owner) => /api/v1/owner/lasttrips/:id
 exports.getLastTrips = catchAsyncErrors( async(req, res, next) => {
 
-    const trips = await Trip.find({user: req.params.user, date: { $lt: new Date()}}).sort('date').limit(10)
+    const trips = await Trip.find({user: req.params.user, date: { $lt: new Date()}}).sort('-date').limit(10)
 
     res.status(200).json({
         success: true,
@@ -138,7 +138,11 @@ exports.deleteTrip = catchAsyncErrors( async(req, res, next) => {
         return next(new ErrorHandler('No trip found', 404));
     }
 
-    trip = await Trip.findByIdAndDelete(req.params.id)
+    trip = await Trip.findByIdAndUpdate(req.params.id, {canceled: true}, {
+        new: true,
+        runValidators: true,
+        useFindAndModify: false
+    })
 
     res.status(200).json({
         status:'success',

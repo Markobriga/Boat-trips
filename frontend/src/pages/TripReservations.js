@@ -54,7 +54,7 @@ const TripReservations = () => {
                                 </tr>
                             </thead>
                             <tbody>
-                                {reservations.reservations && reservations.reservations.map((reservation, index) => (
+                                {reservations && reservations.reservations && reservations.reservations.map((reservation, index) => (
                                     <tr className={index%2==0 ? "bg-white border-b dark:bg-gray-900 dark:border-gray-700" : "border-b bg-gray-50 dark:bg-gray-800 dark:border-gray-700"}>
                                         <td scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                                             {reservation.user.name}
