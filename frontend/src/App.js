@@ -59,7 +59,7 @@ function App() {
 
   return (
     <Router>
-      <div className="App bg-gray-100 min-h-screen flex flex-col">
+      <div className="App bg-gray-100 min-h-screen flex flex-col minheight">
         <Header />
         <div className='flex-1'>
         <Routes>
