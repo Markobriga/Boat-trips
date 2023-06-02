@@ -15,8 +15,9 @@ const Reservation = () => {
   const navigate = useNavigate()
 
   useEffect(() => {
-    console.log(cartTrip)
-    
+    if(!cartTrip.trip) {
+        navigate("/")
+    } 
   },[])
 
     return (

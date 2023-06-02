@@ -31,8 +31,9 @@ const TripDetails = () => {
     },[dispatch, error, id])
 
     const checkoutHandler = () => {
-        dispatch(addTripToCart(id, adult, child))
-        navigate("/login?redirect=reservation")
+        dispatch(addTripToCart(id, adult, child)).finally(()=>{
+            navigate("/login?redirect=reservation")
+        })
     }
 
     return (
